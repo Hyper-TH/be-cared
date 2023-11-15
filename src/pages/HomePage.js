@@ -14,6 +14,9 @@ export const HomePage = () => {
             <button>
                 <Link to="/merck">Merck</Link>
             </button>
+            <button>
+                <Link to="/serverTest">Test server here</Link>
+            </button>
         </div>
     </div>
     </>

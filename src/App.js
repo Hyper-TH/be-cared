@@ -8,6 +8,7 @@ import {
 import { HomePage } from './pages/HomePage';
 import { SearchPage } from './pages/SearchPage';
 import { MerckPage } from './pages/MerckPage';
+import { ServerTest } from './pages/components/ServerTest';
 
 function App() {
 	return (
@@ -22,6 +23,10 @@ function App() {
 				<Route 
 					path="/merck" 
 					element={<MerckPage subPageName="Merck" backTo="/" />} 
+				/>
+				<Route 
+					path="/serverTest" 
+					element={<ServerTest subPageName="Server" backTo="/" />} 
 				/>
 			</Routes>
 		</Router>
