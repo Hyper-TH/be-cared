@@ -6,6 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
 // Create a GET route
 // /message is an endpoint that returns JSON object with message
 app.get('/message', (req, res) => {
