@@ -64,6 +64,7 @@ export const SearchPage = ({subPageName, backTo}) => {
                     <div key={medicine.id}>
                         <p>Medicine ID: {medicine.id}</p>
                         <p>Medicine Name: {medicine.name}</p>
+                        <p>Document: {medicine.activeSPC.parsedSpc}</p>
                     </div>
                 )}
 
