@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { useState, useEffect } from 'react';
 
@@ -19,9 +19,8 @@ export const SearchPage = ({subPageName, backTo}) => {
         try {
             const response = await Axios.get(`http://localhost:8000/getMeds?medQuery=${encodeURIComponent(medQuery)}`);
 
-            // 
-            console.log(`Medicine list: `);
-            console.log(response.data.medicines.entities);
+            // console.log(`Medicine list: `);
+            // console.log(response.data.medicines.entities);
 
             if (response.data.medicines) {
                 setMedicineList(response.data.medicines.entities);
@@ -40,6 +39,25 @@ export const SearchPage = ({subPageName, backTo}) => {
         }
     };
 
+    const navigate = useNavigate();
+
+    const handleViewDetails = (medicine) => {
+
+        // Use history.push to navigate and pass along props
+        console.log({
+            medicineName: medicine.name,
+            parsedSPC: medicine.activeSPC.parsedSpc,
+        });
+        
+        navigate({
+            pathname: `/result/${encodeURIComponent(medicine.name)}/${encodeURIComponent(medicine.activeSPC.parsedSpc)}`,
+            state: {
+                // You can still pass other data in the state if needed
+            }
+        });
+    };
+
+    
     return (
         <>
             <div>
@@ -65,6 +83,11 @@ export const SearchPage = ({subPageName, backTo}) => {
                         <p>Medicine ID: {medicine.id}</p>
                         <p>Medicine Name: {medicine.name}</p>
                         <p>Document: {medicine.activeSPC.parsedSpc}</p>
+                        
+                        {/* Button to redirect */}
+                        <button onClick={() => handleViewDetails(medicine)}>
+                            View Details
+                        </button>
                     </div>
                 )}
 
