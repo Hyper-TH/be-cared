@@ -10,6 +10,7 @@ import { SearchPage } from './pages/SearchPage';
 import { MerckPage } from './pages/MerckPage';
 import { ServerTest } from './pages/components/ServerTest';
 import { MedicinePage } from './pages/MedicinePage';
+import { HTMLRenderPage } from './pages/HTMLRenderPage';
 
 function App() {
 	return (
@@ -32,6 +33,10 @@ function App() {
 				<Route
 					path="/result/:medicineName/:parsedSPC"
 					element={<MedicinePage subPageName="Medicine" backTo="/search" />}
+				/>
+				<Route
+					path="/render/:parsedSPC"
+					element={<HTMLRenderPage subPageName="Document" backTo="/result" />}
 				/>
 			</Routes>
 		</Router>
