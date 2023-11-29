@@ -51,6 +51,8 @@ app.get('/getSPC', async (req, res) => {
             const token = await requestToken(tokenOptions);
             const doc = await requestSPC(token, uploadPath);
 
+            console.log(doc);
+
             // Assuming requestSPC returns a HTML
             res.type(`text/html`).send(doc);
         } 
@@ -133,11 +135,11 @@ async function requestList(token, search) {
 
 // Function to get the SPC document
 async function requestSPC(token, uploadPath) {
-    const options3 = {
+    const option3 = {
         hostname: "backend-prod.medicines.ie",
-        path: `${uploadPath}`,
+        path: `/${uploadPath}`,
         headers: {
-            accept: "text/plain, */*",
+            accept: "text/plain",
             accept_language: "en-GB,en-US;q=0.9,en;q=0.8",
             authorization: `Bearer ${token}`,
             sec_ch_ua: "\"Chromium\";v=\"116\", \"Not)A;Brand\";v=\"24\", \"Opera GX\";v=\"102\"",
@@ -152,28 +154,32 @@ async function requestSPC(token, uploadPath) {
     };
 
     return new Promise((resolve, reject) => {
-        https.get(option2, (response) => {
+        const req = https.get(option3, (response) => {
             let result = '';
-
+      
             response.on('data', function (chunk) {
-                result += chunk;
+              result += chunk;
             });
-
+      
             response.on('end', function () {
-                try {
-                    const doc = result;
-                    console.log(doc);
-
-                    resolve(doc);
-                } catch (error) {
-                    console.error('Error parsing JSON:', error);
-                }
+              try {
+                const doc = result;
+                console.log(doc);
+      
+                resolve(doc);
+              } catch (error) {
+                console.error('Error getting document:', error);
+              }
             });
-
+      
             response.on('error', function (error) {
-                console.error('Error:', error);
+              console.error('Error:', error);
+              reject(error);
             });
         });
+      
+        // Ensure you don't end up in an infinite loop by only calling resolve/reject once
+        req.on('error', (error) => reject(error));
     });
 }; 
 
