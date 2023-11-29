@@ -18,7 +18,7 @@ app.listen(8000, () => {
     console.log(`Server is running on port 8000`);
 });
 
-
+// TODO: Have an appropriate response if there is no medicine results
 // end point to get list of medicines
 app.get('/getMeds', async (req, res) => {
     try {
@@ -37,6 +37,26 @@ app.get('/getMeds', async (req, res) => {
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+app.get('/getSPC', async (req, res) => {
+    try {
+        const { uploadPath } = req.query;
+        console.log(`Got path: ${uploadPath}`);
+
+        if (!uploadPath) {
+            return res.status(400).json({ error: 'Upload path is required '});
+        } else {
+            const token = await requestToken(tokenOptions);
+            const doc = await requestSPC(token, uploadPath);
+
+            // Assuming requestSPC returns a HTML
+            res.type(`text/html`).send(doc);
+        } 
+    } catch (error) {
+        console.error(`Error: ${error}`);
+        res.status(500).json({ error: `Internal Server Error` })
     }
 });
 
@@ -110,6 +130,52 @@ async function requestList(token, search) {
         });
     });
 };
+
+// Function to get the SPC document
+async function requestSPC(token, uploadPath) {
+    const options3 = {
+        hostname: "backend-prod.medicines.ie",
+        path: `${uploadPath}`,
+        headers: {
+            accept: "text/plain, */*",
+            accept_language: "en-GB,en-US;q=0.9,en;q=0.8",
+            authorization: `Bearer ${token}`,
+            sec_ch_ua: "\"Chromium\";v=\"116\", \"Not)A;Brand\";v=\"24\", \"Opera GX\";v=\"102\"",
+            sec_ch_ua_mobile: "?0",
+            sec_ch_ua_platform: "\"Windows\"",
+            sec_fetch_dest: "empty",
+            sec_fetch_mode: "cors",
+            sec_fetch_site: "same-site",
+            Referer: "https://www.medicines.ie/",
+            Referrer_Policy: "strict-origin-when-cross-origin"
+        }
+    };
+
+    return new Promise((resolve, reject) => {
+        https.get(option2, (response) => {
+            let result = '';
+
+            response.on('data', function (chunk) {
+                result += chunk;
+            });
+
+            response.on('end', function () {
+                try {
+                    const doc = result;
+                    console.log(doc);
+
+                    resolve(doc);
+                } catch (error) {
+                    console.error('Error parsing JSON:', error);
+                }
+            });
+
+            response.on('error', function (error) {
+                console.error('Error:', error);
+            });
+        });
+    });
+}; 
 
 // First request to get token
 const tokenOptions = {
