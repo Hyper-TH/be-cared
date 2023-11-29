@@ -30,8 +30,8 @@ function App() {
 					element={<ServerTest subPageName="Server" backTo="/" />} 
 				/>
 				<Route
-					path="/result"
-					element={<MedicinePage subPageName="Medicine" backTo="/" />}
+					path="/result/:medicineName/:parsedSPC"
+					element={<MedicinePage subPageName="Medicine" backTo="/search" />}
 				/>
 			</Routes>
 		</Router>
