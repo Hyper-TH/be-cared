@@ -1,14 +1,17 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 
 export const MedicinePage = ({ subPageName, backTo }) => {
-    // const location = useLocation();
-
-    // const { medicineName, parsedSPC } = location.state || {};
     const { medicineName, parsedSPC } = useParams();
 
-    console.log('Medicine name: ', medicineName);
-    
-    // console.log("Location State: ", location.state);
+    const navigate = useNavigate();
+
+    const renderHTML = (parsedSPC) => {
+        console.log(parsedSPC);
+        
+        navigate({
+            pathname: `/render/${encodeURIComponent(parsedSPC)}`
+        });
+    };
 
     return (
         <>
@@ -16,6 +19,9 @@ export const MedicinePage = ({ subPageName, backTo }) => {
             <p>Medicine Name: {medicineName}</p>
             <p>Parsed SPC: {parsedSPC}</p>
 
+            <button onClick={() => renderHTML(parsedSPC)}>
+                View document
+            </button>
             <button>
                 <Link to={backTo}>Back to the Search Page</Link>
             </button>
