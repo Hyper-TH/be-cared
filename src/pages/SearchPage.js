@@ -43,7 +43,6 @@ export const SearchPage = ({subPageName, backTo}) => {
 
     const handleViewDetails = (medicine) => {
 
-        // Use history.push to navigate and pass along props
         console.log({
             medicineName: medicine.name,
             parsedSPC: medicine.activeSPC.parsedSpc,
@@ -51,9 +50,7 @@ export const SearchPage = ({subPageName, backTo}) => {
         
         navigate({
             pathname: `/result/${encodeURIComponent(medicine.name)}/${encodeURIComponent(medicine.activeSPC.parsedSpc)}`,
-            state: {
-                // You can still pass other data in the state if needed
-            }
+
         });
     };
 
