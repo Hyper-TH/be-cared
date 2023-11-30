@@ -35,7 +35,7 @@ function App() {
 					element={<MedicinePage subPageName="Medicine" backTo="/search" />}
 				/>
 				<Route
-					path="/render/:parsedSPC"
+					path="/render/:medicineName/:parsedSPC"
 					element={<HTMLRenderPage subPageName="Document" backTo="/result" />}
 				/>
 			</Routes>
