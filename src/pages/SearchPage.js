@@ -45,7 +45,7 @@ export const SearchPage = ({subPageName, backTo}) => {
 
         console.log({
             medicineName: medicine.name,
-            parsedSPC: medicine.activeSPC.parsedSpc,
+            parsedSPC: medicine.activeSPC.parsedSpc,    // pass in uploadPath
         });
         
         navigate({
