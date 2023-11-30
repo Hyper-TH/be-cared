@@ -9,6 +9,7 @@
 /.pnp
 .pnp.js
 /server/.env
+/server/creds.json
 
 # testing
 /coverage
