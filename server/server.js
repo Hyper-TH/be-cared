@@ -79,23 +79,24 @@ app.get('/getSPC', async (req, res) => {
 });
 
 app.get('/grabCacheSPC', async (req, res) => {
+    const collectionName = "SPC"; 
+    const subCollection = "uploadPath"; 
+    
     try {
-        console.log(`Grabbing cache...`);
+        const documentSnapshot = await firestore.collection(collectionName).doc(subCollection).get();
+        
+        if (documentSnapshot.exists) {
+            const documentData = documentSnapshot.data();
+            
+            console.log(documentData);
+            
+            res.type('text/html').send(documentData);
+        } else {
+            console.log("Document not found");
+        }
 
-        const collectionName = 'SPC';
-
-        // Fetch all documents from the "SPC" collection
-        const querySnapshot = await firestore.collection(collectionName).get();
-
-        const documents = querySnapshot.docs.map((doc) => doc.data());
-
-        console.log(documents);
-        // res.json({ documents });
-
-        res.type('text/html').send(documents)
     } catch (error) {
-        console.error(`Error: ${error}`);
-        res.status(500).json({ error: `Internal Server Error `});
+      console.error("Error fetching data:", error);
     }
 });
 
