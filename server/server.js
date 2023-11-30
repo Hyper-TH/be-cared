@@ -79,20 +79,40 @@ app.get('/getSPC', async (req, res) => {
 });
 
 app.get('/grabCacheSPC', async (req, res) => {
+    const { uploadPath } = req.query    // Initally passed ass text/text2/text3
+    const documentID = uploadPath.replace(/\//g, '-');  // Regexed uploadPath to remove '/'
     const collectionName = "SPC"; 
-    const subCollection = "uploadPath"; 
     
+    console.log(uploadPath);
+
     try {
-        const documentSnapshot = await firestore.collection(collectionName).doc(subCollection).get();
+        const documentSnapshot = await firestore.collection(collectionName).doc(documentID).get();
         
         if (documentSnapshot.exists) {
+            console.log(`Found cached document`);
             const documentData = documentSnapshot.data();
             
-            console.log(documentData);
+            // console.log(documentData);
             
             res.type('text/html').send(documentData);
-        } else {
-            console.log("Document not found");
+        } 
+        // If it does not, cache this to the server!
+        else {
+            console.log(`Caching to server with new documentID: ${documentID}`);
+
+            const token = await requestToken(tokenOptions);
+            const document = await requestSPC(token, uploadPath);
+
+            // PROBLEM IS HERE 
+            const data = {
+                doc: document
+            }
+
+            await firestore.collection(collectionName).doc(documentID).set(data);
+
+            console.log("Cached to server!");
+
+            res.type('text/html').send(document);
         }
 
     } catch (error) {
@@ -202,7 +222,7 @@ async function requestSPC(token, uploadPath) {
             response.on('end', function () {
               try {
                 const doc = result;
-                console.log(doc);
+                // console.log(doc);
       
                 resolve(doc);
               } catch (error) {
@@ -220,11 +240,6 @@ async function requestSPC(token, uploadPath) {
         req.on('error', (error) => reject(error));
     });
 }; 
-
-// Function to see if SPC is cached
-async function getSPC() {
-
-}
 
 // First request to get token
 const tokenOptions = {
