@@ -4,25 +4,19 @@ import { Link } from 'react-router-dom';
 
 export const ServerTest = ({subPageName, backTo}) => {
     const [message, setMessage] = useState("");
-
-    // Using in-built library
-    // useEffect(() => {
-    //     fetch('http://localhost:8000/message')
-    //     .then((res) => res.json())
-    //     .then((data) => setMessage(data.message))''      
-    // }, []);
-
+    
     // Using axios
     useEffect(() => {
-        Axios.get(`http://localhost:8000/message`)
+        Axios.get(`http://localhost:8000/grabCacheSPC`)
         .then((res) => {
-            setMessage(res.data);
+            console.log(res.data)
+            setMessage(res.data[0].testField);
         })
     }, []);
 
     return <>
         <div>
-            <h1>{message?.message}</h1>
+            <h1>{message}</h1>
         </div>
         <div>
             <button>
