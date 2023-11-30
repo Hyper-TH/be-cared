@@ -5,11 +5,11 @@ export const MedicinePage = ({ subPageName, backTo }) => {
 
     const navigate = useNavigate();
 
-    const renderHTML = (parsedSPC) => {
+    const renderHTML = (medicineName, parsedSPC) => {
         console.log(parsedSPC);
         
         navigate({
-            pathname: `/render/${encodeURIComponent(parsedSPC)}`
+            pathname: `/render/${encodeURIComponent(medicineName)}/${encodeURIComponent(parsedSPC)}`
         });
     };
 
@@ -19,7 +19,7 @@ export const MedicinePage = ({ subPageName, backTo }) => {
             <p>Medicine Name: {medicineName}</p>
             <p>Parsed SPC: {parsedSPC}</p>
 
-            <button onClick={() => renderHTML(parsedSPC)}>
+            <button onClick={() => renderHTML(medicineName, parsedSPC)}>
                 View document
             </button>
             <button>

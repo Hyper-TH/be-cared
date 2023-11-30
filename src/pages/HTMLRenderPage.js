@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react'; 
 import Axios from 'axios';
 
@@ -7,7 +7,7 @@ export const HTMLRenderPage = ({subPageName, backTo }) => {
     const [error, setError] = useState("");
 
     // URL of uploadPath in FireStore
-    const { parsedSPC } = useParams();
+    const { medicineName, parsedSPC } = useParams();
 
     useEffect(() => {
         const getDocument = async () => {
@@ -32,9 +32,16 @@ export const HTMLRenderPage = ({subPageName, backTo }) => {
     
         // Fetch document only when the component mounts
         getDocument();
-      }, [parsedSPC]);
+    }, [parsedSPC]);
 
-    
+	const navigate = useNavigate();
+
+	const returnToMed = (medicineName, parsedSPC) => {
+		navigate({
+			pathname: `/result/${encodeURIComponent(medicineName)}/${encodeURIComponent(parsedSPC)}`
+		})
+	}
+
 	console.log(document);
 
     return (
@@ -47,9 +54,8 @@ export const HTMLRenderPage = ({subPageName, backTo }) => {
                 height="400"
                 >
             </iframe>
-            <button>
-                {/* TODO: Need to redirect to the same medicine, otherwise 404 */}
-                <Link to={backTo}>Back to the Medicine Page</Link>
+            <button onClick={() => returnToMed(medicineName, parsedSPC)}>
+				Back to the Medicine Page
             </button>
 
             {error && <p style={{ color: "red" }}>{error}</p>}
