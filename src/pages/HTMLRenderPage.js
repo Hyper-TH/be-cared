@@ -6,12 +6,14 @@ export const HTMLRenderPage = ({subPageName, backTo }) => {
     const [document, setDocument] = useState("");
     const [error, setError] = useState("");
 
+    // URL of uploadPath in FireStore
     const { parsedSPC } = useParams();
 
     useEffect(() => {
         const getDocument = async () => {
           try {
-            const response = await Axios.get(`http://localhost:8000/getSPC?uploadPath=${encodeURIComponent(parsedSPC)}`);
+            // const response = await Axios.get(`http://localhost:8000/getSPC?uploadPath=${encodeURIComponent(parsedSPC)}`);
+            const response = await Axios.get(`http://localhost:8000/grabCacheSPC?uploadPath=${encodeURIComponent(parsedSPC)}`);
     
             if (response.data) {
               setDocument(response.data);
@@ -32,12 +34,14 @@ export const HTMLRenderPage = ({subPageName, backTo }) => {
         getDocument();
       }, [parsedSPC]);
 
-    console.log(parsedSPC);
+    
+	console.log(document);
+
     return (
         <>
             <h1>HTML Renders here!</h1>
             <iframe
-                srcDoc={`${document}`}
+                srcDoc={`${document.doc}`}
                 title="Embedded HTML"
                 width="100%"
                 height="400"
