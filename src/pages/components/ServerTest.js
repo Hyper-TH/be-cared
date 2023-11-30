@@ -9,8 +9,8 @@ export const ServerTest = ({subPageName, backTo}) => {
     useEffect(() => {
         Axios.get(`http://localhost:8000/grabCacheSPC`)
         .then((res) => {
-            console.log(res.data)
-            setMessage(res.data[0].testField);
+            console.log(res.data.testField);
+            setMessage(res.data.testField);
         })
     }, []);
 
