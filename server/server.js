@@ -1,6 +1,21 @@
 import express from 'express';
 import cors from 'cors';
 import https from 'https';
+import admin from 'firebase-admin';
+import serviceAccount from './creds.json' assert { type: "json" };
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const database_id = process.env.ID;
+
+// Initialize Firebase Admin SDK
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: `https://${database_id}.firebaseio.com/`
+});
+
+const firestore = admin.firestore();
 
 // Create Express application
 const app = express();
@@ -182,6 +197,10 @@ async function requestSPC(token, uploadPath) {
         req.on('error', (error) => reject(error));
     });
 }; 
+
+
+// Function to cache the SPC document 
+// async function cacheSPC()
 
 // First request to get token
 const tokenOptions = {
