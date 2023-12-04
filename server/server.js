@@ -56,28 +56,7 @@ app.get('/getMeds', async (req, res) => {
     }
 });
 
-app.get('/getSPC', async (req, res) => {
-    try {
-        const { uploadPath } = req.query;
-        console.log(`Got path: ${uploadPath}`);
-
-        if (!uploadPath) {
-            return res.status(400).json({ error: 'Upload path is required '});
-        } else {
-            const token = await requestToken(tokenOptions);
-            const doc = await requestSPC(token, uploadPath);
-
-            console.log(doc);
-
-            // Assuming requestSPC returns a HTML
-            res.type(`text/html`).send(doc);
-        } 
-    } catch (error) {
-        console.error(`Error: ${error}`);
-        res.status(500).json({ error: `Internal Server Error` })
-    }
-});
-
+// TODO: Appropriate handling for medicines with NO SPC
 app.get('/grabCacheSPC', async (req, res) => {
     const { uploadPath } = req.query    // Initally passed ass text/text2/text3
     const documentID = uploadPath.replace(/\//g, '-');  // Regexed uploadPath to remove '/'
