@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react'; 
 import Axios from 'axios';
-import { act } from 'react-dom/test-utils';
 
 export const HTMLRenderPage = ({subPageName, backTo }) => {
     const [document, setDocument] = useState("");
