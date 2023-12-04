@@ -1,13 +1,14 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react'; 
 import Axios from 'axios';
+import { act } from 'react-dom/test-utils';
 
 export const HTMLRenderPage = ({subPageName, backTo }) => {
     const [document, setDocument] = useState("");
     const [error, setError] = useState("");
 
     // URL of uploadPath in FireStore
-    const { medicineName, parsedSPC } = useParams();
+    const { medicineName, parsedSPC, company, activeIngredient } = useParams();
 
     useEffect(() => {
         const getDocument = async () => {
@@ -36,9 +37,9 @@ export const HTMLRenderPage = ({subPageName, backTo }) => {
 
 	const navigate = useNavigate();
 
-	const returnToMed = (medicineName, parsedSPC) => {
+	const returnToMed = (medicineName, parsedSPC, company, activeIngredient) => {
 		navigate({
-			pathname: `/result/${encodeURIComponent(medicineName)}/${encodeURIComponent(parsedSPC)}`
+			pathname: `/result/${encodeURIComponent(medicineName)}/${encodeURIComponent(parsedSPC)}/${encodeURIComponent(company)}/${encodeURIComponent(activeIngredient)}`
 		})
 	}
 
@@ -54,7 +55,7 @@ export const HTMLRenderPage = ({subPageName, backTo }) => {
                 height="400"
                 >
             </iframe>
-            <button onClick={() => returnToMed(medicineName, parsedSPC)}>
+            <button onClick={() => returnToMed(medicineName, parsedSPC, company, activeIngredient)}>
 				Back to the Medicine Page
             </button>
 
