@@ -31,11 +31,11 @@ function App() {
 					element={<ServerTest subPageName="Server" backTo="/" />} 
 				/>
 				<Route
-					path="/result/:medicineName/:parsedSPC"
+					path="/result/:medicineName/:parsedSPC/:company/:activeIngredient"
 					element={<MedicinePage subPageName="Medicine" backTo="/search" />}
 				/>
 				<Route
-					path="/render/:medicineName/:parsedSPC"
+					path="/render/:medicineName/:parsedSPC/:company/:activeIngredient"
 					element={<HTMLRenderPage subPageName="Document" backTo="/result" />}
 				/>
 			</Routes>
