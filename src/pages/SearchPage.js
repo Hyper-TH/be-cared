@@ -46,10 +46,13 @@ export const SearchPage = ({subPageName, backTo}) => {
         console.log({
             medicineName: medicine.name,
             parsedSPC: medicine.activeSPC.parsedSpc,    // pass in uploadPath
+            company: medicine.company.name,
+            activeIngredient: medicine.ingredients[0].name,
         });
         
         navigate({
-            pathname: `/result/${encodeURIComponent(medicine.name)}/${encodeURIComponent(medicine.activeSPC.parsedSpc)}`,
+            pathname: 
+            `/result/${encodeURIComponent(medicine.name)}/${encodeURIComponent(medicine.activeSPC.parsedSpc)}/${encodeURIComponent(medicine.company.name)}/${encodeURIComponent(medicine.ingredients[0].name)}`,
 
         });
     };
@@ -77,7 +80,6 @@ export const SearchPage = ({subPageName, backTo}) => {
 
                 {medicineList?.map((medicine) => 
                     <div key={medicine.id}>
-                        <p>Medicine ID: {medicine.id}</p>
                         <p>Medicine Name: {medicine.name}</p>
                         <p>Document: {medicine.activeSPC.parsedSpc}</p>
                         
