@@ -15,14 +15,12 @@ export const MedicinePage = ({ subPageName, backTo }) => {
 
     return (
         <>
-            <h1>{subPageName} Page</h1>
-            <p>Medicine Name: {medicineName}</p>
+            <h1>{medicineName}</h1>
             <p>Company: {company}</p>
             <p>Active Ingredient: {activeIngredient}</p>
-            <p>Parsed SPC: {parsedSPC}</p>
 
             <button onClick={() => renderHTML(medicineName, parsedSPC, company, activeIngredient)}>
-                View document
+                View SPC Document
             </button>
             <button>
                 <Link to={backTo}>Back to the Search Page</Link>

@@ -60,10 +60,7 @@ export const SearchPage = ({subPageName, backTo}) => {
     
     return (
         <>
-            <div>
-                <h1>{subPageName} Page</h1>
-            </div>
-            <h2>This is the search page</h2>
+            <h2>Medicine Search Page</h2>
 
             <div>
                 <label>
@@ -80,13 +77,15 @@ export const SearchPage = ({subPageName, backTo}) => {
 
                 {medicineList?.map((medicine) => 
                     <div key={medicine.id}>
-                        <p>Medicine Name: {medicine.name}</p>
-                        <p>Document: {medicine.activeSPC.parsedSpc}</p>
+                        <p>Medicine Name: {medicine.name}
+                        {/* <p>Document: {medicine.activeSPC.parsedSpc}</p> */}
                         
                         {/* Button to redirect */}
                         <button onClick={() => handleViewDetails(medicine)}>
-                            View Details
+                            View Medicine Details
                         </button>
+                        
+                        </p>
                     </div>
                 )}
 

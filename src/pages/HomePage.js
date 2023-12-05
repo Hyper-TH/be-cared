@@ -5,18 +5,18 @@ export const HomePage = () => {
     <>
     <div>
         <h2>Home Page</h2>
-        <p>Choose website to search from:</p>
+        <p>Choose an option:</p>
 
         <div>
             <button>
-                <Link to="/search">Medicines / PFizer</Link>
+                <Link to="/search">Search Medicine</Link>
             </button>
             <button>
-                <Link to="/merck">Merck</Link>
+                <Link to="/merck">Search chemical compound</Link>
             </button>
-            <button>
+            {/* <button>
                 <Link to="/serverTest">Test server here</Link>
-            </button>
+            </button> */}
         </div>
     </div>
     </>

@@ -46,7 +46,7 @@ export const HTMLRenderPage = ({subPageName, backTo }) => {
 
     return (
         <>
-            <h1>HTML Renders here!</h1>
+            <h1>SPC Document</h1>
             <iframe
                 srcDoc={`${document.doc}`}
                 title="Embedded HTML"
@@ -55,7 +55,7 @@ export const HTMLRenderPage = ({subPageName, backTo }) => {
                 >
             </iframe>
             <button onClick={() => returnToMed(medicineName, parsedSPC, company, activeIngredient)}>
-				Back to the Medicine Page
+            Return
             </button>
 
             {error && <p style={{ color: "red" }}>{error}</p>}
