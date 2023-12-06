@@ -2,7 +2,6 @@ import express, { query } from 'express';
 import cors from 'cors';
 import https from 'https';
 import admin from 'firebase-admin';
-import { Firestore } from '@google-cloud/firestore';
 import serviceAccount from './creds.json' assert { type: "json" };
 import dotenv from 'dotenv';
 
@@ -57,6 +56,7 @@ app.get('/getMeds', async (req, res) => {
 });
 
 // TODO: Appropriate handling for medicines with NO SPC
+// end point to get cached SPC / cache SPC
 app.get('/grabCacheSPC', async (req, res) => {
     const { uploadPath } = req.query    // Initally passed ass text/text2/text3
     const documentID = uploadPath.replace(/\//g, '-');  // Regexed uploadPath to remove '/'
@@ -81,8 +81,7 @@ app.get('/grabCacheSPC', async (req, res) => {
 
             const token = await requestToken(tokenOptions);
             const document = await requestSPC(token, uploadPath);
-
-            // PROBLEM IS HERE 
+ 
             const data = {
                 doc: document
             }
@@ -215,7 +214,7 @@ async function requestSPC(token, uploadPath) {
             });
         });
       
-        // Ensure you don't end up in an infinite loop by only calling resolve/reject once
+        // Avoid infinite loop by only calling resolve/reject once
         req.on('error', (error) => reject(error));
     });
 }; 

@@ -12,7 +12,6 @@ export const HTMLRenderPage = ({subPageName, backTo }) => {
     useEffect(() => {
         const getDocument = async () => {
           try {
-            // const response = await Axios.get(`http://localhost:8000/getSPC?uploadPath=${encodeURIComponent(parsedSPC)}`);
             const response = await Axios.get(`http://localhost:8000/grabCacheSPC?uploadPath=${encodeURIComponent(parsedSPC)}`);
     
             if (response.data) {
