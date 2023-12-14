@@ -4,6 +4,7 @@ import https from 'https';
 import admin from 'firebase-admin';
 import serviceAccount from './creds.json' assert { type: "json" };
 import dotenv from 'dotenv';
+import { upload } from '@testing-library/user-event/dist/upload';
 
 dotenv.config();
 
@@ -126,6 +127,34 @@ async function requestToken(options) {
         });
     });
 }
+
+// Function to request Patient Leaflet PDF/HTML
+async function requestLeaflet(token, uploadPath) {
+    const options3WithToken = {
+        host: "backend-prod.medicines.ie",
+        path: `${uploadPath}`,
+        headers: {
+            accept: "application/pdf",
+            authorization: `Bearer ${token}`,
+            Referer: "https://www.medicines.ie/",
+            Referrer_Policy: "strict-origin-when-cross-origin"
+        }
+    };
+
+    https.get(options3WithToken, (response) => {
+        const pdfChunks = [];
+        
+        response.on('data', (chunk) => {
+            pdfChunks.push(chunk);
+        });
+
+        response.on('end', () => {
+            const pdfBuffer = Buffer.concat(pdfChunks);
+            fs.writeFileSync('output.pdf', pdfBuffer);
+            console.log('PDF file saved successfully');
+        });
+    });
+};
 
 // Function to get list of medicines in JSON format
 async function requestList(token, search) {
