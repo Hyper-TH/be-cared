@@ -129,6 +129,8 @@ async function requestToken(options) {
 }
 
 // Function to request Patient Leaflet PDF/HTML
+// TODO: Get uploads/files/medID.pdf when requesting for list of medicines
+// TODO: Cache PDF to firestore
 async function requestLeaflet(token, uploadPath) {
     const options3WithToken = {
         host: "backend-prod.medicines.ie",
