@@ -7,7 +7,7 @@ export const HTMLRenderPage = ({subPageName, backTo }) => {
     const [error, setError] = useState("");
 
     // URL of uploadPath in FireStore
-    const { medicineName, parsedSPC, company, activeIngredient } = useParams();
+    const { medicineName, parsedSPC, pil, company, activeIngredient } = useParams();
 
     useEffect(() => {
         const getDocument = async () => {
@@ -35,9 +35,9 @@ export const HTMLRenderPage = ({subPageName, backTo }) => {
 
 	const navigate = useNavigate();
 
-	const returnToMed = (medicineName, parsedSPC, company, activeIngredient) => {
+	const returnToMed = (medicineName, parsedSPC, pil, company, activeIngredient) => {
 		navigate({
-			pathname: `/result/${encodeURIComponent(medicineName)}/${encodeURIComponent(parsedSPC)}/${encodeURIComponent(company)}/${encodeURIComponent(activeIngredient)}`
+			pathname: `/result/${encodeURIComponent(medicineName)}/${encodeURIComponent(parsedSPC)}/${encodeURIComponent(pil)}/${encodeURIComponent(company)}/${encodeURIComponent(activeIngredient)}`
 		})
 	}
 
@@ -53,8 +53,8 @@ export const HTMLRenderPage = ({subPageName, backTo }) => {
                 height="400"
                 >
             </iframe>
-            <button onClick={() => returnToMed(medicineName, parsedSPC, company, activeIngredient)}>
-            Return
+            <button onClick={() => returnToMed(medicineName, parsedSPC, pil, company, activeIngredient)}>
+              Return
             </button>
 
             {error && <p style={{ color: "red" }}>{error}</p>}
