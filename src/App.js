@@ -11,6 +11,7 @@ import { MerckPage } from './pages/MerckPage';
 import { ServerTest } from './pages/components/ServerTest';
 import { MedicinePage } from './pages/MedicinePage';
 import { HTMLRenderPage } from './pages/HTMLRenderPage';
+import { PILRenderPage } from './pages/PILRenderPage';
 
 function App() {
 	return (
@@ -31,12 +32,16 @@ function App() {
 					element={<ServerTest subPageName="Server" backTo="/" />} 
 				/>
 				<Route
-					path="/result/:medicineName/:parsedSPC/:company/:activeIngredient"
+					path="/result/:medicineName/:parsedSPC/:pil/:company/:activeIngredient"
 					element={<MedicinePage subPageName="Medicine" backTo="/search" />}
 				/>
 				<Route
-					path="/render/:medicineName/:parsedSPC/:company/:activeIngredient"
+					path="/render/:medicineName/:parsedSPC/:pil/:company/:activeIngredient"
 					element={<HTMLRenderPage subPageName="Document" backTo="/result" />}
+				/>
+				<Route
+					path="/pil/:medicineName/:parsedSPC/:pil/:company/:activeIngredient"
+					element={<PILRenderPage subPageName="Document" backTo="/result" />}
 				/>
 			</Routes>
 		</Router>
