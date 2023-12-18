@@ -4,7 +4,6 @@ import https from 'https';
 import admin from 'firebase-admin';
 import serviceAccount from './creds.json' assert { type: "json" };
 import dotenv from 'dotenv';
-import { upload } from '@testing-library/user-event/dist/upload';
 
 dotenv.config();
 
@@ -99,6 +98,48 @@ app.get('/grabCacheSPC', async (req, res) => {
     }
 });
 
+// TODO: Appropriate handling for medicines with no PIL
+app.get('/grabCachePIL', async (req, res) => {
+    const { pil } = req.query   
+    const documentID = pil;
+    const collectionName = "PIL"; 
+    
+    console.log(pil);
+
+    try {
+        const documentSnapshot = await firestore.collection(collectionName).doc(documentID).get();
+        
+        if (documentSnapshot.exists) {
+            console.log(`Found cached document`);
+            const documentData = documentSnapshot.data();
+            
+            console.log(documentData);
+            
+            res.type('pdf').send(documentData);
+        } 
+        // If it does not, cache this to the server!
+        else {
+            console.log(`Caching to server with new documentID: ${documentID}`);
+
+            const token = await requestToken(tokenOptions);
+            const document = await requestPIL(token, pil);
+ 
+            const data = {
+                doc: document
+            }
+
+            await firestore.collection(collectionName).doc(documentID).set(data);
+
+            console.log("Cached to server!");
+
+            res.type('application/pdf').send(document);
+        }
+
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+});
+
 // Method to get token
 async function requestToken(options) {
     return new Promise((resolve, reject) => {
@@ -127,36 +168,6 @@ async function requestToken(options) {
         });
     });
 }
-
-// Function to request Patient Leaflet PDF/HTML
-// TODO: Get uploads/files/medID.pdf when requesting for list of medicines
-// TODO: Cache PDF to firestore
-async function requestLeaflet(token, uploadPath) {
-    const options3WithToken = {
-        host: "backend-prod.medicines.ie",
-        path: `${uploadPath}`,
-        headers: {
-            accept: "application/pdf",
-            authorization: `Bearer ${token}`,
-            Referer: "https://www.medicines.ie/",
-            Referrer_Policy: "strict-origin-when-cross-origin"
-        }
-    };
-
-    https.get(options3WithToken, (response) => {
-        const pdfChunks = [];
-        
-        response.on('data', (chunk) => {
-            pdfChunks.push(chunk);
-        });
-
-        response.on('end', () => {
-            const pdfBuffer = Buffer.concat(pdfChunks);
-            fs.writeFileSync('output.pdf', pdfBuffer);
-            console.log('PDF file saved successfully');
-        });
-    });
-};
 
 // Function to get list of medicines in JSON format
 async function requestList(token, search) {
@@ -195,6 +206,44 @@ async function requestList(token, search) {
 
             response.on('error', function (error) {
                 console.error('Error:', error);
+            });
+        });
+    });
+};
+
+
+// Function to request Patient Leaflet PDF/HTML
+// TODO: Get uploads/files/medID.pdf when requesting for list of medicines
+// TODO: Cache PDF to firestore
+async function requestPIL(token, uploadPath) {
+    const options3WithToken = {
+        host: "backend-prod.medicines.ie",
+        path: `uploads/files/${uploadPath}`,
+        headers: {
+            accept: "application/pdf",
+            authorization: `Bearer ${token}`,
+            Referer: "https://www.medicines.ie/",
+            Referrer_Policy: "strict-origin-when-cross-origin"
+        }
+    };
+
+    return new Promise((resolve, reject) => { 
+        https.get(options3WithToken, (response) => {
+            const pdfChunks = [];
+            
+            response.on('data', (chunk) => {
+                pdfChunks.push(chunk);
+            });
+
+            response.on('end', () => {
+                const pdfBuffer = Buffer.concat(pdfChunks);
+                resolve(pdfBuffer);
+                console.log('PDF file sent');
+            });
+            
+            response.on('error', (error) => {
+                console.error(`Error retrieving PDF: `, error);
+                reject(error);
             });
         });
     });
