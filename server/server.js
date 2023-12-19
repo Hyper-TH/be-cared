@@ -115,7 +115,7 @@ app.get('/grabCachePIL', async (req, res) => {
             
             console.log(documentData);
             
-            res.type('pdf').send(documentData);
+            res.send(documentData);
         } 
         // If it does not, cache this to the server!
         else {
@@ -228,14 +228,23 @@ async function requestPIL(token, uploadPath) {
     };
 
     return new Promise((resolve, reject) => { 
+        // TODO: Resolves prematurely
         https.get(options3WithToken, (response) => {
             const pdfChunks = [];
             
-            response.on('data', (chunk) => {
+            response.on('data', (chunk) => { 
+                console.log("Pushed", chunk)
                 pdfChunks.push(chunk);
             });
 
             response.on('end', () => {
+                // Check if the connection was closed prematurely
+                if (!response.complete) {
+                  reject(new Error('Incomplete response'));
+                  return;
+                }
+        
+                // This event indicates that the response has been completely received.
                 const pdfBuffer = Buffer.concat(pdfChunks);
                 resolve(pdfBuffer);
                 console.log('PDF file sent');
@@ -244,6 +253,11 @@ async function requestPIL(token, uploadPath) {
             response.on('error', (error) => {
                 console.error(`Error retrieving PDF: `, error);
                 reject(error);
+            });
+    
+            response.on('close', () => {
+                // The connection was closed prematurely
+                reject(new Error('Connection closed prematurely'));
             });
         });
     });
@@ -280,7 +294,6 @@ async function requestSPC(token, uploadPath) {
             response.on('end', function () {
               try {
                 const doc = result;
-                // console.log(doc);
       
                 resolve(doc);
               } catch (error) {
