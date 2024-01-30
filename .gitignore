@@ -2,6 +2,7 @@
 
 # config
 /server/config.js
+/src/config
 
 # dependencies
 /node_modules
