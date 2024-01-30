@@ -6,6 +6,7 @@ import {
 	Route
 } from 'react-router-dom';
 import { HomePage } from './pages/HomePage';
+import { LoginPage } from './pages/LoginPage';
 import { SearchPage } from './pages/SearchPage';
 import { MerckPage } from './pages/MerckPage';
 import { ServerTest } from './pages/components/ServerTest';
@@ -18,7 +19,11 @@ function App() {
 		<>
 		<Router>
 			<Routes>
-				<Route path="/" element={<HomePage />} />
+				<Route path="/" element={<LoginPage />} />
+				<Route 
+					path="/home" 
+					element={<HomePage subPageName="Home" backTo="/" />} 
+				/>
 				<Route 
 					path="/search" 
 					element={<SearchPage subPageName="Search" backTo="/" />} 
