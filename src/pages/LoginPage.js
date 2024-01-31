@@ -1,28 +1,13 @@
 import { useState } from 'react';
-import { auth, GoogleProvider } from '../config/config.js';
-import { createUserWithEmailAndPassword, 
-        signInWithEmailAndPassword, 
-        signInWithPopup, 
-        signOut 
-    } from 'firebase/auth';
+import Axios from 'axios';
 
 export const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const login = (e) => {
-        e.preventDefault();
-
-        console.log("Called login");
-
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                console.log(userCredential);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-        console.log("Called login");
+    const login = async () => {
+        const response = await Axios.get(`http://localhost:8000/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
+        console.log(response);
     };
 
     return (

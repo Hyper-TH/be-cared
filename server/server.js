@@ -4,7 +4,12 @@ import https from 'https';
 import admin from 'firebase-admin';
 import serviceAccount from './creds.json' assert { type: "json" };
 import dotenv from 'dotenv';
-
+import { auth, GoogleProvider } from './config.js';
+import { createUserWithEmailAndPassword, 
+        signInWithEmailAndPassword, 
+        signInWithPopup, 
+        signOut 
+    } from 'firebase/auth';
 dotenv.config();
 
 const database_id = process.env.ID;
@@ -104,7 +109,7 @@ app.get('/grabCachePIL', async (req, res) => {
     const documentID = pil;
     const collectionName = "PIL"; 
     
-    console.log(pil);
+    // console.log(pil);
 
     try {
         const documentSnapshot = await firestore.collection(collectionName).doc(documentID).get();
@@ -137,6 +142,35 @@ app.get('/grabCachePIL', async (req, res) => {
 
     } catch (error) {
       console.error("Error fetching data:", error);
+    }
+});
+
+// end point to login
+app.get('/login', async (req, res) => {
+    const { email, password } = req.query;
+    console.log(`Got email: ${email} and password: ${password}`);
+
+    try {
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                console.log(userCredential);
+
+                res.send("Successful");
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                
+                console.log(`Error code: ${errorCode}`);
+                console.log(`Error message: ${errorMessage}`);
+
+                res.send("Unsuccessful");
+            });
+
+    } catch (error) {
+        console.error("Error fetching data:", error)
+
+        res.send("Error");
     }
 });
 
@@ -210,7 +244,6 @@ async function requestList(token, search) {
         });
     });
 };
-
 
 // Function to request Patient Leaflet PDF/HTML
 // TODO: Get uploads/files/medID.pdf when requesting for list of medicines
