@@ -12,17 +12,16 @@ export const LoginPage = () => {
         e.preventDefault(); // Prevents default form submission behaviour (refreshing)
 
         try {
-            console.log("Before await");
             const res = await Axios.get(`http://localhost:8000/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
-            
-            console.log("After await");
+            console.log(res.data.uid);
 
-            if (res.data) {
-                setResponse(res.data);
+            if (res.data.uid) {
+                // TODO: not setting
+                setResponse(res.data.uid);
     
-                // Corrected variable name
                 console.log(response);
             }
+
         } catch (error) {
             console.error(error);
         }
