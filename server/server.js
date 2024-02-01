@@ -153,9 +153,14 @@ app.get('/login', async (req, res) => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
-        console.log(userCredential.user.uid);
+        // console.log(userCredential.user.uid);
 
-        res.json({ credentials: userCredential });
+        const data = {
+            uid: userCredential.user.uid
+        }
+        
+        console.log(data)
+        res.json(data);
 
     } catch (error) {
         const errorCode = error.code;
