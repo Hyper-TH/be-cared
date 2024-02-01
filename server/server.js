@@ -151,26 +151,20 @@ app.get('/login', async (req, res) => {
     console.log(`Got email: ${email} and password: ${password}`);
 
     try {
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                console.log(userCredential);
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
-                res.send("Successful");
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                
-                console.log(`Error code: ${errorCode}`);
-                console.log(`Error message: ${errorMessage}`);
-
-                res.send("Unsuccessful");
-            });
+        console.log(userCredential);
+        
+        res.json({ credentials: userCredential });
 
     } catch (error) {
-        console.error("Error fetching data:", error)
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        
+        console.log(`Error code: ${errorCode}`);
+        console.log(`Error message: ${errorMessage}`);
 
-        res.send("Error");
+        res.json({ credentials: "404" });
     }
 });
 
