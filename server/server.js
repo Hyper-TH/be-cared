@@ -153,8 +153,8 @@ app.get('/login', async (req, res) => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
-        console.log(userCredential);
-        
+        console.log(userCredential.user.uid);
+
         res.json({ credentials: userCredential });
 
     } catch (error) {
