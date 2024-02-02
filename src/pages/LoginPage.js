@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 
@@ -13,7 +13,6 @@ export const LoginPage = () => {
 
         try {
             const res = await Axios.get(`http://localhost:8000/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
-            console.log(res.data.uid);
 
             if (res.data.uid) {
                 // TODO: not setting
@@ -26,6 +25,10 @@ export const LoginPage = () => {
             console.error(error);
         }
     };
+
+    useEffect(() => {
+        console.log(response);
+    }, [response]);
 
     return (
         <div className="signInContainer">
