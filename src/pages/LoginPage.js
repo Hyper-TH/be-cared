@@ -1,9 +1,9 @@
 import { useState,useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 
 export const LoginPage = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [response, setResponse] = useState("");
@@ -15,10 +15,17 @@ export const LoginPage = () => {
             const res = await Axios.get(`http://localhost:8000/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
 
             if (res.data.uid) {
-                // TODO: not setting
                 setResponse(res.data.uid);
     
                 console.log(response);
+
+                navigate({
+                    pathname: 
+                    `/home`,
+        
+                });
+            } else {
+                console.log("Incorrect login details");
             }
 
         } catch (error) {
