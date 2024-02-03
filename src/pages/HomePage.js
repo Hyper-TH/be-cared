@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { AuthDetails } from './components/AuthDetails';
 
 export const HomePage = () => {
     return (
@@ -18,6 +19,7 @@ export const HomePage = () => {
                 <Link to="/serverTest">Test server here</Link>
             </button> */}
         </div>
+        <AuthDetails />
     </div>
     </>
     );
