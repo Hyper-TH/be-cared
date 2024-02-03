@@ -15,9 +15,6 @@ export const HomePage = () => {
             <button>
                 <Link to="/merck">Search chemical compound</Link>
             </button>
-            {/* <button>
-                <Link to="/serverTest">Test server here</Link>
-            </button> */}
         </div>
         <AuthDetails />
     </div>
