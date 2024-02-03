@@ -7,9 +7,9 @@ import {
 } from 'react-router-dom';
 import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
+import { SignedOutPage } from './pages/SignedOutPage';
 import { SearchPage } from './pages/SearchPage';
 import { MerckPage } from './pages/MerckPage';
-import { ServerTest } from './pages/components/ServerTest';
 import { MedicinePage } from './pages/MedicinePage';
 import { HTMLRenderPage } from './pages/HTMLRenderPage';
 import { PILRenderPage } from './pages/PILRenderPage';
@@ -25,16 +25,16 @@ function App() {
 					element={<HomePage subPageName="Home" backTo="/" />} 
 				/>
 				<Route 
+					path="/loggedOut" 
+					element={<SignedOutPage subPageName="LoggedOut" backTo="/" />} 
+				/>
+				<Route 
 					path="/search" 
-					element={<SearchPage subPageName="Search" backTo="/" />} 
+					element={<SearchPage subPageName="Search" backTo="/home" />} 
 				/>
 				<Route 
 					path="/merck" 
-					element={<MerckPage subPageName="Merck" backTo="/" />} 
-				/>
-				<Route 
-					path="/serverTest" 
-					element={<ServerTest subPageName="Server" backTo="/" />} 
+					element={<MerckPage subPageName="Merck" backTo="/home" />} 
 				/>
 				<Route
 					path="/result/:medicineName/:parsedSPC/:pil/:company/:activeIngredient"
