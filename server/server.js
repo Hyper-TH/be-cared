@@ -145,34 +145,6 @@ app.get('/grabCachePIL', async (req, res) => {
     }
 });
 
-// end point to login
-app.get('/login', async (req, res) => {
-    const { email, password } = req.query;
-    console.log(`Got email: ${email} and password: ${password}`);
-
-    try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-
-        // console.log(userCredential.user.uid);
-
-        const data = {
-            uid: userCredential.user.uid
-        }
-        
-        console.log(data)
-        res.json(data);
-
-    } catch (error) {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        
-        console.log(`Error code: ${errorCode}`);
-        console.log(`Error message: ${errorMessage}`);
-
-        res.json({ credentials: "404" });
-    }
-});
-
 // Method to get token
 async function requestToken(options) {
     return new Promise((resolve, reject) => {

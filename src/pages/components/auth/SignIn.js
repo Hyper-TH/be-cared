@@ -1,41 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Axios from 'axios';
+import { auth } from '../../../config/config.js';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 export const SignIn = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] =  useState("");
-    const [response, setResponse] = useState("");
 
     const signIn = async (e) => {
         e.preventDefault();
 
         try {
-            const res = await Axios.get(`http://localhost:8000/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
-
-            if (res.data.uid) {
-                setResponse(res.data.uid);
-    
-                console.log(response);
-
-                navigate({
-                    pathname: 
-                    `/home`,
-        
-                });
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            
+            if (userCredential.user) {
+                navigate('/home');
             } else {
                 console.log("Incorrect login details");
             }
-
         } catch (error) {
             console.error(error);
         }      
     };
-
-    useEffect(() => {
-        console.log(response);
-    }, [response]);
 
     return (
         <div className="signInContainer">
