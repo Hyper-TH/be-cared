@@ -13,6 +13,7 @@ import { MerckPage } from './pages/MerckPage';
 import { MedicinePage } from './pages/MedicinePage';
 import { HTMLRenderPage } from './pages/HTMLRenderPage';
 import { PILRenderPage } from './pages/PILRenderPage';
+import { CurrentUsers } from './pages/components/auth/CurrentUsers';
 
 function App() {
 	return (
@@ -28,6 +29,13 @@ function App() {
 					path="/loggedOut" 
 					element={<SignedOutPage subPageName="LoggedOut" backTo="/" />} 
 				/>
+
+				{/* TEMPORARY CHECKER*/}
+				<Route 
+					path="/currentUsers" 
+					element={<CurrentUsers subPageName="currentUsers" backTo="/" />} 
+				/>
+
 				<Route 
 					path="/search" 
 					element={<SearchPage subPageName="Search" backTo="/home" />} 
