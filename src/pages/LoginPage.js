@@ -1,4 +1,3 @@
-import { useState,useEffect } from 'react';
 import { SignIn } from './components/auth/SignIn';
 
 export const LoginPage = () => {
