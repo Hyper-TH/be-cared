@@ -7,16 +7,22 @@ import Axios from 'axios';
 export const HomePage = () => {
     const navigate = useNavigate();
     const [authUser, setAuthUser] = useState(null);
-    // const [userType, setUserType] = useState("");
+    const [userDetails, setUserDetails] = useState({});
+    const [error, setError] = useState("");
     
-
     /* CALL SERVER */
     const getAuth = async (user) => {
         const response = await Axios.get(`http://localhost:8000/login?user=${encodeURIComponent(user)}`);
-        console.log(response); 
+
+        if (response.data) {
+            setUserDetails(response.data);
+            setError("");
+        } else {
+            setUserDetails({});
+            setError("Error user details");
+        };
     };
 
- 
     // useEffect to listen for changes in authentication state
     useEffect(() => {
 
@@ -56,7 +62,6 @@ export const HomePage = () => {
             {authUser ? (
             <>
                 <p>{`Signed In as ${authUser.email}`}</p>
-                {/* <p>{`Type: ${userType.type}`}</p> */}
                 <button onClick={userSignOut}>Sign out</button>
                 <p>Choose an option:</p>
     
