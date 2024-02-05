@@ -1,15 +1,17 @@
-import express, { query } from 'express';
+import express from 'express';
 import cors from 'cors';
 import https from 'https';
 import admin from 'firebase-admin';
 import serviceAccount from './creds.json' assert { type: "json" };
 import dotenv from 'dotenv';
-import { auth, GoogleProvider } from './config.js';
-import { createUserWithEmailAndPassword, 
-        signInWithEmailAndPassword, 
-        signInWithPopup, 
-        signOut 
-    } from 'firebase/auth';
+import { db } from './config.js';
+import { getDocs, 
+    collection, 
+    addDoc, 
+    deleteDoc, 
+    updateDoc, 
+    doc } 
+from 'firebase/firestore'
 dotenv.config();
 
 const database_id = process.env.ID;
@@ -36,6 +38,30 @@ app.get('/message', (req, res) => {
 // Start server
 app.listen(8000, () => {
     console.log(`Server is running on port 8000`);
+});
+
+// endpoint to get user authentications
+app.get('/login', async (req, res) => {
+    try {
+        const usersCollectionRef = collection(db, "users");
+
+        const { user } = req.query;
+        console.log(`Got ${user}`);
+        
+        const data = await getDocs(usersCollectionRef);
+        const filteredData = data.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+        }))
+        .filter((users) => users.id === user);
+            
+        console.log(filteredData[0]);
+
+        res.json({ message: filteredData[0]});
+
+    } catch (error) {
+        console.error(`Error: ${error}`);
+    }
 });
 
 // TODO: Have an appropriate response if there is no medicine results
