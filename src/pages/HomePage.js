@@ -15,7 +15,7 @@ export const HomePage = () => {
         const response = await Axios.get(`http://localhost:8000/login?user=${encodeURIComponent(user)}`);
 
         if (response.data) {
-            setUserDetails(response.data);
+            setUserDetails(response.data.message);
             setError("");
         } else {
             setUserDetails({});
@@ -53,35 +53,36 @@ export const HomePage = () => {
         .catch((error) => console.log(error));
     };
 
-
     return (
-    <div className="App">
-        <div>
-        <h2>Home Page</h2>
-        <div>
-            {authUser ? (
-            <>
-                <p>{`Signed In as ${authUser.email}`}</p>
-                <button onClick={userSignOut}>Sign out</button>
+        <div className="App">
+            <div>
+            <h2>Home Page</h2>
+            <div>
                 <p>Choose an option:</p>
-    
-                <div>
                 <button>
                     <Link to="/search">Search Medicine</Link>
                 </button>
-    
-                {authUser.type === 'verified' && (
+
+                {authUser ? (
+                <>
+                    <p>{`Signed In as ${authUser.email}`}</p>
                     <button>
-                        <Link to="/merck">Search chemical compound</Link>
+                        <Link to="/subscriptions">Subscriptions</Link>
                     </button>
-                )}
-                </div>
-            </>
-            ) : (
-            <p>Signed Out</p>
-            )}
+
+                    <div>    
+                        {userDetails.type === 'verified' && (
+                            <button>
+                                <Link to="/merck">Search chemical compound</Link>
+                            </button>
+                        )}
+                    </div>
+
+                    <button onClick={userSignOut}>Sign out</button>
+                </>
+                ) : ( <p>Signed Out</p> )}
+            </div>
+            </div>
         </div>
-        </div>
-    </div>
     );
 };
