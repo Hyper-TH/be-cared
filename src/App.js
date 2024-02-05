@@ -8,6 +8,7 @@ import {
 import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
 import { SignedOutPage } from './pages/SignedOutPage';
+import { SubscriptionsPage } from './pages/SubscriptionsPage';
 import { SearchPage } from './pages/SearchPage';
 import { MerckPage } from './pages/MerckPage';
 import { MedicinePage } from './pages/MedicinePage';
@@ -37,9 +38,15 @@ function App() {
 				/>
 
 				<Route 
+					path="/subscriptions" 
+					element={<SubscriptionsPage subPageName="Subscriptions" backTo="/home" />} 
+				/>
+
+				<Route 
 					path="/search" 
 					element={<SearchPage subPageName="Search" backTo="/home" />} 
 				/>
+
 				<Route 
 					path="/merck" 
 					element={<MerckPage subPageName="Merck" backTo="/home" />} 
