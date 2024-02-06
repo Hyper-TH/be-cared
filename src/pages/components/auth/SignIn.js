@@ -16,7 +16,7 @@ export const SignIn = () => {
             
             if (userCredential.user) {
                 console.log(userCredential);
-                navigate('/');
+                navigate('/home');
             } else {
                 console.log("Incorrect login details");
             }
