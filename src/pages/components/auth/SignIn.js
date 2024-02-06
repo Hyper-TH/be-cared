@@ -15,7 +15,8 @@ export const SignIn = () => {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             
             if (userCredential.user) {
-                navigate('/home');
+                console.log(userCredential);
+                navigate('/');
             } else {
                 console.log("Incorrect login details");
             }
