@@ -13,7 +13,9 @@ export const HomePage = () => {
     
     /* CALL SERVER */
     const getUserDetails = async (user, uid, token) => {
-        const response = await Axios.get(`http://localhost:8000/login?user=${encodeURIComponent(user)}&token=${token}&uid=${uid}`);
+        const response = await Axios.get(`http://localhost:8000/login?user=${encodeURIComponent(user)}&uid=${uid}`, {
+            headers: {token}
+        });
 
         if (response.data) {
             setUserDetails(response.data.message);

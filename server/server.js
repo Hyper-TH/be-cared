@@ -45,8 +45,8 @@ app.listen(8000, () => {
 app.get('/login', async (req, res) => {
     try {
         const usersCollectionRef = collection(db, "users");
-
-        const { user, uid, token } = req.query;
+        const { token } = req.headers; 
+        const { user, uid } = req.query;
 
         const data = await getDocs(usersCollectionRef);
         const filteredData = data.docs.map((doc) => ({
