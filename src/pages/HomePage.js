@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { auth } from '../config/config.js';
 import Axios from 'axios';
 
+// TODO: If there is no current login, redirect to login page
 export const HomePage = () => {
     const navigate = useNavigate();
     const [authUser, setAuthUser] = useState(null);
@@ -11,8 +12,8 @@ export const HomePage = () => {
     const [error, setError] = useState("");
     
     /* CALL SERVER */
-    const getAuth = async (user) => {
-        const response = await Axios.get(`http://localhost:8000/login?user=${encodeURIComponent(user)}`);
+    const getUserDetails = async (user, uid, token) => {
+        const response = await Axios.get(`http://localhost:8000/login?user=${encodeURIComponent(user)}&token=${token}&uid=${uid}`);
 
         if (response.data) {
             setUserDetails(response.data.message);
@@ -30,7 +31,11 @@ export const HomePage = () => {
         const listen = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setAuthUser(user);
-                getAuth(user.email);
+
+                user.getIdToken().then(function(idToken) {  // <------ Check this line
+                    getUserDetails(user.email, user.uid, idToken);
+                });
+
             } else {
                 setAuthUser(null);
             }

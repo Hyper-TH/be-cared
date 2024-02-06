@@ -3,7 +3,6 @@ import cors from 'cors';
 import https from 'https';
 import admin from 'firebase-admin';
 import serviceAccount from './creds.json' assert { type: "json" };
-import dotenv from 'dotenv';
 import { db } from './config.js';
 import { getDocs, 
     collection, 
@@ -12,11 +11,13 @@ import { getDocs,
     updateDoc, 
     doc } 
 from 'firebase/firestore'
+import dotenv from 'dotenv';
+
 dotenv.config();
 
 const database_id = process.env.ID;
 
-// Initialize Firebase Admin SDK
+// Initialize Firebase Admin SDK 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: `https://${database_id}.firebaseio.com/`
@@ -45,9 +46,8 @@ app.get('/login', async (req, res) => {
     try {
         const usersCollectionRef = collection(db, "users");
 
-        const { user } = req.query;
-        console.log(`Got ${user}`);
-        
+        const { user, uid, token } = req.query;
+
         const data = await getDocs(usersCollectionRef);
         const filteredData = data.docs.map((doc) => ({
             ...doc.data(),
@@ -55,7 +55,18 @@ app.get('/login', async (req, res) => {
         }))
         .filter((users) => users.id === user);
             
-        console.log(filteredData[0]);
+        try {
+            const authUser = await admin.auth().verifyIdToken(token);
+            console.log(uid);
+            if (authUser.uid != uid) {
+                return res.sendStatus(403);
+            } else {
+                console.log("Matched uid");
+            }
+        } catch (error) {
+            return res.sendStatus(401);
+        }
+
 
         res.json({ message: filteredData[0]});
 
