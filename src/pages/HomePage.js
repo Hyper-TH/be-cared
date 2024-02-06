@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { useEffect, useState } from 'react'; 
 import { auth } from '../config/config.js';
+import { LogoutButton } from './components/auth/LogoutButton.js' 
 import Axios from 'axios';
 
 // TODO: If there is no current login, redirect to login page
@@ -50,16 +51,6 @@ export const HomePage = () => {
 
     }, []); // The empty dependency array ensures that this effect runs once when the component mounts
 
-    const userSignOut = () => {
-        signOut(auth) 
-        .then(() => {
-            console.log("Sign out successful");
-            navigate('/loggedOut');
-            
-        })
-        .catch((error) => console.log(error));
-    };
-
     return (
         <div className="App">
             <div>
@@ -85,7 +76,7 @@ export const HomePage = () => {
                         )}
                     </div>
 
-                    <button onClick={userSignOut}>Sign out</button>
+                    <LogoutButton />
                 </>
                 ) : ( <p>Signed Out</p> )}
             </div>
