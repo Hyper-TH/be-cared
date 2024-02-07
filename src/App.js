@@ -5,7 +5,6 @@ import {
 } from 'react-router-dom';
 import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
-import { SignedOutPage } from './pages/SignedOutPage';
 import { SubscriptionsPage } from './pages/SubscriptionsPage';
 import { SearchPage } from './pages/SearchPage';
 import { MerckPage } from './pages/MerckPage';
@@ -21,7 +20,7 @@ function App() {
 		<AuthContextProvider>
 			<Routes>
 				<Route path="/" element={<LoginPage />} />
-				
+
 				<Route 
 					path="/home" 
 					element={
