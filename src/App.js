@@ -1,7 +1,5 @@
 import './App.css';
 import {
-	BrowserRouter as
-	Router,
 	Routes,
 	Route
 } from 'react-router-dom';
@@ -14,57 +12,82 @@ import { MerckPage } from './pages/MerckPage';
 import { MedicinePage } from './pages/MedicinePage';
 import { HTMLRenderPage } from './pages/HTMLRenderPage';
 import { PILRenderPage } from './pages/PILRenderPage';
-import { CurrentUsers } from './pages/components/auth/CurrentUsers';
+import { AuthContextProvider } from './context/AuthContext.js';
+import ProtectedRoute from './components/auth/ProtectedRoute.js';
 
 function App() {
 	return (
 		<>
-		<Router>
+		<AuthContextProvider>
 			<Routes>
 				<Route path="/" element={<LoginPage />} />
-				<Route 
-					path="/home" 
-					element={<HomePage subPageName="Home" backTo="/" />} 
-				/>
+
 				<Route 
 					path="/loggedOut" 
 					element={<SignedOutPage subPageName="LoggedOut" backTo="/" />} 
 				/>
 
-				{/* TEMPORARY CHECKER*/}
 				<Route 
-					path="/currentUsers" 
-					element={<CurrentUsers subPageName="currentUsers" backTo="/" />} 
+					path="/home" 
+					element={
+					<ProtectedRoute>
+						<HomePage subPageName="Home" backTo="/" />
+					</ProtectedRoute>
+					} 
 				/>
 
 				<Route 
 					path="/subscriptions" 
-					element={<SubscriptionsPage subPageName="Subscriptions" backTo="/home" />} 
+					element={
+					<ProtectedRoute>
+						<SubscriptionsPage subPageName="Subscriptions" backTo="/home" />
+					</ProtectedRoute>
+					} 
 				/>
 
 				<Route 
 					path="/search" 
-					element={<SearchPage subPageName="Search" backTo="/home" />} 
+					element={
+					<ProtectedRoute>
+						<SearchPage subPageName="Search" backTo="/home" />
+					</ProtectedRoute>
+					} 
 				/>
 
 				<Route 
 					path="/merck" 
-					element={<MerckPage subPageName="Merck" backTo="/home" />} 
+					element={
+					<ProtectedRoute>
+						<MerckPage subPageName="Merck" backTo="/home" />
+					</ProtectedRoute>} 
 				/>
 				<Route
 					path="/result/:medicineName/:parsedSPC/:pil/:company/:activeIngredient"
-					element={<MedicinePage subPageName="Medicine" backTo="/search" />}
+					element={
+					<ProtectedRoute>
+						<MedicinePage subPageName="Medicine" backTo="/search" />
+					</ProtectedRoute>
+					}
 				/>
 				<Route
 					path="/render/:medicineName/:parsedSPC/:pil/:company/:activeIngredient"
-					element={<HTMLRenderPage subPageName="Document" backTo="/result" />}
+					element={
+					<ProtectedRoute>
+						<HTMLRenderPage subPageName="Document" backTo="/result" />
+					</ProtectedRoute>
+					}
 				/>
 				<Route
+					
 					path="/pil/:medicineName/:parsedSPC/:pil/:company/:activeIngredient"
-					element={<PILRenderPage subPageName="Document" backTo="/result" />}
+					element={
+					<ProtectedRoute>
+						<PILRenderPage subPageName="Document" backTo="/result" />
+					</ProtectedRoute>
+					}
 				/>
 			</Routes>
-		</Router>
+		</AuthContextProvider>
 		</>
 	);
 }

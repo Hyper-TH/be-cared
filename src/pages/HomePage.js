@@ -1,56 +1,44 @@
+import React from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { useEffect, useState } from 'react'; 
-import { auth } from '../config/config.js';
-import { LogoutButton } from './components/auth/LogoutButton.js' 
+import { UserAuth } from '../context/AuthContext.js';
 import Axios from 'axios';
+
 
 // TODO: If there is no current login, redirect to login page
 export const HomePage = () => {
-    const navigate = useNavigate();
-    const [authUser, setAuthUser] = useState(null);
-    const [userDetails, setUserDetails] = useState({});
-    const [error, setError] = useState("");
+    const { user, logout } = UserAuth();
+	const navigate = useNavigate();
+    // const [authUser, setAuthUser] = useState(null);
+    // const [userDetails, setUserDetails] = useState({});
+    // const [error, setError] = useState("");
     
+	const handleLogout = async () => {
+		try {
+			await logout();
+			navigate('/');
+			
+			console.log(`Logged Out`)
+		} catch (e) {
+			console.log(e.message);
+		}
+	}
+
     /* CALL SERVER */
-    const getUserDetails = async (user, uid, token) => {
-        const response = await Axios.get(`http://localhost:8000/login?user=${encodeURIComponent(user)}&uid=${uid}`, {
-            headers: {token}
-        });
+    // const getUserDetails = async (user, uid, token) => {
+    //     const response = await Axios.get(`http://localhost:8000/login?user=${encodeURIComponent(user)}&uid=${uid}`, {
+    //         headers: {token}
+    //     });
 
-        if (response.data) {
-            setUserDetails(response.data.message);
-            setError("");
-        } else {
-            setUserDetails({});
-            setError("Error user details");
-        };
-    };
+    //     if (response.data) {
+    //         setUserDetails(response.data.message);
+    //         setError("");
+    //     } else {
+    //         setUserDetails({});
+    //         setError("Error user details");
+    //     };
+    // };
 
-    // useEffect to listen for changes in authentication state
-    useEffect(() => {
-
-        // Function to listen for changes in authentication state
-        const listen = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setAuthUser(user);
-
-                user.getIdToken().then(function(idToken) {  // <------ Check this line
-                    getUserDetails(user.email, user.uid, idToken);
-                });
-
-            } else {
-                setAuthUser(null);
-            }
-        });
-    
-        // Cleanup function to remove the listener when the component unmounts
-        return () => {
-            listen();
-        };
-
-    }, []); // The empty dependency array ensures that this effect runs once when the component mounts
-
+ 
     return (
         <div className="App">
             <div>
@@ -61,22 +49,22 @@ export const HomePage = () => {
                     <Link to="/search">Search Medicine</Link>
                 </button>
 
-                {authUser ? (
+                {user && user.email ? (
                 <>
-                    <p>{`Signed In as ${authUser.email}`}</p>
+                    <p>{`Signed In as ${user.email}`}</p>
                     <button>
                         <Link to="/subscriptions">Subscriptions</Link>
                     </button>
 
-                    <div>    
+                    {/* <div>    
                         {userDetails.type === 'verified' && (
                             <button>
                                 <Link to="/merck">Search chemical compound</Link>
                             </button>
                         )}
-                    </div>
+                    </div> */}
 
-                    <LogoutButton />
+                    <button onClick={handleLogout}>Logout</button>
                 </>
                 ) : ( <p>Signed Out</p> )}
             </div>
