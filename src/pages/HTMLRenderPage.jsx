@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react'; 
 import Axios from 'axios';
 
-export const HTMLRenderPage = ({subPageName, backTo }) => {
+const HTMLRenderPage = ({subPageName, backTo }) => {
     const [document, setDocument] = useState("");
     const [error, setError] = useState("");
 
@@ -62,4 +62,4 @@ export const HTMLRenderPage = ({subPageName, backTo }) => {
     )
 };
 
-
+export default HTMLRenderPage;

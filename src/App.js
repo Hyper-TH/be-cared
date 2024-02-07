@@ -3,14 +3,14 @@ import {
 	Routes,
 	Route
 } from 'react-router-dom';
-import { HomePage } from './pages/HomePage';
-import { LoginPage } from './pages/LoginPage';
-import { SubscriptionsPage } from './pages/SubscriptionsPage';
-import { SearchPage } from './pages/SearchPage';
-import { MerckPage } from './pages/MerckPage';
-import { MedicinePage } from './pages/MedicinePage';
-import { HTMLRenderPage } from './pages/HTMLRenderPage';
-import { PILRenderPage } from './pages/PILRenderPage';
+import HomePage from './pages/HomePage';
+import LoginPage  from './pages/LoginPage';
+import MedicinePage  from './pages/MedicinePage';
+import SubscriptionsPage from './pages/SubscriptionsPage';
+import SearchPage  from './pages/SearchPage';
+import MerckPage  from './pages/MerckPage';
+import HTMLRenderPage from './pages/HTMLRenderPage';
+import PILRenderPage from './pages/PILRenderPage';
 import { AuthContextProvider } from './context/AuthContext.js';
 import ProtectedRoute from './components/auth/ProtectedRoute.js';
 

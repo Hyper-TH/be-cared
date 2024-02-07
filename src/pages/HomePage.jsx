@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext.js';
 
-export const HomePage = () => {
+const HomePage = () => {
     const { user, logout } = UserAuth();
 	const navigate = useNavigate();
     
@@ -50,3 +50,5 @@ export const HomePage = () => {
         </div>
     );
 };
+
+export default HomePage;

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 
-export const SubscriptionsPage = ({subPageName, backTo}) => {
+const SubscriptionsPage = ({subPageName, backTo}) => {
     return (
         <>
             <h1>{subPageName}</h1>
@@ -11,3 +11,5 @@ export const SubscriptionsPage = ({subPageName, backTo}) => {
         </>
     );
 };
+
+export default SubscriptionsPage;

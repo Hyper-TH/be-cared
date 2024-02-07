@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { useState, useEffect } from 'react';
 
-export const SearchPage = ({subPageName, backTo}) => {
+const SearchPage = ({subPageName, backTo}) => {
     const [medQuery, setMedQuery] = useState("");
     const [medicineList, setMedicineList] = useState([]);
     const [error, setError] = useState("");
@@ -93,3 +93,5 @@ export const SearchPage = ({subPageName, backTo}) => {
         </>
     );
 };
+
+export default SearchPage;

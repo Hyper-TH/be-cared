@@ -67,3 +67,5 @@ export const PILRenderPage = ({ subPageName, backTo }) => {
         </>
     );
 };
+
+export default PILRenderPage;

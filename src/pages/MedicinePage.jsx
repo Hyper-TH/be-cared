@@ -1,6 +1,6 @@
 import { Link, useParams, useNavigate } from 'react-router-dom';
 
-export const MedicinePage = ({ subPageName, backTo }) => {
+const MedicinePage = ({ subPageName, backTo }) => {
     const { medicineName, parsedSPC, pil, company, activeIngredient } = useParams();
 
     const navigate = useNavigate();
@@ -42,3 +42,5 @@ export const MedicinePage = ({ subPageName, backTo }) => {
         </>
     );
 };
+
+export default MedicinePage;

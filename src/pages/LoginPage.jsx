@@ -1,6 +1,7 @@
 import SignIn from '../components/auth/SignIn';
 
-export const LoginPage = () => {
+// TODO: Guest login
+const LoginPage = () => {
     return (
         <>
         <div className="App">
@@ -9,4 +10,6 @@ export const LoginPage = () => {
         </>
     );
 };
+
+export default LoginPage;
 

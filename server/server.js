@@ -57,7 +57,7 @@ app.get('/login', async (req, res) => {
             
         try {
             const authUser = await admin.auth().verifyIdToken(token);
-            console.log(uid);
+
             if (authUser.uid != uid) {
                 return res.sendStatus(403);
             } else {
