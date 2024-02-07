@@ -12,7 +12,7 @@ const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
     const [user, setUser] = useState({});
-    const [userType, setUserType] = useState(null);
+    const [userType, setUserType] = useState("");
     const [token , setToken] = useState("");
     const [error, setError] = useState("");
 
@@ -28,50 +28,49 @@ export const AuthContextProvider = ({ children }) => {
         return signOut(auth)
     }
     
-    /* GET TYPE OF USER */
-    const getUserDetails = async (user, uid, token) => {
-        const response = await Axios.get(`http://localhost:8000/login?user=${encodeURIComponent(user)}&uid=${uid}`, {
-            headers: {token}
-        });
-
-        if (response.data) {
-            setUserType(response.data.message);
-            setError("");
-        } else {
-            setUserType({});
-            setError("Error user details");
-        };
-    };
-
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            // setUser(currentUser);
-
-            // currentUser.getIdToken().then(function(idToken) {  // <------ Check this line
-            //     getUserDetails(user.email, user.uid, idToken);
-            // });
-
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             if (currentUser) {
                 setUser(currentUser);
+    
+                const idToken = await currentUser.getIdToken();
 
-                currentUser.getIdToken().then(function(idToken) {  // <------ Check this line
-                    getUserDetails(currentUser.email, currentUser.uid, idToken);
-                });
-
+                try {
+                    const response = await Axios.get(
+                        `http://localhost:8000/login`,
+                        {
+                            params: {
+                                user: currentUser.email,
+                                uid: currentUser.uid
+                            },
+                            headers: {
+                                token: idToken
+                            }
+                        }
+                    );
+        
+                    if (response.data.message) {
+                        setUserType(response.data.message.type);
+                        setError("");
+                    } else {
+                        setUserType({});
+                        setError("Error user details");
+                    }
+                } catch (error) {
+                    console.error("Error fetching user details:", error);
+                    setError("Error fetching user details");
+                }
             } else {
                 setUser(null);
             }
         });
-        
-        return () => {
-            unsubscribe();
-        };
-
+    
+        return unsubscribe;
     }, []);
 
     
     return (
-        <UserContext.Provider value={{ createUser, logout, signIn, user }}>
+        <UserContext.Provider value={{ createUser, logout, signIn, user, userType }}>
             {children}
         </UserContext.Provider>
     );

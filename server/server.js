@@ -60,14 +60,12 @@ app.get('/login', async (req, res) => {
 
             if (authUser.uid != uid) {
                 return res.sendStatus(403);
-            } else {
-                console.log("Matched uid");
             }
+
         } catch (error) {
+            console.log("Unverified Token");
             return res.sendStatus(401);
         }
-
-
         res.json({ message: filteredData[0]});
 
     } catch (error) {

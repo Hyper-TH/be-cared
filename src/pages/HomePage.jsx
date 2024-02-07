@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext.js';
 
 const HomePage = () => {
-    const { user, logout } = UserAuth();
+    const { user, userType, logout } = UserAuth();
 	const navigate = useNavigate();
     
 	const handleLogout = async () => {
@@ -34,13 +34,13 @@ const HomePage = () => {
                         <Link to="/subscriptions">Subscriptions</Link>
                     </button>
 
-                    {/* <div>    
-                        {userDetails.type === 'verified' && (
+                    <div>    
+                        {userType === 'verified' && (
                             <button>
                                 <Link to="/merck">Search chemical compound</Link>
                             </button>
                         )}
-                    </div> */}
+                    </div>
 
                     <button onClick={handleLogout}>Logout</button>
                 </>
