@@ -21,12 +21,7 @@ function App() {
 		<AuthContextProvider>
 			<Routes>
 				<Route path="/" element={<LoginPage />} />
-
-				<Route 
-					path="/loggedOut" 
-					element={<SignedOutPage subPageName="LoggedOut" backTo="/" />} 
-				/>
-
+				
 				<Route 
 					path="/home" 
 					element={
