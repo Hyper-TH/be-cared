@@ -1,16 +1,10 @@
 import React from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext.js';
-import Axios from 'axios';
 
-
-// TODO: If there is no current login, redirect to login page
 export const HomePage = () => {
     const { user, logout } = UserAuth();
 	const navigate = useNavigate();
-    // const [authUser, setAuthUser] = useState(null);
-    // const [userDetails, setUserDetails] = useState({});
-    // const [error, setError] = useState("");
     
 	const handleLogout = async () => {
 		try {
@@ -22,22 +16,6 @@ export const HomePage = () => {
 			console.log(e.message);
 		}
 	}
-
-    /* CALL SERVER */
-    // const getUserDetails = async (user, uid, token) => {
-    //     const response = await Axios.get(`http://localhost:8000/login?user=${encodeURIComponent(user)}&uid=${uid}`, {
-    //         headers: {token}
-    //     });
-
-    //     if (response.data) {
-    //         setUserDetails(response.data.message);
-    //         setError("");
-    //     } else {
-    //         setUserDetails({});
-    //         setError("Error user details");
-    //     };
-    // };
-
  
     return (
         <div className="App">
