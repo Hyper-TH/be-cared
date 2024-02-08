@@ -21,6 +21,8 @@ function App() {
 			<Routes>
 				<Route path="/" element={<LoginPage />} />
 
+				{/* GUEST HOME PAGE */}
+
 				<Route 
 					path="/home" 
 					element={

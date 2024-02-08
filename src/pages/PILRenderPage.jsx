@@ -18,8 +18,8 @@ export const PILRenderPage = ({ subPageName, backTo }) => {
 
                 if (response.data) {
                     const blob = new Blob([response.data.doc.data], { type: 'application/pdf' });
-					// console.log(response.data.doc)
-					console.log(response.data.doc.data);
+                    console.log(blob);
+					// console.log(response.data);
 
                     setPDFURL(URL.createObjectURL(blob));
                     setError("");
