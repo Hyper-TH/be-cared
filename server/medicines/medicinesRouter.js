@@ -32,7 +32,6 @@ const firestore = admin.firestore();
 router.get('/getMeds', async (req, res) => {
     try {
         const { medQuery } = req.query;
-        console.log(`Got ${medQuery}`);
 
         if (!medQuery) {
             return res.status(400).json({ error: 'Medicine is required' });
@@ -56,7 +55,6 @@ router.get('/grabCacheSPC', async (req, res) => {
     const documentID = uploadPath.replace(/\//g, '-');  // Regexed uploadPath to remove '/'
     const collectionName = "SPC"; 
     
-    console.log(uploadPath);
 
     try {
         const documentSnapshot = await firestore.collection(collectionName).doc(documentID).get();
@@ -98,8 +96,6 @@ router.get('/grabCachePIL', async (req, res) => {
     const documentID = pil;
     const collectionName = "PIL"; 
     
-    // console.log(pil);
-
     try {
         const documentSnapshot = await firestore.collection(collectionName).doc(documentID).get();
         
@@ -108,7 +104,7 @@ router.get('/grabCachePIL', async (req, res) => {
             const documentData = documentSnapshot.data();
             
             console.log(documentData);
-            
+            // This might not be the same as res on uncached documents
             res.send(documentData);
         } 
         // If it does not, cache this to the server!
@@ -150,10 +146,11 @@ async function requestToken(options) {
             response.on('end', function () {
                 try {
                     const token = result.match(/access_token&q;:&q;(\w+)/)[1];
-                    console.log(`Token: ${token}`);
+
                     resolve(token);
                 } catch (error) {
                     console.error('Error:', error);
+
                     reject(error);
                 }
             });
@@ -245,8 +242,11 @@ async function requestPIL(token, uploadPath) {
         
                 // This event indicates that the response has been completely received.
                 const pdfBuffer = Buffer.concat(pdfChunks);
+
                 console.log(pdfBuffer.toString('utf-8'));
+                
                 resolve(pdfBuffer);
+                
                 console.log('PDF file sent');
             });
             

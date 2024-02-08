@@ -16,8 +16,12 @@ export const PILRenderPage = ({ subPageName, backTo }) => {
             try {
                 const response = await Axios.get(`http://localhost:8000/grabCachePIL?pil=${encodeURIComponent(pil)}`);
 
+                // console.log(typeof(response.data.doc.data));
+
                 if (response.data) {
-                    const blob = new Blob([response.data.doc.data], { type: 'application/pdf' });
+                    const combinedBytes = response.data.doc.data.reduce((acc, curr) => acc.concat(curr), []);
+
+                    const blob = new Blob([combinedBytes], { type: 'application/pdf' });
                     console.log(blob);
 					// console.log(response.data);
 
