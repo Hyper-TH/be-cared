@@ -14,7 +14,7 @@ const MedicinePage = ({ subPageName, backTo }) => {
     };
 
     const renderPIL = (medicineName, parsedSPC, pil, company, activeIngredient) => {
-        console.log(parsedSPC);
+        console.log(pil);
         
         navigate({
             pathname: `/pil/${encodeURIComponent(medicineName)}/${encodeURIComponent(parsedSPC)}/${encodeURIComponent(pil)}/${encodeURIComponent(company)}/${activeIngredient}`

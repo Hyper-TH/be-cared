@@ -97,15 +97,14 @@ router.get('/grabCachePIL', async (req, res) => {
     const collectionName = "PIL"; 
     
     try {
-        const documentSnapshot = await firestore.collection(collectionName).doc(documentID).get();
+        let documentSnapshot = await firestore.collection(collectionName).doc(documentID).get();
         
         if (documentSnapshot.exists) {
             console.log(`Found cached document`);
             const documentData = documentSnapshot.data();
             
-            console.log(documentData);
             // This might not be the same as res on uncached documents
-            res.send(documentData);
+            res.type('application/pdf').send(documentData);
         } 
         // If it does not, cache this to the server!
         else {
@@ -121,11 +120,15 @@ router.get('/grabCachePIL', async (req, res) => {
             fs.writeFileSync('output.pdf', document);
 
             await firestore.collection(collectionName).doc(documentID).set(data);
-
             console.log("Cached to server!");
+
+            // Grab it again
+            documentSnapshot = await firestore.collection(collectionName).doc(documentID).get();
+            const documentData = documentSnapshot.data();
+            
             console.log(document);
 
-            res.type('application/pdf').send(document);
+            res.type('application/pdf').send(documentData);
         }
 
     } catch (error) {
@@ -206,8 +209,6 @@ async function requestList(token, search) {
 };
 
 // Function to request Patient Leaflet PDF/HTML
-// TODO: Get uploads/files/medID.pdf when requesting for list of medicines
-// TODO: Cache PDF to firestore
 async function requestPIL(token, uploadPath) {
     const options3WithToken = {
         host: "backend-prod.medicines.ie",
@@ -221,7 +222,6 @@ async function requestPIL(token, uploadPath) {
     };
 
     return new Promise((resolve, reject) => { 
-        // TODO: Resolves prematurely
         console.log(options3WithToken);
 
         https.get(options3WithToken, (response) => {

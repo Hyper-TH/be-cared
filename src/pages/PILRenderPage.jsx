@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react'; 
-// import { Worker, Viewer } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import Axios from 'axios';
 
@@ -9,24 +8,26 @@ export const PILRenderPage = ({ subPageName, backTo }) => {
     const [error, setError] = useState("");
 
     // URL of uploadPath in FireStore
-    const { pil } = useParams();
+    const { medicineName, parsedSPC, pil, company, activeIngredient } = useParams();
 
     useEffect(() => {
         const getDocument = async () => {
             try {
                 const response = await Axios.get(`http://localhost:8000/grabCachePIL?pil=${encodeURIComponent(pil)}`);
 
-                // console.log(typeof(response.data.doc.data));
+                console.log("Response:", response.data.doc.data);
 
                 if (response.data) {
-                    const combinedBytes = response.data.doc.data.reduce((acc, curr) => acc.concat(curr), []);
-
-                    const blob = new Blob([combinedBytes], { type: 'application/pdf' });
+                   
+                    const blob = new Blob([new Uint8Array(response.data.doc.data)], { type: 'application/pdf' });
                     console.log(blob);
-					// console.log(response.data);
+                    const blob_url = URL.createObjectURL(blob);
 
-                    setPDFURL(URL.createObjectURL(blob));
+                    console.log(blob_url);
+
+                    setPDFURL(blob_url);
                     setError("");
+
                 } else {
                     setPDFURL("");
                     setError("Error retrieving PIL");
@@ -37,6 +38,7 @@ export const PILRenderPage = ({ subPageName, backTo }) => {
                 setPDFURL("");
                 setError("Local Server Error");
             }
+
         };
 
         // Fetch document only when the component mounts
@@ -63,7 +65,7 @@ export const PILRenderPage = ({ subPageName, backTo }) => {
                 >
             </iframe>
 
-            <button onClick={() => returnToMed()}>
+            <button onClick={() => returnToMed(medicineName, parsedSPC, pil, company, activeIngredient)}>
                 Return
             </button>
 

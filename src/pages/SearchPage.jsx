@@ -44,11 +44,11 @@ const SearchPage = ({subPageName, backTo}) => {
     const handleViewDetails = (medicine) => {
 
         console.log({
-            medicineName: medicine.name,
+            // medicineName: medicine.name,
             parsedSPC: medicine.activeSPC.parsedSpc,    // pass in uploadPath
             pil: medicine.activeSPC.file.name,
-            company: medicine.company.name,
-            activeIngredient: medicine.ingredients[0].name,
+            // company: medicine.company.name,
+            // activeIngredient: medicine.ingredients[0].name,
         });
         
         navigate({
