@@ -3,14 +3,16 @@ import {
 	Routes,
 	Route
 } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import LoginPage  from './pages/LoginPage';
-import MedicinePage  from './pages/MedicinePage';
-import SubscriptionsPage from './pages/SubscriptionsPage';
-import SearchPage  from './pages/SearchPage';
-import MerckPage  from './pages/MerckPage';
-import HTMLRenderPage from './pages/HTMLRenderPage';
-import PILRenderPage from './pages/PILRenderPage';
+import GuestPage from './pages/guest/GuestPage.jsx';
+import GuestSearchPage from './pages/guest/GuestSearchPage.jsx';
+import GuestMedicinePage from './pages/guest/GuestMedicinePage.jsx';
+import HomePage from './pages/HomePage.jsx';
+import LoginPage  from './pages/LoginPage.jsx';
+import MedicinePage  from './pages/MedicinePage.jsx';
+import SubscriptionsPage from './pages/SubscriptionsPage.jsx';
+import SearchPage  from './pages/SearchPage.jsx';
+import MerckPage  from './pages/MerckPage.jsx';
+import PDFRenderPage from './pages/PDFRenderPage.jsx';
 import { AuthContextProvider } from './context/AuthContext.js';
 import ProtectedRoute from './components/auth/ProtectedRoute.js';
 
@@ -21,8 +23,29 @@ function App() {
 			<Routes>
 				<Route path="/" element={<LoginPage />} />
 
-				{/* GUEST HOME PAGE */}
 
+				{/* START GUEST PAGES */}
+				<Route 
+					path="/guestHome" 
+					element={
+						<GuestPage subPageName="Home" backTo="/" />
+					} 
+				/>				
+				<Route 
+					path="/guestSearch" 
+					element={
+						<GuestSearchPage subPageName="Guest Search" backTo="/guestHome" />
+					} 
+				/>				
+				
+				<Route 
+					path="/guestMedicine" 
+					element={
+						<GuestMedicinePage subPageName="Guest Medicine" backTo="/guestHome" />
+					} 
+				/>
+				{/* END GUEST PAGES */}
+				
 				<Route 
 					path="/home" 
 					element={
@@ -57,29 +80,21 @@ function App() {
 						<MerckPage subPageName="Merck" backTo="/home" />
 					</ProtectedRoute>} 
 				/>
+
 				<Route
-					path="/result/:medicineName/:parsedSPC/:pil/:company/:activeIngredient"
+					path="/result/:medicineName/:spc/:pil/:company/:activeIngredient"
 					element={
 					<ProtectedRoute>
 						<MedicinePage subPageName="Medicine" backTo="/search" />
 					</ProtectedRoute>
 					}
 				/>
-				<Route
-					path="/render/:medicineName/:parsedSPC/:pil/:company/:activeIngredient"
-					element={
-					<ProtectedRoute>
-						<HTMLRenderPage subPageName="Document" backTo="/result" />
-					</ProtectedRoute>
-					}
-				/>
+
 				<Route
 					
-					path="/pil/:medicineName/:parsedSPC/:pil/:company/:activeIngredient"
+					path="/render/:medicineName/:spc/:pil/:company/:activeIngredient/:type"
 					element={
-					<ProtectedRoute>
-						<PILRenderPage subPageName="Document" backTo="/result" />
-					</ProtectedRoute>
+						<PDFRenderPage subPageName="Document" backTo="/result" />
 					}
 				/>
 			</Routes>

@@ -1,23 +1,23 @@
 import { Link, useParams, useNavigate } from 'react-router-dom';
 
 const MedicinePage = ({ subPageName, backTo }) => {
-    const { medicineName, parsedSPC, pil, company, activeIngredient } = useParams();
+    const { medicineName, spc, pil, company, activeIngredient } = useParams();
 
     const navigate = useNavigate();
 
-    const renderHTML = (medicineName, parsedSPC, pil, company, activeIngredient) => {
-        console.log(parsedSPC);
-        
+    const renderSPC = (medicineName, spc, pil, company, activeIngredient) => {
+        const type = "SPC";
+
         navigate({
-            pathname: `/render/${encodeURIComponent(medicineName)}/${encodeURIComponent(parsedSPC)}/${encodeURIComponent(pil)}/${encodeURIComponent(company)}/${activeIngredient}`
+            pathname: `/render/${encodeURIComponent(medicineName)}/${encodeURIComponent(spc)}/${encodeURIComponent(pil)}/${encodeURIComponent(company)}/${activeIngredient}/${type}`
         });
     };
 
-    const renderPIL = (medicineName, parsedSPC, pil, company, activeIngredient) => {
-        console.log(pil);
-        
+    const renderPIL = (medicineName, spc, pil, company, activeIngredient) => {
+        const type = "PIL";
+
         navigate({
-            pathname: `/pil/${encodeURIComponent(medicineName)}/${encodeURIComponent(parsedSPC)}/${encodeURIComponent(pil)}/${encodeURIComponent(company)}/${activeIngredient}`
+            pathname: `/render/${encodeURIComponent(medicineName)}/${encodeURIComponent(spc)}/${encodeURIComponent(pil)}/${encodeURIComponent(company)}/${activeIngredient}/${type}`
         });
     };
 
@@ -28,11 +28,11 @@ const MedicinePage = ({ subPageName, backTo }) => {
                 <p>Company: {company}</p>
                 <p>Active Ingredient: {activeIngredient}</p>
             </div>
-            <button onClick={() => renderHTML(medicineName, parsedSPC, pil, company, activeIngredient)}>
+            <button onClick={() => renderSPC(medicineName, spc, pil, company, activeIngredient)}>
                 View SPC Document
             </button>
 
-            <button onClick={() => renderPIL(medicineName, parsedSPC, pil, company, activeIngredient)}>
+            <button onClick={() => renderPIL(medicineName, spc, pil, company, activeIngredient)}>
                 View PIL Document
             </button>
 

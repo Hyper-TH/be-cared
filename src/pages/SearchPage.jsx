@@ -45,18 +45,22 @@ const SearchPage = ({subPageName, backTo}) => {
 
         console.log({
             // medicineName: medicine.name,
-            parsedSPC: medicine.activeSPC.parsedSpc,    // pass in uploadPath
-            pil: medicine.activeSPC.file.name,
+            // parsedSPC: medicine.activeSPC.parsedSpc,    // pass in uploadPath
+            parsedSPC: medicine.activeSPC.file.name,    // pass in uploadPath
+            // pil: medicine.activeSPC.file.name,
+            pil: medicine.pils[0].activePil.file.name
             // company: medicine.company.name,
             // activeIngredient: medicine.ingredients[0].name,
         });
         
         navigate({
             pathname: 
-            `/result/${encodeURIComponent(medicine.name)}/${encodeURIComponent(medicine.activeSPC.parsedSpc)}/${encodeURIComponent(medicine.activeSPC.file.name)}/${encodeURIComponent(medicine.company.name)}/${encodeURIComponent(medicine.ingredients[0].name)}`,
+            `/result/${encodeURIComponent(medicine.name)}/${encodeURIComponent(medicine.activeSPC.file.name)}/${encodeURIComponent(medicine.pils[0].activePil.file.name)}/${encodeURIComponent(medicine.company.name)}/${encodeURIComponent(medicine.ingredients[0].name)}`,
 
         });
+    
     };
+
 
     
     return (
