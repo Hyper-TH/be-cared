@@ -1,8 +1,8 @@
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const MedicinePage = ({ subPageName, backTo }) => {
     const { medicineName, spc, pil, company, activeIngredient } = useParams();
-
+    
     const navigate = useNavigate();
 
     const renderSPC = (medicineName, spc, pil, company, activeIngredient) => {
