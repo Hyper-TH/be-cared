@@ -1,11 +1,12 @@
 import SignIn from '../components/auth/SignIn';
+import SignInAsGuest from '../components/auth/GuestSignIn';
 
-// TODO: Guest login
 const LoginPage = () => {
     return (
         <>
         <div className="App">
             <SignIn />
+            <SignInAsGuest />
         </div>
         </>
     );

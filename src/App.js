@@ -3,17 +3,14 @@ import {
 	Routes,
 	Route
 } from 'react-router-dom';
-import GuestPage from './pages/guest/GuestPage.jsx';
-import GuestSearchPage from './pages/guest/GuestSearchPage.jsx';
-import GuestMedicinePage from './pages/guest/GuestMedicinePage.jsx';
-import HomePage from './pages/HomePage.jsx';
-import LoginPage  from './pages/LoginPage.jsx';
-import MedicinePage  from './pages/MedicinePage.jsx';
-import SubscriptionsPage from './pages/SubscriptionsPage.jsx';
-import SearchPage  from './pages/SearchPage.jsx';
-import MerckPage  from './pages/MerckPage.jsx';
-import PDFRenderPage from './pages/PDFRenderPage.jsx';
 import { AuthContextProvider } from './context/AuthContext.js';
+import { 
+	GuestPage, GuestSearchPage, GuestMedicinePage, 
+	GuestPDFRenderPage, HomePage, LoginPage, 
+	MedicinePage, SubscriptionsPage, SearchPage, 
+	MerckPage, PDFRenderPage 
+} from './RouteImports.js';
+
 import ProtectedRoute from './components/auth/ProtectedRoute.js';
 
 function App() {
@@ -23,26 +20,25 @@ function App() {
 			<Routes>
 				<Route path="/" element={<LoginPage />} />
 
-
 				{/* START GUEST PAGES */}
 				<Route 
 					path="/guestHome" 
-					element={
-						<GuestPage subPageName="Home" backTo="/" />
-					} 
+					element={<GuestPage subPageName="Guest Home" backTo="/" />} 
 				/>				
+
 				<Route 
-					path="/guestSearch" 
-					element={
-						<GuestSearchPage subPageName="Guest Search" backTo="/guestHome" />
-					} 
-				/>				
+					path="/guest/search"
+					element={<GuestSearchPage subPageName="Guest Search" backTo="/guestHome"/>}
+				/>
 				
 				<Route 
-					path="/guestMedicine" 
-					element={
-						<GuestMedicinePage subPageName="Guest Medicine" backTo="/guestHome" />
-					} 
+					path="/guest/result/:medicineName/:pil/:company/:activeIngredient"
+					element={<GuestMedicinePage subPageName="Guest Medicine" backTo="/guest/search" />}
+				/>
+				
+				<Route 
+					path="/guest/render/:medicineName/:pil/:company/:activeIngredient"
+					element={<GuestPDFRenderPage subPageName="Guest Render" backTo="/guest/result" />}
 				/>
 				{/* END GUEST PAGES */}
 				
@@ -68,17 +64,9 @@ function App() {
 					path="/search" 
 					element={
 					<ProtectedRoute>
-						<SearchPage subPageName="Search" backTo="/home" />
+						<SearchPage subPageName="Search" backTo="/home"/>
 					</ProtectedRoute>
 					} 
-				/>
-
-				<Route 
-					path="/merck" 
-					element={
-					<ProtectedRoute>
-						<MerckPage subPageName="Merck" backTo="/home" />
-					</ProtectedRoute>} 
 				/>
 
 				<Route
@@ -94,9 +82,21 @@ function App() {
 					
 					path="/render/:medicineName/:spc/:pil/:company/:activeIngredient/:type"
 					element={
+					<ProtectedRoute>
 						<PDFRenderPage subPageName="Document" backTo="/result" />
+					</ProtectedRoute>
 					}
 				/>
+
+				
+				<Route 
+					path="/merck" 
+					element={
+					<ProtectedRoute>
+						<MerckPage subPageName="Merck" backTo="/home" />
+					</ProtectedRoute>} 
+				/>
+
 			</Routes>
 		</AuthContextProvider>
 		</>
