@@ -7,10 +7,10 @@ import GuestPDFRenderPage from './pages/guest/GuestPDFRenderPage.jsx';
 /* REGISTERED */
 import HomePage from './pages/HomePage.jsx';
 import LoginPage  from './pages/LoginPage.jsx';
-import MedicinePage  from './pages/MedicinePage.jsx';
+import MedicinePage  from './pages/medicines/MedicinePage.jsx';
 import SubscriptionsPage from './pages/SubscriptionsPage.jsx';
-import SearchPage  from './pages/SearchPage.jsx';
-import PDFRenderPage from './pages/PDFRenderPage.jsx';
+import SearchPage  from './pages/medicines/SearchPage.jsx';
+import PDFRenderPage from './pages/medicines/PDFRenderPage.jsx';
 
 
 /* VERIFIED */
