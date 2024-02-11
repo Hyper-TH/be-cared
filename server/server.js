@@ -5,6 +5,7 @@ import { db } from './config.js';
 import { getDocs, collection } from 'firebase/firestore';
 import dotenv from 'dotenv';
 import medicinesRouter from './medicines/medicinesRouter.js';
+import drugbankRouter from './drugbank/drugbankRouter.js';
 
 dotenv.config();
 
@@ -56,4 +57,5 @@ app.get('/login', async (req, res) => {
     }
 });
 
+app.use(drugbankRouter);
 app.use(medicinesRouter);

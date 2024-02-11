@@ -9,11 +9,12 @@ import HomePage from './pages/HomePage.jsx';
 import LoginPage  from './pages/LoginPage.jsx';
 import MedicinePage  from './pages/medicines/MedicinePage.jsx';
 import SubscriptionsPage from './pages/SubscriptionsPage.jsx';
-import SearchPage  from './pages/medicines/SearchPage.jsx';
+import SearchMedPage  from './pages/medicines/SearchMedPage.jsx';
 import PDFRenderPage from './pages/medicines/PDFRenderPage.jsx';
 
 
 /* VERIFIED */
+import SearchDrugPage from './pages/drugBank/SearchDrugPage.jsx';
 import MerckPage  from './pages/MerckPage.jsx';
 
-export { GuestPage, GuestSearchPage, GuestMedicinePage, GuestPDFRenderPage, HomePage, LoginPage, MedicinePage, SubscriptionsPage, SearchPage, MerckPage, PDFRenderPage };
+export { GuestPage, GuestSearchPage, GuestMedicinePage, GuestPDFRenderPage, HomePage, LoginPage, MedicinePage, SubscriptionsPage, SearchMedPage, SearchDrugPage, MerckPage, PDFRenderPage };

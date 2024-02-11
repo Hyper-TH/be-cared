@@ -7,8 +7,8 @@ import { AuthContextProvider } from './context/AuthContext.js';
 import { 
 	GuestPage, GuestSearchPage, GuestMedicinePage, 
 	GuestPDFRenderPage, HomePage, LoginPage, 
-	MedicinePage, SubscriptionsPage, SearchPage, 
-	MerckPage, PDFRenderPage 
+	MedicinePage, SubscriptionsPage, SearchMedPage, 
+	SearchDrugPage, MerckPage, PDFRenderPage 
 } from './RouteImports.js';
 
 import ProtectedRoute from './components/auth/ProtectedRoute.js';
@@ -64,7 +64,16 @@ function App() {
 					path="/search" 
 					element={
 					<ProtectedRoute>
-						<SearchPage subPageName="Search" backTo="/home"/>
+						<SearchMedPage subPageName="Search" backTo="/home"/>
+					</ProtectedRoute>
+					} 
+				/>				
+				
+				<Route 
+					path="/searchDrugs" 
+					element={
+					<ProtectedRoute>
+						<SearchDrugPage subPageName="Search" backTo="/home"/>
 					</ProtectedRoute>
 					} 
 				/>
