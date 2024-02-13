@@ -1,21 +1,19 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import { useState, useEffect } from 'react';
+import { Drug } from '../../components/Drug';
 
 const SearchDrugPage = ({backTo}) => {
 	const [drugQuery, setDrugQuery] = useState("");
 	const [drugList, setDrugList] = useState([]);
+	const [drugs, setDrugs] = useState([]);
 	const [error, setError] = useState("");
 
   	const drugChange = (e) => {
       	setDrugQuery(e.target.value);
-		searchDrug(drugQuery)
+		searchDrug(drugQuery);
   	};
 
-	// useEffect(() => {
-	// 	console.log(medicineList);
-	// }, [medicineList]);
-		
   	const searchDrug = async (input) => {
 		try {
 			const response = await Axios.get(`http://localhost:8000/autoComplete?input=${encodeURIComponent(input)}`);
@@ -23,9 +21,12 @@ const SearchDrugPage = ({backTo}) => {
 			if (response.data.drugs) {
 				setDrugList(response.data.drugs);
 
-				console.log(`Drug list: ${drugList}`);
 				setError("");
 
+				for (let a of drugs) {
+					console.log(a);
+				}
+				
 			} else {
 				setDrugList([]);
 				setError("Error retrieving Drugs");
@@ -36,51 +37,76 @@ const SearchDrugPage = ({backTo}) => {
 			setError("Local Server Error");
 		}
  	};
-
-	const navigate = useNavigate();
-
-	const handleViewDetails = (medicine) => {
-		navigate({
-			pathname: 
-			`/result/${encodeURIComponent(medicine.name)}/${encodeURIComponent(medicine.activeSPC.file.name)}/${encodeURIComponent(medicine.pils[0].activePil.file.name)}/${encodeURIComponent(medicine.company.name)}/${encodeURIComponent(medicine.ingredients[0].name)}`,
-		});
 	
+	const addDrug = (id, name) => {
+		// Check if the drug with the same ID already exists in the list
+		if (drugs.some(drug => drug.id === id)) {
+			// If the drug already exists, throw an error or show a message
+			console.error('Drug already exists in the list');
+			// Optionally, you can set an error state here
+			return;
+		}
+	
+		// If the drug doesn't exist in the list, add it
+		const newDrug = {
+			id: id,
+			name: name,
+		};
+		
+		setDrugs([...drugs, newDrug]);
 	};
 
-  return (
-      <>
-          <h2>Drug Search Page</h2>
+	const deleteDrug = (id) => {
+		console.log(`Removing ${id}`);
 
-          <div>
-              <label>
-                  Search a Drug:
-                  <input type="text" onChange={drugChange} />
-              </label>
-              {/* <button onClick={searchMedicine}>Search</button> */}
-          </div>
+		// Not removing
+		setDrugs(drugs.filter((drug) => drug.id !== id));	
+	};
 
-          <div>
-              <button>
-                  <Link to={backTo}>Back to Home</Link>
-              </button>
+	return (
+		<>
+		<h2>Drug Search Page</h2>
 
+		<div>
+			<label>
+				Search a Drug:
+				<input type="text" onChange={drugChange} />
+			</label>
+		</div>
 
-              {drugList?.map((drug) => 
-                  <div key={drug.drugbank_pcid}>
-                      <p>Drug Name: {drug.name}</p>
-                      <p>Drug Brand: {drug.brand}</p>
+		<div>
+			<button>
+				<Link to={backTo}>Back to Home</Link>
+			</button>
 
-                      {/* <button onClick={() => handleViewDetails(medicine)}>
-                          View Medicine Details
-                      </button>
-                       */}
-                  </div>
-              )}
+			
+			<div className="drug_interaction_list"> 
+				{drugs.map((drug) => {
+					return (
+						<Drug 
+							key={drug.id}
+							drugId={drug.id}
+							drugName={drug.name}
+							deleteDrug={deleteDrug}
+						/>
+					)
+				})}
+			</div>
+				
+			{drugList?.map((drug) => 
+			<div key={drug.drugbank_pcid}>
+				<p>Drug Name: {drug.name}</p>
 
-              {error && <p style={{ color: "red" }}>{error}</p>}
-          </div>
-      </>
-  );
+				<button onClick={() => addDrug(drug.drugbank_pcid, drug.name)}>
+					Add to interaction list
+				</button>
+			</div>
+			)}
+
+			{error && <p style={{ color: "red" }}>{error}</p>}
+		</div>
+		</>
+	);
 }
 
 export default SearchDrugPage;
