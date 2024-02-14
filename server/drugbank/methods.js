@@ -2,8 +2,7 @@ import https from 'https';
 
 // Function to get list of medicines in JSON format
 export async function autoComplete(input) {
-    console.log(`Got: ${input}`);
-
+    
     const option = {
         host: "go.drugbank.com",
         path: `/interaction_concept_search?term=${input}&_type=query&q=${input}`,

@@ -7,6 +7,7 @@ const SearchDrugPage = ({backTo}) => {
 	const [drugQuery, setDrugQuery] = useState("");
 	const [drugList, setDrugList] = useState([]);
 	const [drugs, setDrugs] = useState([]);
+	const [response, setResponse] = useState("");
 	const [error, setError] = useState("");
 
   	const drugChange = (e) => {
@@ -14,19 +15,17 @@ const SearchDrugPage = ({backTo}) => {
 		searchDrug(drugQuery);
   	};
 
+	// TODO: When the user has chosen a drug, clear the search
   	const searchDrug = async (input) => {
-		try {
-			const response = await Axios.get(`http://localhost:8000/autoComplete?input=${encodeURIComponent(input)}`);
 
-			if (response.data.drugs) {
-				setDrugList(response.data.drugs);
+		console.log(`Sending ${input}`);
+		try {
+			const res = await Axios.get(`http://localhost:8000/autoComplete?input=${encodeURIComponent(input)}`);
+
+			if (res.data.drugs) {
+				setDrugList(res.data.drugs);
 
 				setError("");
-
-				for (let a of drugs) {
-					console.log(a);
-				}
-				
 			} else {
 				setDrugList([]);
 				setError("Error retrieving Drugs");
@@ -42,6 +41,7 @@ const SearchDrugPage = ({backTo}) => {
 		// Check if the drug with the same ID already exists in the list
 		if (drugs.some(drug => drug.id === id)) {
 			// If the drug already exists, throw an error or show a message
+			
 			console.error('Drug already exists in the list');
 			// Optionally, you can set an error state here
 			return;
@@ -59,8 +59,31 @@ const SearchDrugPage = ({backTo}) => {
 	const deleteDrug = (id) => {
 		console.log(`Removing ${id}`);
 
-		// Not removing
 		setDrugs(drugs.filter((drug) => drug.id !== id));	
+	};
+
+	const getInteractions = async (drugs) => {
+		try {
+			// Serialize the array into a JSON string
+			const drugsJSON = JSON.stringify(drugs);
+			// Encode the JSON string to be URL-safe
+			const encodedDrugs = encodeURIComponent(drugsJSON);
+	
+			const res = await Axios.get(`http://localhost:8000/interactions?drugs=${encodedDrugs}`);
+	
+			console.log(`${res}`);
+			if (res.data) {
+				setResponse(res.data);
+				setError("");
+			} else {
+				setResponse(null);
+				setError("Error retrieving interaction results");
+			}
+		} catch (error) {
+			console.error(`Axios Error: ${error}`);
+			setResponse(null);
+			setError("Local Server Error");
+		}
 	};
 
 	return (
@@ -92,7 +115,9 @@ const SearchDrugPage = ({backTo}) => {
 					)
 				})}
 			</div>
-				
+			
+			<button onClick={() => getInteractions(drugs)}>Get interactions</button>
+
 			{drugList?.map((drug) => 
 			<div key={drug.drugbank_pcid}>
 				<p>Drug Name: {drug.name}</p>

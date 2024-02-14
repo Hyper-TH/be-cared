@@ -11,6 +11,7 @@ router.get('/autoComplete', async (req, res) => {
         const drugsData = await autoComplete(input);
 
         console.log(drugsData);
+
         // Assuming requestList returns an array of drugs
         res.json({ drugs: drugsData });
         
@@ -20,5 +21,30 @@ router.get('/autoComplete', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+router.get('/interactions', async (req, res) => {
+    try {
+        // Extract the 'drugs' query parameter from the request URL
+        const { drugs } = req.query;
+
+        // Check if the 'drugs' parameter exists
+        if (!drugs) {
+            return res.status(400).json({ error: "Drugs parameter is missing" });
+        }
+
+        // Decode the URL-safe string back to JSON
+        const decodedDrugs = decodeURIComponent(drugs);
+        
+        // Parse the JSON string into an array
+        const drugsArray = JSON.parse(decodedDrugs);
+
+        // Send a response back with the interactions or any other relevant data
+        res.json({ interactions: "Some interaction data based on the drugs array" });
+    } catch (error) {
+        console.error(`Error processing request: ${error}`);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
 
 export default router;
