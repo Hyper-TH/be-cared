@@ -9,8 +9,8 @@ config.js
 /server/node_modules
 /.pnp
 .pnp.js
-/server/.env
-/server/creds.json
+/server/config
+/server/
 
 # testing
 /coverage
