@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import admin from 'firebase-admin';
-import { db } from './config.js';
+import { db } from './config/config.js';
 import { getDocs, collection } from 'firebase/firestore';
 import dotenv from 'dotenv';
 import medicinesRouter from './medicines/medicinesRouter.js';

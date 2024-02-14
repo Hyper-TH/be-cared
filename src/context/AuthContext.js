@@ -5,7 +5,7 @@ import {
     signOut, 
     onAuthStateChanged 
 } from 'firebase/auth';
-import { auth } from '../config.js';
+import { auth } from '../config';
 import Axios from 'axios';
 
 const UserContext = createContext();

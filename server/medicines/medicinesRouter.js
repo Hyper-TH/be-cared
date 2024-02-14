@@ -1,6 +1,6 @@
 import admin from 'firebase-admin';
-import serviceAccount from '../creds.json' assert { type: "json" };
-import { db } from '../config.js';
+import serviceAccount from '../config/creds.json' assert { type: "json" };
+import { db } from '../config/config.js';
 import { getDocs, 
     collection, 
     addDoc, 
