@@ -1,6 +1,5 @@
 import https from 'https';
 import { load } from 'cheerio';
-import Axios from 'axios';
 
 const regex = /<input type="hidden" name="authenticity_token" value="([^"]*)"[^>]*\/?>/;
 
@@ -61,6 +60,7 @@ export async function getInteractions(token, drugsArray) {
 
     const cookie = await getCookie();
 
+    return new Promise((resolve, reject) => {
     fetch('https://go.drugbank.com/drug-interaction-checker', {
 		method: 'POST',
 		headers: {
@@ -87,23 +87,26 @@ export async function getInteractions(token, drugsArray) {
             'sec-ch-ua-platform': '"Windows"'
 		},
         body: `authenticity_token=${token}&${queryString}button=`
-	})
+	    })
         .then(response => {
             if (!response.ok) {
-            throw new Error('Network response was not ok');
+                throw new Error('Network response was not ok');
             }
             return response.text(); // Get response body as text
         })
         .then(html => {
             // Log the HTML content
-            console.log(html);
+            // console.log(html);
+
+            resolve(html)
         })
         .catch(error => {
             console.error('Error fetching data:', error);
         });
+    })
 };
 
-function htmlParser(html) {
+export async function htmlParser(html) {
     const mainDiv = "interactions-box";
 
     // Load HTML content into Cheerio
@@ -116,6 +119,8 @@ function htmlParser(html) {
     const count = interactionsBoxes.length;
 
     console.log(`Found ${count} interactions`);
+
+    return count;
 };
 
 export async function getToken() {

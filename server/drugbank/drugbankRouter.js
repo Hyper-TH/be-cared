@@ -1,6 +1,6 @@
 import https from 'https';
 import express from 'express';
-import { autoComplete, getInteractions, getToken } from './methods.js';
+import { autoComplete, getInteractions, getToken, htmlParser } from './methods.js';
 import { getMaxListeners } from 'events';
 
 const router = express.Router();
@@ -43,6 +43,9 @@ router.get('/interactions', async (req, res) => {
         const token = await getToken();
         const interactions = await getInteractions(token, drugsArray);
 
+        const count = await htmlParser(interactions);
+
+        console.log(count);
         // Send a response back with the interactions or any other relevant data
         res.json({ interactions: "Some interaction data based on the drugs array" });
     } catch (error) {
