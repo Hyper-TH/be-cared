@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Drug } from '../../components/Drug';
 
 const SearchDrugPage = ({backTo}) => {
@@ -18,7 +18,6 @@ const SearchDrugPage = ({backTo}) => {
 	// TODO: When the user has chosen a drug, clear the search
   	const searchDrug = async (input) => {
 
-		console.log(`Sending ${input}`);
 		try {
 			const res = await Axios.get(`http://localhost:8000/autoComplete?input=${encodeURIComponent(input)}`);
 
@@ -57,7 +56,6 @@ const SearchDrugPage = ({backTo}) => {
 	};
 
 	const deleteDrug = (id) => {
-		console.log(`Removing ${id}`);
 
 		setDrugs(drugs.filter((drug) => drug.id !== id));	
 	};
@@ -74,6 +72,7 @@ const SearchDrugPage = ({backTo}) => {
 			console.log(`${res}`);
 			if (res.data) {
 				setResponse(res.data);
+				
 				setError("");
 			} else {
 				setResponse(null);

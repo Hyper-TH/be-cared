@@ -1,7 +1,6 @@
 import https from 'https';
 import { load } from 'cheerio';
 import Axios from 'axios';
-import { rejects } from 'assert';
 
 const regex = /<input type="hidden" name="authenticity_token" value="([^"]*)"[^>]*\/?>/;
 
@@ -56,57 +55,52 @@ export async function autoComplete(input) {
 // Return HTML interaction
 export async function getInteractions(token, drugsArray) {
 
-    const queryString = drugsArray.map(drug => `product_concept_ids%5B%5D=${encodeURIComponent(drug.id)}`).join('&');
+    const queryString = drugsArray.map(drug => `product_concept_ids%5B%5D=${encodeURIComponent(drug.id)}&product_concept_names%5B%5D=${encodeURIComponent(drug.name)}`).join('&');
 
     console.log(queryString);
 
+    const cookie = await getCookie();
 
-    const options = {
-        host: "go.drugbank.com",
-        path: "/drug-interaction-checker",
-        headers: {
-            accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-            accept_language: "en-GB,en;q=0.9",
-            cache_control: "max-age=0",
-            content_type: "application/x-www-form-urlencoded",
-            sec_ch_ua: "\"Not_A Brand\";v=\"8\", \"Chromium\";v=\"120\", \"Opera GX\";v=\"106\"",
-            sec_ch_ua_mobile: "?0",
-            sec_ch_ua_platform: "\"Windows\"",
-            sec_fetch_dest: "document",
-            sec_fetch_mode: "navigate",
-            sec_fetch_site: "same-origin",
-            sec_fetch_user: "?1",
-            upgrade_insecure_requests: "1",
-            Referer: "https://go.drugbank.com/drug-interaction-checker",
-            Referrer_Policy: "strict-origin-when-cross-origin"
-        },
-        // body: `authenticity_token=${token}&product_concept_ids%5B%5D=DBPC0014730&product_concept_names%5B%5D=Propranolol&product_concept_ids%5B%5D=DBPC0026582&product_concept_names%5B%5D=Epinephrine&button=`,
-        body: `authenticity_token=${token}&${queryString}button=`,
-        method: "POST"
-    }    
-
-    return new Promise((resolve, reject) => {
-        https.get(options, (res) => {
-            let result = '';
-
-            res.on('data', function (chunk) {
-                result += chunk;
-            });
-
-            res.on('end', function () {
-
-                console.log(result);
-
-                htmlParser(result);
-
-                resolve(result);
-            });
-
-            res.on('error', function (error) {
-                console.error('Error:', error);
-            });
+    fetch('https://go.drugbank.com/drug-interaction-checker', {
+		method: 'POST',
+		headers: {
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+            'Accept-Encoding': 'gzip, deflate',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Cache-Control': 'max-age=0',
+            'Connection': 'keep-alive',
+            // 'Content-Length': '269', // If uncommented theres errors LOL
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': `_omx_drug_bank_session=${cookie}`,
+            'DNT': '1',
+            'Host': 'go.drugbank.com',
+            'Origin': 'https://go.drugbank.com',
+            'Referer': 'https://go.drugbank.com/drug-interaction-checker',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'same-origin',
+            'Sec-Fetch-User': '?1',
+            'Upgrade-Insecure-Requests': '1',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
+            'sec-ch-ua': '"Not A(Brand";v="99", "Google Chrome";v="121", "Chromium";v="121"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"Windows"'
+		},
+        body: `authenticity_token=${token}&${queryString}button=`
+	})
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.text(); // Get response body as text
+        })
+        .then(html => {
+            // Log the HTML content
+            console.log(html);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
         });
-    });
 };
 
 function htmlParser(html) {
@@ -161,7 +155,7 @@ export async function getToken() {
                 if (match && match.length > 1) {
                     authToken = match[1];
     
-                    console.log(authToken); // Output: AUTHTOKEN
+                    // console.log(authToken); // Output: AUTHTOKEN
                     resolve(authToken);
                 } else {
                     console.log("Authenticity token not found.");
@@ -177,31 +171,17 @@ export async function getToken() {
 
 // Function to get cookie
 async function getCookie() {
-    return new Promise((resolve, reject) => {
+    const response = await fetch("https://go.drugbank.com/drug-interaction-checker");
+    const cookies = response.headers.get('set-cookie');
 
-    // Make a GET request to the URL
-    Axios.get('https://go.drugbank.com/drug-interaction-checker')
-      .then((response) => {
-        // Access cookies from the response headers
-        console.log(response.headers);
-        const cookies = response.headers['set-cookie'];
+    // Parse cookies to extract name and value
+    if (cookies) {
+        const [name, value] = cookies.split('=');
         
-        // Parse cookies to extract name and value
-        if (cookies && cookies.length > 0) {
-            const cookie = cookies[0]; // Assuming you want to access the first cookie
-            const [name, value] = cookie.split(';')[0].split('=');
+        const [cookie, extra] = value.split(';');
 
-            // console.log(`Cookie:${value}`);
-            // console.log('Name:', name);
-            // console.log('Value:', value);
-
-            resolve(value);
-        } else {
-            console.log('No cookies found in response');
-        }
-      })
-      .catch((error) => {
-            console.error('Error fetching data:', error);
-      });   
-    })
+        return cookie;
+    } else {
+        console.log('No cookies found in response');
+    }  
 }
