@@ -109,6 +109,25 @@ export async function getInteractions(token, drugsArray) {
 export async function htmlParser(html) {
     const mainDiv = "interactions-box";
 
+    // RAW LOGIC:
+    // for every class="interactions-box"
+    // grab "interactions-col subject"
+    // grab "interactions-col affected"
+    // grab "severity-badge severity-*" // severity-<actual_severity>
+    // grab "interactions-col description" > p
+    // grab "interactions-row" > p
+    // Return as JSON:
+    /*
+        {
+            subject: "",
+            affected: "",
+            severity: "",
+            description: "",
+            actual_description: ""
+        }
+    */
+
+    // TODO: if no interactions are found consult...
     // Load HTML content into Cheerio
     const $ = load(html);
 
