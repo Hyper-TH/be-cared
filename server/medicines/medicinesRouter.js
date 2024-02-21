@@ -75,6 +75,7 @@ router.get('/grabCache', async (req, res) => {
                 doc: document
             }
 
+            // TODO: try catch for any files above limit
             await firestore.collection(collectionName).doc(documentID).set(data);
             console.log("Cached to server!");
 
