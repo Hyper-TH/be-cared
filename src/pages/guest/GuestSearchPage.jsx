@@ -47,7 +47,7 @@ const GuestSearchPage = ({subPageName, backTo}) => {
         
         navigate({
             pathname: 
-            `guest/result/${encodeURIComponent(medicine.name)}/${encodeURIComponent(medicine.pils[0].activePil.file.name)}/${encodeURIComponent(medicine.company.name)}/${encodeURIComponent(medicine.ingredients[0].name)}`,
+            `/guest/result/${encodeURIComponent(medicine.name)}/${encodeURIComponent(medicine.pils[0].activePil.file.name)}/${encodeURIComponent(medicine.company.name)}/${encodeURIComponent(medicine.ingredients[0].name)}`,
 
         });
     

@@ -9,7 +9,7 @@ const GuestMedicinePage = ({subPageName, backTo}) => {
     const renderPIL = (medicineName, pil, company, activeIngredient) => {
 
         navigate({
-            pathname: `guest/render/${encodeURIComponent(medicineName)}/${encodeURIComponent(pil)}/${encodeURIComponent(company)}/${activeIngredient}`
+            pathname: `/guest/render/${encodeURIComponent(medicineName)}/${encodeURIComponent(pil)}/${encodeURIComponent(company)}/${activeIngredient}`
         });
     };
 

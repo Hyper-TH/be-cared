@@ -1,4 +1,3 @@
-import cors from 'cors';
 import https from 'https';
 
 // Method to get token
@@ -58,7 +57,8 @@ export async function requestList(token, search) {
             response.on('end', function () {
                 try {
                     const parsed = JSON.parse(result);
-
+                    
+                    // console.log(parsed);
                     resolve(parsed);
                 } catch (error) {
                     console.error('Error parsing JSON:', error);

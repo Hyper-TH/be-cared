@@ -21,6 +21,7 @@ dotenv.config();
 const database_id = process.env.ID;
 
 // Initialize Firebase Admin SDK 
+// TODO: Investigate where database_id is coming from, as .env is empty 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: `https://${database_id}.firebaseio.com/`

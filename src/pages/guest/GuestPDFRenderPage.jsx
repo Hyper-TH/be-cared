@@ -15,15 +15,15 @@ const GuestPDFRenderPage = ({ subPageName, backTo }) => {
             try {
                 const response = await Axios.get(`http://localhost:8000/grabCache?uploadPath=${encodeURIComponent(pil)}`);
 
-                console.log("Response:", response.data.doc.data);
+                // console.log("Response:", response.data.doc.data);
 
                 if (response.data) {
                 
                     const blob = new Blob([new Uint8Array(response.data.doc.data)], { type: 'application/pdf' });
-                    console.log(blob);
+                    // console.log(blob);
                     const blob_url = URL.createObjectURL(blob);
 
-                    console.log(blob_url);
+                    // console.log(blob_url);
 
                     setPDFURL(blob_url);
                     setError("");
