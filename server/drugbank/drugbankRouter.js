@@ -1,7 +1,6 @@
 import https from 'https';
 import express from 'express';
 import { autoComplete, getInteractions, getToken, htmlParser } from './methods.js';
-import { getMaxListeners } from 'events';
 
 const router = express.Router();
 
@@ -45,9 +44,11 @@ router.get('/interactions', async (req, res) => {
 
         const count = await htmlParser(interactions);
 
-        console.log(count);
+        // console.log(count);
+
         // Send a response back with the interactions or any other relevant data
         res.json({ interactions: "Some interaction data based on the drugs array" });
+
     } catch (error) {
         console.error(`Error processing request: ${error}`);
         res.status(500).json({ error: "Internal server error" });

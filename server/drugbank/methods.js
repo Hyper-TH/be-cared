@@ -1,5 +1,5 @@
 import https from 'https';
-import { load } from 'cheerio';
+import cheerio from 'cheerio';
 
 const regex = /<input type="hidden" name="authenticity_token" value="([^"]*)"[^>]*\/?>/;
 
@@ -49,8 +49,7 @@ export async function autoComplete(input) {
         });
     });
 };
-
-
+ 
 // Return HTML interaction
 export async function getInteractions(token, drugsArray) {
 
@@ -107,8 +106,6 @@ export async function getInteractions(token, drugsArray) {
 };
 
 export async function htmlParser(html) {
-    const mainDiv = "interactions-box";
-
     // RAW LOGIC:
     // for every class="interactions-box"
     // grab "interactions-col subject"
@@ -128,18 +125,61 @@ export async function htmlParser(html) {
     */
 
     // TODO: if no interactions are found consult...
-    // Load HTML content into Cheerio
-    const $ = load(html);
+    const $ = cheerio.load(html);
 
-    // Find all div elements with class "interactions-box"
-    const interactionsBoxes = $('div.interactions-box');
+    let results = [];
 
-    // Get the number of instances
-    const count = interactionsBoxes.length;
+    $('.interactions-box').each(function () {
+        let references = {};
 
-    console.log(`Found ${count} interactions`);
+        let subject = $(this).find('.interactions-col.subject').text().trim();
+        let affected = $(this).find('.interactions-col.affected').text().trim();
+        let severityClass = $(this).find('.severity-badge').attr('class');
+        let severity = 
+            severityClass.includes('severity-major') ? 'major' : 
+            severityClass.includes('severity-minor') ? 'minor' : 
+            severityClass.includes('severity-moderate') ? 'moderate' : 
+            '';
 
-    return count;
+        // For descriptions not within an <a> tag, we need to filter them out
+        let descriptions = $(this).find('.interactions-col.description p').filter(function() {
+            return $(this).find('a').length === 0;
+        }).map(function() {
+            return $(this).text().trim();
+        }).get().join(' '); // Joining paragraph texts with a space, you can adjust this
+        
+        // For actual_description, assuming we're getting content from every p tag in ".interactions-row"
+        let actualDescriptions = $(this).find('.interactions-row p').map(function() {
+            return $(this).text().trim();
+        }).get().join(' '); // Joining paragraph texts with a space, you can adjust this
+
+        // Extract references
+        $(this).find('li[id^="reference-"]').each(function(index) {
+            // This will ignore the text within any <a> tags directly under the <li>
+            let referenceText = $(this).clone().children('a').remove().end().text().trim();
+            
+            // Remove surrounding square brackets from the text
+            referenceText = referenceText.replace(/\[\]/g, '');
+
+            if (referenceText) {
+                references[index + 1] = referenceText;
+            }
+
+        });
+
+        results.push({
+            subject: subject,
+            affected: affected,
+            severity: severity,
+            description: descriptions,
+            actual_description: actualDescriptions,
+            references: references
+        });
+    });
+
+    console.log(results);
+
+    return results;
 };
 
 export async function getToken() {
