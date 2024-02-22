@@ -42,12 +42,10 @@ router.get('/interactions', async (req, res) => {
         const token = await getToken();
         const interactions = await getInteractions(token, drugsArray);
 
-        const count = await htmlParser(interactions);
-
-        // console.log(count);
+        const interactionResults = await htmlParser(interactions);
 
         // Send a response back with the interactions or any other relevant data
-        res.json({ interactions: "Some interaction data based on the drugs array" });
+        res.json({ interactions: interactionResults });
 
     } catch (error) {
         console.error(`Error processing request: ${error}`);

@@ -1,17 +1,20 @@
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import { useState } from 'react';
-import { Drug } from '../../components/Drug';
+import { Drug } from '../../components/drugBank/Drug';
 
 const SearchDrugPage = ({backTo}) => {
-	const [drugQuery, setDrugQuery] = useState("");
-	const [drugList, setDrugList] = useState([]);
-	const [drugs, setDrugs] = useState([]);
-	const [response, setResponse] = useState("");
-	const [error, setError] = useState("");
+	const [drugQuery, setDrugQuery] = useState("");	// Used for auto complete
+	const [drugList, setDrugList] = useState([]);	// List for interactions
+	const [drugs, setDrugs] = useState([]);			// Singular drug for CRUD operations on the list
+	const [response, setResponse] = useState("");	
+	const [error, setError] = useState("");	
 
+	// Trigger auto-complete for every input
+	// TODO: Improve performance
   	const drugChange = (e) => {
       	setDrugQuery(e.target.value);
+
 		searchDrug(drugQuery);
   	};
 
@@ -27,15 +30,18 @@ const SearchDrugPage = ({backTo}) => {
 				setError("");
 			} else {
 				setDrugList([]);
+
 				setError("Error retrieving Drugs");
 			}
 		} catch (error) {
 			console.error(`Axios Error: ${error}`);
 			setDrugList([]);
+
 			setError("Local Server Error");
 		}
  	};
 	
+	// Add drug to the list to be sent for interaction query
 	const addDrug = (id, name) => {
 		// Check if the drug with the same ID already exists in the list
 		if (drugs.some(drug => drug.id === id)) {
@@ -55,11 +61,12 @@ const SearchDrugPage = ({backTo}) => {
 		setDrugs([...drugs, newDrug]);
 	};
 
+	// Delete drug from interaction list query
 	const deleteDrug = (id) => {
-
 		setDrugs(drugs.filter((drug) => drug.id !== id));	
 	};
 
+	// Query to get interactions based on the chosen list of drugs
 	const getInteractions = async (drugs) => {
 		try {
 			// Serialize the array into a JSON string
@@ -69,18 +76,20 @@ const SearchDrugPage = ({backTo}) => {
 	
 			const res = await Axios.get(`http://localhost:8000/interactions?drugs=${encodedDrugs}`);
 	
-			console.log(`${res}`);
+			// console.log(`${res}`);
 			if (res.data) {
 				setResponse(res.data);
 				
 				setError("");
 			} else {
 				setResponse(null);
+
 				setError("Error retrieving interaction results");
 			}
 		} catch (error) {
 			console.error(`Axios Error: ${error}`);
 			setResponse(null);
+
 			setError("Local Server Error");
 		}
 	};
@@ -91,9 +100,14 @@ const SearchDrugPage = ({backTo}) => {
 
 		<div>
 			<label>
+				{/* TODO: Improve input search bar so that it's "floating" */}
 				Search a Drug:
 				<input type="text" onChange={drugChange} />
 			</label>
+		</div>
+
+		<div>
+			
 		</div>
 
 		<div>
