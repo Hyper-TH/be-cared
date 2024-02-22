@@ -2,12 +2,13 @@ import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import { useState } from 'react';
 import { Drug } from '../../components/drugBank/Drug';
+import { Interaction } from '../../components/drugBank/Interaction';
 
 const SearchDrugPage = ({backTo}) => {
 	const [drugQuery, setDrugQuery] = useState("");	// Used for auto complete
 	const [drugList, setDrugList] = useState([]);	// List for interactions
 	const [drugs, setDrugs] = useState([]);			// Singular drug for CRUD operations on the list
-	const [response, setResponse] = useState("");	
+	const [interactions, setInteractions] = useState([]);   // Interaction Results	
 	const [error, setError] = useState("");	
 
 	// Trigger auto-complete for every input
@@ -76,19 +77,19 @@ const SearchDrugPage = ({backTo}) => {
 	
 			const res = await Axios.get(`http://localhost:8000/interactions?drugs=${encodedDrugs}`);
 	
-			// console.log(`${res}`);
-			if (res.data) {
-				setResponse(res.data);
+			console.log(res.data.interactions);
+			if (res.data.interactions) {
+				setInteractions(res.data.interactions);
 				
 				setError("");
 			} else {
-				setResponse(null);
+				setInteractions([]);
 
 				setError("Error retrieving interaction results");
 			}
 		} catch (error) {
 			console.error(`Axios Error: ${error}`);
-			setResponse(null);
+			setInteractions([]);
 
 			setError("Local Server Error");
 		}
@@ -106,8 +107,20 @@ const SearchDrugPage = ({backTo}) => {
 			</label>
 		</div>
 
-		<div>
-			
+		<div className="drug_interaction_results">
+			{interactions.map((interaction) => {
+				return(
+					<Interaction
+						key={interaction.id}
+						subject={interaction.subject}
+						affected={interaction.affected}
+						severity={interaction.severity}
+						description={interaction.description}
+						actual_description={interaction.actual_description}
+						references={interaction.references}
+					/>
+				)
+			})}
 		</div>
 
 		<div>

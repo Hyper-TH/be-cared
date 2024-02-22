@@ -128,19 +128,22 @@ export async function htmlParser(html) {
     const $ = cheerio.load(html);
 
     let results = [];
+    let id = 0;
 
     $('.interactions-box').each(function () {
         let references = {};
-
+        id += 1;
         let subject = $(this).find('.interactions-col.subject').text().trim();
+        subject = subject.split("button=")[0];
         let affected = $(this).find('.interactions-col.affected').text().trim();
+        affected = affected.split("button=")[0];
         let severityClass = $(this).find('.severity-badge').attr('class');
         let severity = 
-            severityClass.includes('severity-major') ? 'major' : 
-            severityClass.includes('severity-minor') ? 'minor' : 
-            severityClass.includes('severity-moderate') ? 'moderate' : 
+            severityClass.includes('severity-major') ? 'Major' : 
+            severityClass.includes('severity-minor') ? 'Minor' : 
+            severityClass.includes('severity-moderate') ? 'Moderate' : 
             '';
-
+        
         // For descriptions not within an <a> tag, we need to filter them out
         let descriptions = $(this).find('.interactions-col.description p').filter(function() {
             return $(this).find('a').length === 0;
@@ -168,6 +171,7 @@ export async function htmlParser(html) {
         });
 
         results.push({
+            id: id,
             subject: subject,
             affected: affected,
             severity: severity,
@@ -175,6 +179,8 @@ export async function htmlParser(html) {
             actual_description: actualDescriptions,
             references: references
         });
+
+
     });
 
     console.log(results);
