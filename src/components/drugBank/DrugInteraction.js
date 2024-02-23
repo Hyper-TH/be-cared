@@ -1,4 +1,4 @@
-export const Interaction = (props) => {
+export const DrugInteraction = (props) => {
     
     // Map the object to an array of JSX elements
     const listItems = Object.entries(props.references).map(([key, value]) => (

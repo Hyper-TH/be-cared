@@ -33,6 +33,9 @@ const HomePage = () => {
                     <button>
                         <Link to="/subscriptions">Subscriptions</Link>
                     </button>
+                    <button>
+                                <Link to="/foodInteractions">Search food interactions</Link>
+                    </button>
 
                     <div>    
                         {userType === 'verified' && (

@@ -8,7 +8,8 @@ import {
 	GuestPage, GuestSearchPage, GuestMedicinePage, 
 	GuestPDFRenderPage, HomePage, LoginPage, 
 	MedicinePage, SubscriptionsPage, SearchMedPage, 
-	SearchDrugPage, MerckPage, PDFRenderPage 
+	SearchDrugPage, FoodInteractionsPage, MerckPage, 
+	PDFRenderPage 
 } from './RouteImports.js';
 
 import ProtectedRoute from './components/auth/ProtectedRoute.js';
@@ -74,6 +75,15 @@ function App() {
 					element={
 					<ProtectedRoute>
 						<SearchDrugPage subPageName="Search" backTo="/home"/>
+					</ProtectedRoute>
+					} 
+				/>				
+				
+				<Route 
+					path="/foodInteractions" 
+					element={
+					<ProtectedRoute>
+						<FoodInteractionsPage subPageName="Search" backTo="/home"/>
 					</ProtectedRoute>
 					} 
 				/>

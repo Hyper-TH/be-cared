@@ -2,24 +2,24 @@ import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import { useState } from 'react';
 import { Drug } from '../../components/drugBank/Drug';
-import { DrugInteraction } from '../../components/drugBank/DrugInteraction';
+import { FoodInteraction } from '../../components/drugBank/FoodInteraction';
 
-const SearchDrugPage = ({backTo}) => {
-	const [drugQuery, setDrugQuery] = useState("");	// Used for auto complete
-	const [drugList, setDrugList] = useState([]);	// List for drug search
-	const [drugs, setDrugs] = useState([]);			// Singular drug for CRUD operations on the list
+const FoodInteractionsPage = ({backTo}) => {
+    const [drugQuery, setDrugQuery] = useState("");	// Used for auto complete
+    const [drugList, setDrugList] = useState([]);	// List for drug search
+	const [drug, setDrugs] = useState([]);			// Singular drug for CRUD operations on the list
 	const [interactions, setInteractions] = useState([]);   // Interaction Results	
 	const [error, setError] = useState("");	
 
-	// Trigger auto-complete for every input
+    // Trigger auto-complete for every input
 	// TODO: Improve performance
   	const drugChange = (e) => {
-      	setDrugQuery(e.target.value);
+        setDrugQuery(e.target.value);
 
-		searchDrug(drugQuery);
-  	};
+      searchDrug(drugQuery);
+    };
 
-	// TODO: When the user has chosen a drug, clear the search
+    // TODO: When the user has chosen a drug, clear the search
   	const searchDrug = async (input) => {
 
 		try {
@@ -41,11 +41,11 @@ const SearchDrugPage = ({backTo}) => {
 			setError("Local Server Error");
 		}
  	};
-	
-	// Add drug to the list to be sent for interaction query
+
+    // Add drug to the state to be sent for interaction query
 	const addDrug = (id, name) => {
-		// Check if the drug with the same ID already exists in the list
-		if (drugs.some(drug => drug.id === id)) {
+		// Check if there is already a drug
+		if (drug.some(drug => drug.id === id)) {
 			// If the drug already exists, throw an error or show a message
 			
 			console.error('Drug already exists in the list');
@@ -59,23 +59,23 @@ const SearchDrugPage = ({backTo}) => {
 			name: name,
 		};
 		
-		setDrugs([...drugs, newDrug]);
+		setDrugs([...drug, newDrug]);
 	};
 
 	// Delete drug from interaction list query
 	const deleteDrug = (id) => {
-		setDrugs(drugs.filter((drug) => drug.id !== id));	
+		setDrugs(drug.filter((drug) => drug.id !== id));	
 	};
 
-	// Query to get interactions based on the chosen list of drugs
-	const getInteractions = async (drugs) => {
+    // Query to get interactions based on the chosen drug
+	const getFoodInteractions = async (drugs) => {
 		try {
 			// Serialize the array into a JSON string
 			const drugsJSON = JSON.stringify(drugs);
 			// Encode the JSON string to be URL-safe
 			const encodedDrugs = encodeURIComponent(drugsJSON);
 	
-			const res = await Axios.get(`http://localhost:8000/interactions?drugs=${encodedDrugs}`);
+			const res = await Axios.get(`http://localhost:8000/foodInteractions?drugs=${encodedDrugs}`);
 	
 			console.log(res.data.interactions);
 			if (res.data.interactions) {
@@ -95,32 +95,16 @@ const SearchDrugPage = ({backTo}) => {
 		}
 	};
 
-	return (
-		<>
-		<h2>Drug Search Page</h2>
+    return (
+        <>
+        <h2>Food Interactions Page</h2>
 
-		<div>
+        <div>
 			<label>
 				{/* TODO: Improve input search bar so that it's "floating" */}
 				Search a Drug:
 				<input type="text" onChange={drugChange} />
 			</label>
-		</div>
-
-		<div className="drug_interaction_results">
-			{interactions.map((interaction) => {
-				return(
-					<DrugInteraction
-						key={interaction.id}
-						subject={interaction.subject}
-						affected={interaction.affected}
-						severity={interaction.severity}
-						description={interaction.description}
-						actual_description={interaction.actual_description}
-						references={interaction.references}
-					/>
-				)
-			})}
 		</div>
 
 		<div>
@@ -130,7 +114,7 @@ const SearchDrugPage = ({backTo}) => {
 
 			
 			<div className="drug_interaction_list"> 
-				{drugs.map((drug) => {
+				{drug.map((drug) => {
 					return (
 						<Drug 
 							key={drug.id}
@@ -141,8 +125,8 @@ const SearchDrugPage = ({backTo}) => {
 					)
 				})}
 			</div>
-			
-			<button onClick={() => getInteractions(drugs)}>Get interactions</button>
+
+            <button onClick={() => getFoodInteractions(drug)}>Get food interactions</button>
 
 			{drugList?.map((drug) => 
 			<div key={drug.drugbank_pcid}>
@@ -154,10 +138,10 @@ const SearchDrugPage = ({backTo}) => {
 			</div>
 			)}
 
-			{error && <p style={{ color: "red" }}>{error}</p>}
-		</div>
-		</>
-	);
+            {error && <p style={{ color: "red" }}>{error}</p>}
+        </div>
+        </>
+    )
 }
 
-export default SearchDrugPage;
+export default FoodInteractionsPage
