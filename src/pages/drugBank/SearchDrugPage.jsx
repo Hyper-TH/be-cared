@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import { useState } from 'react';
 import { Drug } from '../../components/drugBank/Drug';
-import { Interaction } from '../../components/drugBank/Interaction';
+import { Interaction } from '../../components/drugBank/DrugInteraction';
 
 const SearchDrugPage = ({backTo}) => {
 	const [drugQuery, setDrugQuery] = useState("");	// Used for auto complete
