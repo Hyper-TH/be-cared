@@ -1,16 +1,16 @@
 import https from 'https';
 import express from 'express';
-import { autoComplete, getInteractions, getToken, htmlParser } from './methods.js';
+import { autoComplete, getInteractions, getFoodInteractions, getToken, htmlParser } from './methods.js';
 
 const router = express.Router();
 
 router.get('/autoComplete', async (req, res) => {
     try {
         const { input } = req.query;
-        console.log("Input: ", input);
+        // console.log("Input: ", input);
         const drugsData = await autoComplete(input);
 
-        console.log(drugsData);
+        // console.log(drugsData);
 
         // Assuming requestList returns an array of drugs
         res.json({ drugs: drugsData });
@@ -37,7 +37,7 @@ router.get('/interactions', async (req, res) => {
         
         // Parse the JSON string into an array
         const drugsArray = JSON.parse(decodedDrugs);
-        console.log(drugsArray);
+        // console.log(drugsArray);
 
         const token = await getToken();
         const interactions = await getInteractions(token, drugsArray);
@@ -46,6 +46,38 @@ router.get('/interactions', async (req, res) => {
 
         // Send a response back with the interactions or any other relevant data
         res.json({ interactions: interactionResults });
+
+    } catch (error) {
+        console.error(`Error processing request: ${error}`);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+router.get('/foodInteractions', async (req, res) => {
+    try {
+        // Extract the 'drugs' query parameter from the request URL
+        const { drugs } = req.query;
+
+        // Check if the 'drugs' parameter exists
+        if (!drugs) {
+            return res.status(400).json({ error: "Drugs parameter is missing" });
+        }
+
+        // Decode the URL-safe string back to JSON
+        const decodedDrugs = decodeURIComponent(drugs);
+        
+        // Parse the JSON string into an array
+        const drugsArray = JSON.parse(decodedDrugs);
+        // console.log(drugsArray);
+
+        const token = await getToken();
+        const interactions = await getFoodInteractions(token, drugsArray);
+
+        // console.log(interactions)
+        // const interactionResults = await htmlParser(interactions);
+
+        // Send a response back with the interactions or any other relevant data
+        res.json({ interactions: interactions });
 
     } catch (error) {
         console.error(`Error processing request: ${error}`);
