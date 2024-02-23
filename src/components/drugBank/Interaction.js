@@ -1,4 +1,10 @@
 export const Interaction = (props) => {
+    
+    // Map the object to an array of JSX elements
+    const listItems = Object.entries(props.references).map(([key, value]) => (
+        <li key={key}>{value}</li>
+    ));
+
     return (
         <div className="interaction">
             <div>
@@ -12,16 +18,10 @@ export const Interaction = (props) => {
                 Longer description: {props.actual_description}
             </div>
 
-            <p>
-                {/* References: {
-                    // props.references.map((reference) => {
-                    //     <li key={reference}>
-                    //         <p>{reference}</p>
-                    //     </li>
-                    // })
-                    props.references
-                } */}
-            </p>
+            <div>
+                References: <ul>{listItems}</ul>;
+            </div>
+            
         </div>
     );
 };
