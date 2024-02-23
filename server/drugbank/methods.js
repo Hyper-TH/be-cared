@@ -156,6 +156,35 @@ export async function getFoodInteractions(token, drugsArray) {
     })
 };
 
+// Parse food interactions
+export async function foodParser(html) {
+    // RAW LOGIC:
+    // for every tr class "success" OR "danger"
+    // if "success" grab div class="pull-right" content
+        // grab a tag content
+        // for every td
+            // grab content
+    // else if "danger"
+        // grab div class="pull-right" > a tag content
+        // grab td content (i.e., No known food interactions)
+
+    // Return as JSON:
+    /*
+    {
+        name: "",
+        num_interactions: "",
+        interactions: {
+            1: "",
+            2: ""
+        }
+    },    
+    {
+        name: "",
+        num_interactions: 0,
+        interactions: {}
+    }
+    */
+};
 
 // Parse drug interactions
 export async function htmlParser(html) {
