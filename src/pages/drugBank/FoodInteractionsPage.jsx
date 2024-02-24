@@ -19,7 +19,6 @@ const FoodInteractionsPage = ({backTo}) => {
       searchDrug(drugQuery);
     };
 
-    // TODO: When the user has chosen a drug, clear the search
   	const searchDrug = async (input) => {
 
 		try {
