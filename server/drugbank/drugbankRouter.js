@@ -1,6 +1,6 @@
 import https from 'https';
 import express from 'express';
-import { autoComplete, getInteractions, getFoodInteractions, getToken, htmlParser } from './methods.js';
+import { autoComplete, getInteractions, getFoodInteractions, getToken, htmlParser, foodParser } from './methods.js';
 
 const router = express.Router();
 
@@ -74,10 +74,10 @@ router.get('/foodInteractions', async (req, res) => {
         const interactions = await getFoodInteractions(token, drugsArray);
 
         // console.log(interactions)
-        // const interactionResults = await htmlParser(interactions);
+        const interactionResults = await foodParser(interactions);
 
         // Send a response back with the interactions or any other relevant data
-        res.json({ interactions: interactions });
+        res.json({ interactions: interactionResults });
 
     } catch (error) {
         console.error(`Error processing request: ${error}`);

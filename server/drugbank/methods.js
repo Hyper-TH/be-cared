@@ -146,7 +146,7 @@ export async function getFoodInteractions(token, drugsArray) {
         })
         .then(html => {
             // Log the HTML content
-            console.log(html);
+            // console.log(html);
 
             resolve(html)
         })
@@ -184,6 +184,40 @@ export async function foodParser(html) {
         interactions: {}
     }
     */
+    const $ = cheerio.load(html);
+
+    let results = [];
+    let id = 0;
+
+    $('.success, .danger').each(function () {
+        let interactions = {};
+        let name = $(this).find('a').text().trim();
+        let num_interactions = $(this).find('.pull-right').text().trim();
+        let index = 0;
+        id += 1;
+
+        // for every td
+        // Use next() to get the following tr elements and find td in them
+        let nextTr = $(this).next('tr');
+        while (nextTr.length > 0 && nextTr.find('td').length > 0) {
+            let interactionText = nextTr.find('td').text().trim();
+            interactions[index] = interactionText;
+
+            // Move to the next tr
+            nextTr = nextTr.next('tr');
+            index += 1;
+        }
+
+        results.push({
+            id: id,
+            name: name,
+            num_interactions: num_interactions,
+            interactions: interactions
+        })
+    });
+
+    console.log(results);
+    return results;
 };
 
 // Parse drug interactions
@@ -202,7 +236,11 @@ export async function htmlParser(html) {
             affected: "",
             severity: "",
             description: "",
-            actual_description: ""
+            actual_description: "",
+            references: {
+                1: "",
+                2: ""
+            }
         }
     */
 
@@ -266,7 +304,6 @@ export async function htmlParser(html) {
     });
 
     console.log(results);
-
     return results;
 };
 
