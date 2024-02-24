@@ -1,35 +1,19 @@
 import admin from 'firebase-admin';
 import serviceAccount from '../config/creds.json' assert { type: "json" };
-import { db } from '../config/config.js';
-import { getDocs, 
-    collection, 
-    addDoc, 
-    deleteDoc, 
-    updateDoc, 
-    doc } 
-from 'firebase/firestore'
-import dotenv from 'dotenv';
-import fs from 'fs';
 import express from 'express';
 import { tokenOptions } from './tokenOptions.js';
 import { requestToken, requestList, requestDocument } from './methods.js'
  
 const router = express.Router();
 
-dotenv.config();
-
-const database_id = process.env.ID;
-
 // Initialize Firebase Admin SDK 
-// TODO: Investigate where database_id is coming from, as .env is empty 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: `https://${database_id}.firebaseio.com/`
+    databaseURL: `https://be-cared.firebaseio.com/`
 });
 
 const firestore = admin.firestore();
 
-// TODO: Have an appropriate response if there is no medicine results
 // end point to get list of medicines
 router.get('/getMeds', async (req, res) => {
     try {
@@ -40,6 +24,8 @@ router.get('/getMeds', async (req, res) => {
         } else {
             const token = await requestToken(tokenOptions);
             const medsData = await requestList(token, medQuery);
+
+            console.log(medsData);
 
             // Assuming requestList returns an array of medicines
             res.json({ medicines: medsData });
