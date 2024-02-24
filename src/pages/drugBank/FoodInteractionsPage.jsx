@@ -107,6 +107,19 @@ const FoodInteractionsPage = ({backTo}) => {
 			</label>
 		</div>
 
+		<div className="food_interaction_results">
+			{interactions.map((interaction) => {
+				return (
+					<FoodInteraction
+						key={interaction.id}
+						name={interaction.name}
+						num_interactions={interaction.num_interactions}
+						interactions={interaction.interactions}
+					/>
+				)
+			})}
+		</div>
+
 		<div>
 			<button>
 				<Link to={backTo}>Back to Home</Link>
