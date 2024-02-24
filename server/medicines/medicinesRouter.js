@@ -51,6 +51,7 @@ router.get('/grabCache', async (req, res) => {
             
             res.type('application/pdf').send(documentData);
         } 
+
         // If it does not, cache this to the server!
         else {
             console.log(`Caching to server with new documentID: ${documentID}`);
@@ -63,14 +64,23 @@ router.get('/grabCache', async (req, res) => {
             }
 
             // TODO: try catch for any files above limit
-            await firestore.collection(collectionName).doc(documentID).set(data);
-            console.log("Cached to server!");
+            // this has been modified, need to find a med 
+            // that has an above limit pdf
+            try {
+                await firestore.collection(collectionName).doc(documentID).set(data);
+                
+                console.log("Cached to server!");
+              
+                let documentSnapshot = await firestore.collection(collectionName).doc(documentID).get();
+                const documentData = documentSnapshot.data();
+              
+                res.type('application/pdf').send(documentData);
 
-            // Grab it again
-            documentSnapshot = await firestore.collection(collectionName).doc(documentID).get();
-            const documentData = documentSnapshot.data();
-            
-            res.type('application/pdf').send(documentData);
+            } catch (error) {
+                console.error("An error occurred:", error);
+              
+                res.type('application/pdf').send(data); 
+            }
         }
 
     } catch (error) {
@@ -78,5 +88,6 @@ router.get('/grabCache', async (req, res) => {
     }
 });
 
-
+// TODO: Caching/Refreshing
+// Note that medicines.ie has a flag for any updates within 30 days!
 export default router;
