@@ -19,7 +19,6 @@ const SearchDrugPage = ({backTo}) => {
 		searchDrug(drugQuery);
   	};
 
-	// TODO: When the user has chosen a drug, clear the search
   	const searchDrug = async (input) => {
 
 		try {
@@ -60,6 +59,7 @@ const SearchDrugPage = ({backTo}) => {
 		};
 		
 		setDrugs([...drugs, newDrug]);
+		setDrugList([]);
 	};
 
 	// Delete drug from interaction list query

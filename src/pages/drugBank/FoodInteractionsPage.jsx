@@ -60,6 +60,7 @@ const FoodInteractionsPage = ({backTo}) => {
 		};
 		
 		setDrugs([...drug, newDrug]);
+		setDrugList([]);
 	};
 
 	// Delete drug from interaction list query
