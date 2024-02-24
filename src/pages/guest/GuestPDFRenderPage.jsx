@@ -48,7 +48,7 @@ const GuestPDFRenderPage = ({ subPageName, backTo }) => {
 
     const returnToMed = (medicineName, pil, company, activeIngredient) => {
         navigate({
-            pathname: `guest/result/${encodeURIComponent(medicineName)}/${encodeURIComponent(pil)}/${encodeURIComponent(company)}/${encodeURIComponent(activeIngredient)}`
+            pathname: `/guest/result/${encodeURIComponent(medicineName)}/${encodeURIComponent(pil)}/${encodeURIComponent(company)}/${encodeURIComponent(activeIngredient)}`
         })
     }
 

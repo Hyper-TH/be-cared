@@ -2,7 +2,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { useState, useEffect } from 'react';
 
-// TODO: Not being redirected properly to the medicine info page
 const GuestSearchPage = ({ backTo }) => {
     const [medQuery, setMedQuery] = useState("");
     const [medicineList, setMedicineList] = useState(null);
