@@ -9,10 +9,10 @@ const SearchDrugPage = ({backTo}) => {
 	const [drugList, setDrugList] = useState([]);	// List for drug search
 	const [drugs, setDrugs] = useState([]);			// Singular drug for CRUD operations on the list
 	const [interactions, setInteractions] = useState([]);   // Interaction Results	
+	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");	
 
 	// Trigger auto-complete for every input
-	// TODO: Improve performance
   	const drugChange = (e) => {
       	setDrugQuery(e.target.value);
 
@@ -20,25 +20,24 @@ const SearchDrugPage = ({backTo}) => {
   	};
 
   	const searchDrug = async (input) => {
+		setIsLoading(true);
+		setError("");
 
 		try {
 			const res = await Axios.get(`http://localhost:8000/autoComplete?input=${encodeURIComponent(input)}`);
 
 			if (res.data.drugs) {
 				setDrugList(res.data.drugs);
-
-				setError("");
 			} else {
 				setDrugList([]);
-
-				setError("Error retrieving Drugs");
 			}
 		} catch (error) {
-			console.error(`Axios Error: ${error}`);
+			// console.error(`Axios Error: ${error}`);
 			setDrugList([]);
-
 			setError("Local Server Error");
 		}
+
+		setIsLoading(false);
  	};
 	
 	// Add drug to the list to be sent for interaction query
@@ -60,6 +59,7 @@ const SearchDrugPage = ({backTo}) => {
 		
 		setDrugs([...drugs, newDrug]);
 		setDrugList([]);
+		setDrugQuery("");
 	};
 
 	// Delete drug from interaction list query
@@ -103,7 +103,11 @@ const SearchDrugPage = ({backTo}) => {
 			<label>
 				{/* TODO: Improve input search bar so that it's "floating" */}
 				Search a Drug:
-				<input type="text" onChange={drugChange} />
+				<input 
+					type="text" 
+					value={drugQuery}
+					onChange={drugChange} 
+				/>
 			</label>
 		</div>
 
@@ -130,7 +134,7 @@ const SearchDrugPage = ({backTo}) => {
 
 			
 			<div className="drug_interaction_list"> 
-				{drugs.map((drug) => {
+				{drugs?.map((drug) => {
 					return (
 						<Drug 
 							key={drug.id}
@@ -143,16 +147,26 @@ const SearchDrugPage = ({backTo}) => {
 			</div>
 			
 			<button onClick={() => getInteractions(drugs)}>Get interactions</button>
-
-			{drugList?.map((drug) => 
-			<div key={drug.drugbank_pcid}>
-				<p>Drug Name: {drug.name}</p>
-
-				<button onClick={() => addDrug(drug.drugbank_pcid, drug.name)}>
-					Add to interaction list
-				</button>
+			
+			<div className="drug_search_list">
+				{isLoading ?  (
+					<div>Loading...</div>
+				) : drugList.length === 0 && !drugQuery ? (
+					<div>Enter drug to start searching...</div>
+				) : drugList.length === 0 && drugQuery ? (
+					<div>Drug not found, type more...</div>
+				) : (
+					drugList?.map((drug) => 
+					<div key={drug.drugbank_pcid}>
+						<p>Drug Name: {drug.name}</p>
+	
+						<button onClick={() => addDrug(drug.drugbank_pcid, drug.name)}>
+							Add to interaction list
+						</button>
+					</div>
+				))}
 			</div>
-			)}
+			
 
 			{error && <p style={{ color: "red" }}>{error}</p>}
 		</div>
