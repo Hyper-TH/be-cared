@@ -244,13 +244,15 @@ export async function htmlParser(html) {
         }
     */
 
-    // TODO: if no interactions are found consult...
     const $ = cheerio.load(html);
 
     let results = [];
     let id = 0;
 
-    $('.interactions-box').each(function () {
+    if ($('.results').find('h2').text().trim() == 'No Interactions Found') {
+        console.log(`No interactions found!`);
+    } else {
+        $('.interactions-box').each(function () {
         let references = {};
         id += 1;
         let subject = $(this).find('.interactions-col.subject').text().trim();
@@ -300,9 +302,8 @@ export async function htmlParser(html) {
             references: references
         });
 
-
-    });
-
+        }
+    )};
     console.log(results);
     return results;
 };

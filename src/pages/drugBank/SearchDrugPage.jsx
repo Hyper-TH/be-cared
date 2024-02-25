@@ -8,7 +8,7 @@ const SearchDrugPage = ({backTo}) => {
 	const [drugQuery, setDrugQuery] = useState("");	// Used for auto complete
 	const [drugList, setDrugList] = useState([]);	// List for drug search
 	const [drugs, setDrugs] = useState([]);			// Singular drug for CRUD operations on the list
-	const [interactions, setInteractions] = useState([]);   // Interaction Results	
+	const [interactions, setInteractions] = useState(null);   // Interaction Results	
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");	
 
@@ -69,6 +69,7 @@ const SearchDrugPage = ({backTo}) => {
 
 	// Query to get interactions based on the chosen list of drugs
 	const getInteractions = async (drugs) => {
+		// TODO: If there is only one drug in the list, do not send query, throw error
 		try {
 			// Serialize the array into a JSON string
 			const drugsJSON = JSON.stringify(drugs);
@@ -78,15 +79,16 @@ const SearchDrugPage = ({backTo}) => {
 			const res = await Axios.get(`http://localhost:8000/interactions?drugs=${encodedDrugs}`);
 	
 			console.log(res.data.interactions);
+			
 			if (res.data.interactions) {
 				setInteractions(res.data.interactions);
-				
 				setError("");
 			} else {
 				setInteractions([]);
 
 				setError("Error retrieving interaction results");
 			}
+
 		} catch (error) {
 			console.error(`Axios Error: ${error}`);
 			setInteractions([]);
@@ -111,20 +113,30 @@ const SearchDrugPage = ({backTo}) => {
 			</label>
 		</div>
 
+		{/*
+			TODO: Add this warning box:
+			Warning: If no interactions are found between two drugs, 
+			it does not necessarily mean that no interactions exist. 
+			Always consult with a healthcare professional.
+		*/}
 		<div className="drug_interaction_results">
-			{interactions.map((interaction) => {
-				return(
-					<DrugInteraction
-						key={interaction.id}
-						subject={interaction.subject}
-						affected={interaction.affected}
-						severity={interaction.severity}
-						description={interaction.description}
-						actual_description={interaction.actual_description}
-						references={interaction.references}
-					/>
-				)
-			})}
+			{interactions?.length === 0 ? (
+				<div>No Interactions found</div>
+			) : (
+				interactions?.map((interaction) => {
+					return(
+						<DrugInteraction
+							key={interaction.id}
+							subject={interaction.subject}
+							affected={interaction.affected}
+							severity={interaction.severity}
+							description={interaction.description}
+							actual_description={interaction.actual_description}
+							references={interaction.references}
+						/>
+					)
+				}))
+			}
 		</div>
 
 		<div>

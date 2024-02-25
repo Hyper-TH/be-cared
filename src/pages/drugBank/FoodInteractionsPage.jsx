@@ -69,6 +69,7 @@ const FoodInteractionsPage = ({backTo}) => {
 
     // Query to get interactions based on the chosen drug
 	const getFoodInteractions = async (drugs) => {
+		// TODO: If there are no drugs in the list, do not send query, throw error
 		try {
 			// Serialize the array into a JSON string
 			const drugsJSON = JSON.stringify(drugs);
