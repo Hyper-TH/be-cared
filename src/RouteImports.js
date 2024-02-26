@@ -17,10 +17,11 @@ import PDFRenderPage from './pages/medicines/PDFRenderPage.jsx';
 import SearchDrugPage from './pages/drugBank/SearchDrugPage.jsx';
 import FoodInteractionsPage from './pages/drugBank/FoodInteractionsPage.jsx';
 import SearchProductPage  from './pages/merck/SearchProductPage.jsx';
+import ProductPage  from './pages/merck/ProductPage.jsx';
 
 export { GuestPage, GuestSearchPage, GuestMedicinePage, 
         GuestPDFRenderPage, HomePage, LoginPage, 
         MedicinePage, SubscriptionsPage, SearchMedPage, 
         SearchDrugPage, FoodInteractionsPage, SearchProductPage, 
-        PDFRenderPage 
+        ProductPage, PDFRenderPage 
 };
