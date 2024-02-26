@@ -16,7 +16,7 @@ const FoodInteractionsPage = ({backTo}) => {
   	const drugChange = (e) => {
         setDrugQuery(e.target.value);
 
-      searchDrug(drugQuery);
+      	searchDrug(drugQuery);
     };
 
   	const searchDrug = async (input) => {
