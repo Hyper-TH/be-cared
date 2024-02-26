@@ -44,20 +44,44 @@ const SearchProductPage = ({subPageName, backTo}) => {
 
     return (
         <>
-            <div>
-                <h1>{subPageName} Page</h1>
-            </div>
-            <h2>This is the Merck search page</h2>
+        <h2>Product Search Page</h2>
 
-            <div>
-                <button>
-                    <Link to={backTo}>Back to Home</Link>
-                </button>
-                <button onClick={() => handleViewDetails()}>
-                    View Product Details
-                </button>
-            </div>
-        </>
+        <div>
+            <label>
+                Search a product:
+                <input type="text" value={prodQuery} onChange={productChange} />
+            </label>
+            <button onClick={searchProduct}>Search</button>
+        </div>
+
+        <div>
+            <button>
+                <Link to={backTo}>Back to Home</Link>
+            </button>
+
+            {/* {isLoading ? (
+                <div>Loading...</div>
+            ) : productList === null ? (
+                // Render nothing if medicineList is null, which is the initial state before loading
+                null
+            ) : productList.length > 0 ? (
+                // Map over the medicine list if it has items
+                productList.map((medicine) => (
+                    <div key={medicine.id}>
+                        <p>Medicine Name: {medicine.name}</p>
+                        <button onClick={() => handleViewDetails(medicine)}>
+                            View Medicine Details
+                        </button>
+                    </div>
+                ))
+            ) : (
+                // If empty array
+                <div>No prpducts found</div>
+            )} */}
+
+            {error && <p style={{ color: "red" }}>{error}</p>}
+        </div>
+    </>
     );
 };
 
