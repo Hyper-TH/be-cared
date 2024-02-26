@@ -41,7 +41,7 @@ const HomePage = () => {
                         {userType === 'verified' && (
                             <>
                             <button>
-                                <Link to="/merck">Search chemical compound</Link>
+                                <Link to="/searchProduct">Search chemical compound</Link>
                             </button>
                             
                             <button>

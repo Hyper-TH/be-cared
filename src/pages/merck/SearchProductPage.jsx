@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const MerckPage = ({subPageName, backTo}) => {
+const SearchProductPage = ({subPageName, backTo}) => {
     return (
         <>
             <div>
@@ -17,4 +17,4 @@ const MerckPage = ({subPageName, backTo}) => {
     );
 };
 
-export default MerckPage;
+export default SearchProductPage;

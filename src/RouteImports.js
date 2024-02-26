@@ -16,11 +16,11 @@ import PDFRenderPage from './pages/medicines/PDFRenderPage.jsx';
 /* VERIFIED */
 import SearchDrugPage from './pages/drugBank/SearchDrugPage.jsx';
 import FoodInteractionsPage from './pages/drugBank/FoodInteractionsPage.jsx';
-import MerckPage  from './pages/MerckPage.jsx';
+import SearchProductPage  from './pages/merck/SearchProductPage.jsx';
 
 export { GuestPage, GuestSearchPage, GuestMedicinePage, 
         GuestPDFRenderPage, HomePage, LoginPage, 
         MedicinePage, SubscriptionsPage, SearchMedPage, 
-        SearchDrugPage, FoodInteractionsPage, MerckPage, 
+        SearchDrugPage, FoodInteractionsPage, SearchProductPage, 
         PDFRenderPage 
 };

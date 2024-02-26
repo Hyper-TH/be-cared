@@ -8,7 +8,7 @@ import {
 	GuestPage, GuestSearchPage, GuestMedicinePage, 
 	GuestPDFRenderPage, HomePage, LoginPage, 
 	MedicinePage, SubscriptionsPage, SearchMedPage, 
-	SearchDrugPage, FoodInteractionsPage, MerckPage, 
+	SearchDrugPage, FoodInteractionsPage, SearchProductPage, 
 	PDFRenderPage 
 } from './RouteImports.js';
 
@@ -109,10 +109,10 @@ function App() {
 
 				
 				<Route 
-					path="/merck" 
+					path="/searchProduct" 
 					element={
 					<ProtectedRoute>
-						<MerckPage subPageName="Merck" backTo="/home" />
+						<SearchProductPage subPageName="Merck" backTo="/home" />
 					</ProtectedRoute>} 
 				/>
 
