@@ -5,6 +5,7 @@ import { useState } from 'react';
 const SearchProductPage = ({subPageName, backTo}) => {
     const [prodQuery, setProdQuery] = useState(""); // State for product query to send to server
     const [productList, setProductList] = useState([])  // State for list of product responses
+    const [searchType, setSearchType] = useState("");   // Default to name
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
 
@@ -12,17 +13,23 @@ const SearchProductPage = ({subPageName, backTo}) => {
         setProdQuery(event.target.value);
     };
     
-    const searchProduct = async () => {
+    const handleDropdownChange = (event) => {
+        setSearchType(event.target.value);
+    };
+
+    const searchProduct = async (e) => {
+        e.preventDefault();
+
         setIsLoading(true);
         setError("");
 
         try {
-            const response = await Axios.get(`http://localhost:8000/getProds?prodQuery=${encodeURIComponent(prodQuery)}`);
+            const response = await Axios.get(`http://localhost:8000/getProds?prodQuery=${encodeURIComponent(prodQuery)}&searchType=${encodeURIComponent(searchType)}`);
             
-            // console.log(response.data);
+            console.log(response.data);
 
-            if (response.data) {
-                setProductList(response.data);
+            if (response.data.products) {
+                setProductList(response.data.products);
             } else {
                 setProductList([]);
             }
@@ -45,13 +52,23 @@ const SearchProductPage = ({subPageName, backTo}) => {
     return (
         <>
         <h2>Product Search Page</h2>
-
         <div>
-            <label>
-                Search a product:
-                <input type="text" value={prodQuery} onChange={productChange} />
-            </label>
-            <button onClick={searchProduct}>Search</button>
+            <form>
+                {/* TODO: Have it so that if user hasn't chosen, default to name OR have them choose */}
+                <label htmlFor="dropdown">Choose search type:</label>
+                <select id="dropdown" value={searchType} onChange={handleDropdownChange}>
+                    <option value="">Select...</option>
+                    <option value="name">Product Name</option>
+                    <option value="number">Product ID</option>
+                </select>
+                
+                <label>
+                    Search a product:
+                    <input type="text" value={prodQuery} onChange={productChange} />
+                </label>
+
+                <button onClick={searchProduct}>Submit</button>
+            </form>
         </div>
 
         <div>
@@ -59,7 +76,7 @@ const SearchProductPage = ({subPageName, backTo}) => {
                 <Link to={backTo}>Back to Home</Link>
             </button>
 
-            {/* {isLoading ? (
+            {isLoading ? (
                 <div>Loading...</div>
             ) : productList === null ? (
                 // Render nothing if medicineList is null, which is the initial state before loading
@@ -76,8 +93,8 @@ const SearchProductPage = ({subPageName, backTo}) => {
                 ))
             ) : (
                 // If empty array
-                <div>No prpducts found</div>
-            )} */}
+                <div>No products found</div>
+            )}
 
             {error && <p style={{ color: "red" }}>{error}</p>}
         </div>

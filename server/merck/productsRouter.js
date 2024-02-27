@@ -1,21 +1,23 @@
 import express from 'express';
-import { requestCookie, requestList } from './methods.js'
+import { requestCookie, requestList, productListParser } from './methods.js'
 
 const router = express.Router();
 
 router.get('/getProds', async (req, res) => {
     try {
-        const { prodQuery } = req.query;
+        const { prodQuery, searchType } = req.query;
 
         if (!prodQuery) {
             return res.status(400).json({ error: 'Product is required '});
         } else {
             const cookie = await requestCookie();
-            const prodsData = await requestList(cookie, prodQuery);
+            const prodsList = await requestList(cookie, prodQuery, searchType);
+            const prodsData = await productListParser(prodsList);
 
             console.log(prodsData);
 
-            res.status(200);
+            // Assuming requestList returns an array of drugs
+            res.json({ products: prodsData });
         }
     } catch (error) {
         console.error('Error:', error);
