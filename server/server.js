@@ -10,6 +10,8 @@ import productsRouter from './merck/productsRouter.js';
 
 dotenv.config();
 
+// TODO: Refetch every week for all PDF documents
+
 // Create Express application
 const app = express();
 app.use(cors());
