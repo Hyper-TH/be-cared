@@ -101,12 +101,7 @@ export async function productListParser(html) {
 	$('.jss214').each(function () {
 		let productName = $(this).find('.jss216').find('span').text().trim();	// Parse this so that it only takes direct child text
 		let linearFormula = $(this).find('.jss224').find('span.jss223').text().trim();	// TODO: sub tags for numbers
-		let productID = 
-			$(this).
-			find('td.MuiTableCell-root jss250 MuiTableCell-body MuiTableCell-sizeSmall').
-			find('a.MuiTypography-root MuiLink-root MuiLink-underlineNone MuiTypography-colorPrimary').
-			text().
-			trim();	// TODO: Can not parse/find
+		let productID = $(this).find('td[class*="jss250"] a').text().trim();
 		let productDescription = $(this).find('.jss254').text().trim();
 		id += 1;
 		
