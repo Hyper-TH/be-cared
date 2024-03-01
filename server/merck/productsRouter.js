@@ -12,9 +12,9 @@ router.get('/getProds', async (req, res) => {
         } else {
             const cookie = await requestCookie();
             const prodsList = await requestList(cookie, prodQuery, searchType);
-            const prodsData = await productListParser(prodsList);
+            const prodsData = await productListParser(prodsList, searchType);
 
-            console.log(prodsData);
+            // console.log(prodsData);
 
             // Assuming requestList returns an array of drugs
             res.json({ products: prodsData });
