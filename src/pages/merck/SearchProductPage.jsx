@@ -1,8 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { useState } from 'react';
+import Product from '../../components/merck/Product';
 
-const SearchProductPage = ({subPageName, backTo}) => {
+const SearchProductPage = ({ backTo }) => {
     const [prodQuery, setProdQuery] = useState(""); // State for product query to send to server
     const [productList, setProductList] = useState([])  // State for list of product responses
     const [searchType, setSearchType] = useState("");   // Default to name
@@ -26,7 +27,7 @@ const SearchProductPage = ({subPageName, backTo}) => {
         try {
             const response = await Axios.get(`http://localhost:8000/getProds?prodQuery=${encodeURIComponent(prodQuery)}&searchType=${encodeURIComponent(searchType)}`);
             
-            console.log(response.data);
+            // console.log(response.data);
 
             if (response.data.products) {
                 setProductList(response.data.products);
@@ -76,21 +77,25 @@ const SearchProductPage = ({subPageName, backTo}) => {
                 <Link to={backTo}>Back to Home</Link>
             </button>
 
+            {/* TODO: handleViewDetails based on ID selected */}
             {isLoading ? (
                 <div>Loading...</div>
             ) : productList === null ? (
-                // Render nothing if medicineList is null, which is the initial state before loading
+                // Render nothing if productList is null, which is the initial state before loading
                 null
             ) : productList.length > 0 ? (
                 // Map over the medicine list if it has items
-                productList.map((medicine) => (
-                    <div key={medicine.id}>
-                        <p>Medicine Name: {medicine.name}</p>
-                        <button onClick={() => handleViewDetails(medicine)}>
-                            View Medicine Details
-                        </button>
-                    </div>
-                ))
+                // TODO: Warning: Encountered two children with the same key, `0`. 
+                productList.map((product) => {
+                    return (
+                        <Product
+                            key={product.id}
+                            name={product.productName}
+                            products={product.products}
+                            handleViewDetails={handleViewDetails}
+                        />
+                    )
+                })
             ) : (
                 // If empty array
                 <div>No products found</div>
