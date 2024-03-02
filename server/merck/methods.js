@@ -18,7 +18,7 @@ export async function requestCookie() {
 	}
 };
 
-// TODO: return in JSON format (from html)
+
 // Return list of products
 export async function requestList(cookie, prodQuery, type) {
 	console.log(`Query: ${prodQuery}`);
@@ -78,90 +78,77 @@ export async function requestList(cookie, prodQuery, type) {
 };
 
 // Parse food interactions
-// TODO: Make this code shorter/more efficient
+// TODO: Make this code shorter/more efficient (can we combine them?)
 export async function productListParser(html, type) {
-    // RAW LOGIC:
-	// Parent div .jss114
-	// for every jss214
-	//	get jss216.span as name
-	//	get jss224.jss223 as linear formula (note the sub tags surrounding numbers)
-	//	get into MuiTableBody-root
-	//		get td class containing jss250.a as productID
-	//		get span class jss254 as description
-    // Return as JSON:
     /*
     {
-        Product Name: "",
-        Product ID: "",
-		Product Description,
-		Linear Formula: ""
+		id: '',
+        ProductName: '',
+		linearFormula: '',
+		products: [
+			{
+				id: 0,
+				productID: '',
+				productDescription: '',
+				href: '',
+			}
+		]
     }
     */
 
-	// TODO: Would it be faster to get the parent div before passing it into this method
     const $ = cheerio.load(html);
 
     let results = [];
+	let products = [];
+
     let id = 0;
 
-	console.log(`Got type: ${type}`);
-
 	if (type === 'number') {
-		// for id searches
-		// for every tr.jss246
-		//  productName => td.jss250
-		//	description => td.jss251 > a // span.254
 		console.log(`Entered ID section..`);
 
-		$('.jss214').each(function () {
-			let products = {};
-			let productName = $(this).find('.jss216 > h2').text().trim();
-			let linearFormula = $(this).find('.jss224').find('span.jss223').text().trim();	// TODO: sub tags for numbers
-			let productID = $(this).find('td[class*="jss250"] a').text().trim();
-			let productDescription = $(this).find('.jss254').text().trim();
-			// Append productID and productDescription to products
-			products[productID] = productDescription;
-
+		// TODO: Monitor the class names as they have changed
+		$('.jss215').each(function () {
+			let productName = $(this).find('.jss217 > h2').text().trim();
+			let linearFormula = $(this).find('.jss225').find('span.jss224').html();	
+			linearFormula = linearFormula && linearFormula.trim() !== '' ? linearFormula : 'N/A';
+			let productID = $(this).find('td[class*="jss248"] a').text().trim();
+			let href = $(this).find('td[class*="jss248"] > a').attr('href');
+			let productDescription = $(this).find('span.jss252').text().trim();
 			id += 1;
-			
-			console.log(`Product Name: ${productName}`);
+
+			products.push({
+				productID: productID,
+				productDescription: productDescription,
+				href: href
+			});			
 	
 			results.push({
 				id: id,
-				products,
 				productName: productName,
-				productDescription: productDescription,
-				linearFormula: linearFormula
+				linearFormula: linearFormula,
+				products
 			});
 		});
-		// console.log(results);
 	} else {
-		// for name searches, there might be multiple productIDs and description (root= MuiTableBody-root > tr.jss830 )
-		// for every 798
-		// linearFormula => .jss808 > span.jss807
-		// productName => .jss800 > h2.'jss803' > a
-		// for every tr.jss830 
-		// productID => td.jss834 > a
-		// description => td.jss835 > a // span.jss838
-		console.log(`Entered name section..`);
-
-		$('.jss214').each(function () {
-			let products = {};
-			let productName = $(this).find('.jss216 > h2').text().trim();
-
-			// TODO: Linear formula may not exist
-			let linearFormula = $(this).find('.jss224').find('span.jss223').text().trim();
+		$('.jss215').each(function () {
+			let products = [];
+			let productName = $(this).find('.jss217 > h2').text().trim();
+			let linearFormula = $(this).find('.jss225').find('span.jss224').html();
+			linearFormula = linearFormula && linearFormula.trim() !== '' ? linearFormula : 'N/A';
 			
 			// for each loop for productID here and description
-			$(this).find('tr[class*="jss246"]').each(function () {
-				let productID = $(this).find('td[class*="jss250"] a').text().trim();
-				let productDescription = $(this).find('.jss254').text().trim();
+			$(this).find('tr[class*="jss244"]').each(function () {
+				let productID = $(this).find('td[class*="jss248"] a').text().trim();
+				let productDescription = $(this).find('.jss252').text().trim();
+				let href = $(this).find('td[class*="jss248"] > a').attr('href');
 
-				// Append productID and productDescription to products
-				products[productID] = productDescription;
+				products.push({
+					productID: productID,
+					productDescription: productDescription,
+					href: href
+				});			
+	
 			});
-
-			console.log(`Product Name: ${productName}`);
 
 			results.push({
 				id: id,
