@@ -117,10 +117,10 @@ function App() {
 				/>
 				
 				<Route 
-					path="/result/test" 
+					path="/result/product" 
 					element={
 					<ProtectedRoute>
-						<ProductPage subPageName="Merck" backTo="/home" />
+						<ProductPage subPageName="Merck" backTo="/searchProduct" />
 					</ProtectedRoute>} 
 				/>
 

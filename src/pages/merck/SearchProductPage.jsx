@@ -27,7 +27,7 @@ const SearchProductPage = ({ backTo }) => {
         try {
             const response = await Axios.get(`http://localhost:8000/getProds?prodQuery=${encodeURIComponent(prodQuery)}&searchType=${encodeURIComponent(searchType)}`);
             
-            // console.log(response.data);
+            console.log(response.data);
 
             if (response.data.products) {
                 setProductList(response.data.products);
@@ -45,9 +45,21 @@ const SearchProductPage = ({ backTo }) => {
     const navigate = useNavigate();
 
     const handleViewDetails = (product) => {
-        navigate({
-            pathname: `/result/test`
-        });
+
+        /* THIS WORKS
+        // When encoding for the URL
+        // const encodedData = encodeURIComponent(JSON.stringify(product));
+
+        // // When decoding from the URL
+        // try {
+        //     const decodedData = decodeURIComponent(encodedData);
+        //     const obj = JSON.parse(decodedData);
+        //     console.log(obj);
+        // } catch (error) {
+        //     console.error("Error decoding or parsing the object:", error);
+        // }
+        */
+        navigate(`/result/product`, { state: {product}});
     };
 
     return (
@@ -92,6 +104,7 @@ const SearchProductPage = ({ backTo }) => {
                             key={product.id}
                             name={product.productName}
                             products={product.products}
+                            product={product}
                             handleViewDetails={handleViewDetails}
                         />
                     )

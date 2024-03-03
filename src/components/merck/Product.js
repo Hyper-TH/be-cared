@@ -10,7 +10,7 @@ const Product = (props) => {
                     <li key={product.productID}>
                         <p>Product ID: {product.productID}</p>
                         <p>Product Description: {product.productDescription}</p>
-                        <button onClick={() => props.handleViewDetails(product.href)}>View Product Details</button>
+                        <button onClick={() => props.handleViewDetails(props.product)}>View Product Details</button>
                     </li>
                 ))}
             </div>
