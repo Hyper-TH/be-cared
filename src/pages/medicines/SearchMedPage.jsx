@@ -35,6 +35,7 @@ const SearchPage = ({ backTo }) => {
 
     const navigate = useNavigate();
 
+    // TODO: shorten the pathname (base on SearchProductPage.jsx)
     const handleViewDetails = (medicine) => {
         navigate({
             pathname: 

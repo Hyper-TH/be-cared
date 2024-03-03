@@ -6,13 +6,14 @@ import { requestToken, requestList, requestDocument } from './methods.js'
  
 const router = express.Router();
 
-// Initialize Firebase Admin SDK 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: `https://be-cared.firebaseio.com/`
-});
+// TODO: Cannot reinitialize firebase admin sdk
+// // Initialize Firebase Admin SDK 
+// admin.initializeApp({
+//     credential: admin.credential.cert(serviceAccount),
+//     databaseURL: `https://be-cared.firebaseio.com/`
+// });
 
-const firestore = admin.firestore();
+// const firestore = admin.firestore();
 
 // end point to get list of medicines
 router.get('/getMeds', async (req, res) => {
@@ -37,7 +38,7 @@ router.get('/getMeds', async (req, res) => {
 });
 
 router.get('/grabCache', async (req, res) => {
-    const { uploadPath } = req.query 
+    const { uploadPath } = req.query;
 
     const documentID = uploadPath;
     const collectionName = "files"; 
@@ -45,15 +46,14 @@ router.get('/grabCache', async (req, res) => {
     try {
         let documentSnapshot = await firestore.collection(collectionName).doc(documentID).get();
         
+        // If it's already in the server (cached)
         if (documentSnapshot.exists) {
             console.log(`Found cached document`);
             const documentData = documentSnapshot.data();
             
             res.type('application/pdf').send(documentData);
-        } 
-
-        // If it does not, cache this to the server!
-        else {
+        } else {
+            // If it does not, cache this to the server!
             console.log(`Caching to server with new documentID: ${documentID}`);
 
             const token = await requestToken(tokenOptions);
@@ -79,12 +79,13 @@ router.get('/grabCache', async (req, res) => {
             } catch (error) {
                 console.error("An error occurred:", error);
               
+                // TODO: Fix this
                 res.type('application/pdf').send(data); 
             }
         }
 
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error(`Error fetching data: ${error}`);
     }
 });
 
