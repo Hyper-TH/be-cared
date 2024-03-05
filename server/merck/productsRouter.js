@@ -39,7 +39,6 @@ router.get('/getProduct', async (req, res) => {
     const { uploadPath } = req.query;
 
     console.log(`Got ${uploadPath}`);
-    // TODO: change '/' to '_'
     const documentID = uploadPath.replace(/[\/]/g, "_");
     const collectionName = "products";
 
@@ -57,11 +56,8 @@ router.get('/getProduct', async (req, res) => {
 
             console.log(`Sending ${uploadPath}`);
             const html = await requestProductDetails(uploadPath);
-
             // Parse HTML file and receive details in JSON format
             const productDetails = await productDetailsParser(html, uploadPath)
-
-            console.log(productDetails);
 
             const data = {
                 doc: productDetails

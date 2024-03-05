@@ -45,20 +45,6 @@ const SearchProductPage = ({ backTo }) => {
     const navigate = useNavigate();
 
     const handleViewDetails = (product) => {
-
-        /* THIS WORKS
-        // When encoding for the URL
-        // const encodedData = encodeURIComponent(JSON.stringify(product));
-
-        // // When decoding from the URL
-        // try {
-        //     const decodedData = decodeURIComponent(encodedData);
-        //     const obj = JSON.parse(decodedData);
-        //     console.log(obj);
-        // } catch (error) {
-        //     console.error("Error decoding or parsing the object:", error);
-        // }
-        */
         navigate(`/result/product`, { state: {product}});
     };
 

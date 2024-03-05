@@ -7,10 +7,6 @@ export async function requestCookie() {
 	const response = await fetch("https://www.sigmaaldrich.com/IE/en/search/t1503?focus=products&page=1&perpage=30&sort=relevance&term=t1503&type=product_number");
 	const cookie = response.headers.get('set-cookie');
 
-	/*
-		GUID, accessToken, dtCookie, 
-		akaalb_origin-alb, ak_bmsc, bm_mi 
-	*/
 	if (cookie) {
         return cookie;
 	} else {
@@ -179,21 +175,6 @@ export async function productDetailsParser(html, uploadPath) {
     	}
 	*/
 
-	/*
-		PRODUCT NAME = span id="product-name"
-		PRODUCT DESCRIPTION = span id="product-description"
-
-		PRODUCT DETAILS:
-		(ROOT) div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12" (unique)
-		key = MuiTypography-root jss219 MuiTypography-caption
-		value = MuiTypography-root jss220 MuiTypography-body1
-
-		PRODUCT PROPERTIES:
-		div id (ROOT) = pdp-properties--table
-		key = h3.span 
-		value = p.span
-	*/
-
 	const $ = cheerio.load(html);
 	let product = {};
 	let productDetails = {};
@@ -236,30 +217,19 @@ export async function productDetailsParser(html, uploadPath) {
 		};
 	});
 
-	
-	// GrandParent: 
-	// MuiGrid-container
-	// Parent:
-	// MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-lg-4
-	// Child:
-	// MuiGrid-root MuiGrid-item
-
 	// PRODUCT PROPERTIES
 	$('#pdp-properties--table').find('h3').each(function() {
 		// Get the text content of the current h3 tag as the key
 		let key = $(this).text();
-		// console.log(`Current key: ${key}`);
 
 		// Find the immediately following p tag and get its text content as the value
-		let value = $(this).parent() // Moves to .parent
-							.next() // Moves to .parent-sibling
+		let value = $(this).parent() 
+							.next() 
 							.find('p')
 							.text()
 							.trim(); 
 		
-		// console.log(`Current value: ${value}`);
 
-		// Add the key-value pair to the propertiesObject
 		productProperties[key] = value;
 	});
 
@@ -325,21 +295,3 @@ export async function requestProductDetails(uploadPath) {
         })
 	});
 }
-
-// fetch("https://www.sigmaaldrich.com/IE/en/product/sigma/93337", {
-// "headers": {
-// 	"accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-// 	"accept-language": "en-US,en;q=0.9",
-// 	"sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Google Chrome\";v=\"122\"",
-// 	"sec-ch-ua-mobile": "?0",
-// 	"sec-ch-ua-platform": "\"Windows\"",
-// 	"sec-fetch-dest": "document",
-// 	"sec-fetch-mode": "navigate",
-// 	"sec-fetch-site": "none",
-// 	"sec-fetch-user": "?1",
-// 	"upgrade-insecure-requests": "1"
-// },
-// "referrerPolicy": "strict-origin-when-cross-origin",
-// "body": null,
-// "method": "GET"
-// });
