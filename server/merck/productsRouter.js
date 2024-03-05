@@ -40,52 +40,49 @@ router.get('/getProduct', async (req, res) => {
 
     console.log(`Got ${uploadPath}`);
     // TODO: change '/' to '_'
-    const documentID = uploadPath;
-    // const collectionName = "products";
+    const documentID = uploadPath.replace(/[\/]/g, "_");
+    const collectionName = "products";
 
     try {
-        // let documentSnapshot = await firestore.collection(collectionName).doc(documentID).get();
+        let documentSnapshot = await firestore.collection(collectionName).doc(documentID).get();
 
-        // if (documentSnapshot.exists) {
-        //     console.log(`Found cached product`);
-        //     const productData = documentSnapshot.data();
+        if (documentSnapshot.exists) {
+            console.log(`Found cached product`);
+            const productData = documentSnapshot.data();
 
-        //     res.type('json').send(productData);
+            res.type('json').send(productData);
 
-        // } else {
+        } else {
             console.log(`Caching to server with new documentID: ${documentID}`);
 
             console.log(`Sending ${uploadPath}`);
             const html = await requestProductDetails(uploadPath);
-
-            // TEMP
-            // console.log(html);
 
             // Parse HTML file and receive details in JSON format
             const productDetails = await productDetailsParser(html, uploadPath)
 
             console.log(productDetails);
 
-            // const data = {
-            //     doc: productDetails
-            // }
+            const data = {
+                doc: productDetails
+            }
 
-            // try {
-            //     await firestore.collection(collectionName).doc(documentID).set(data);
+            try {
+                await firestore.collection(collectionName).doc(documentID).set(data);
 
-            //     console.log("Cached to server!");
+                console.log("Cached to server!");
 
-            //     let documentSnapshot = await firestore.collection(collectionName).doc(documentID).get();
-            //     const productData = documentSnapshot.data();
+                let documentSnapshot = await firestore.collection(collectionName).doc(documentID).get();
+                const productData = documentSnapshot.data();
 
-            //     res.type('json').send(productData);
+                res.type('json').send(productData);
 
-            // } catch (error) {
-            //     console.error('an error occured:', error);
+            } catch (error) {
+                console.error('an error occured:', error);
 
-            //     res.send({ error: 'Failed' });
-            // }
-        // }
+                res.send({ error: 'Failed' });
+            }
+        }
 
     } catch (error) {
         console.error(`Error fetching data: ${error}`);

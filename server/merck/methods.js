@@ -206,32 +206,49 @@ export async function productDetailsParser(html, uploadPath) {
 	let $productDetailsRoot = $('[class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"]');
 
 	// Iterate through potential child divs
-	// $productDetailsRoot.find('div').each(function() {
-	// 	// Get the class attribute of the current div
-	// 	const classAttr = $(this).attr('class');
+	$productDetailsRoot.find('div').each(function() {
+		// Get the class attribute of the current div
+		const classAttr = $(this).attr('class');
 
-	// 	// Check if this div's class ends with "MuiTypography-caption"
-	// 	if (classAttr && classAttr.endsWith('MuiTypography-caption')) {
-	// 		let key = $(this).text().trim();
-	// 		// console.log(`Current key: ${key}`);
+		// Check if this div's class ends with "MuiTypography-caption"
+		if (classAttr && classAttr.endsWith('[class=$"MuiTypography-caption"]')) {
 
-	// 		let value = $(this).next().text().trim();
-	// 		// if this.next() returns nothing, go to cousin
-	// 		// OR
+			// Add condition, if the next one is 'MuiTypography-body1' then append it
+			if ($(this).next('[class=$"MuiTypography-body1]"')) {
+				let key = $(this).text().trim();
+	
+				let value = $(this).next().text().trim();
+	
+				productDetails[key] = value;
+			}
+		} 
+		// Entered Product Details container
+		else if (classAttr && classAttr.endsWith('MuiGrid-container')) {
+			$(this)
+			.find('[class$="MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-lg-4"]')
+			.each(function () {			
+  				let key = $(this).find('[class="MuiGrid-root MuiGrid-item"]').first().text().trim();
 
-			
-	// 		// console.log(`Current value: ${value}`);
+			    let value = $(this).find('[class="MuiGrid-root MuiGrid-item"]').last().text().trim();
 
-	// 		productDetails[key] = value;
-	// 	}
-	// });
+				productDetails[key] = value;
+			}) 				
+		};
+	});
+
+	
+	// GrandParent: 
+	// MuiGrid-container
+	// Parent:
+	// MuiGrid-container MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-lg-4
+	// Child:
+	// MuiGrid-root MuiGrid-item
 
 	// PRODUCT PROPERTIES
-	// TODO: Some keys seem to be in string format, others are not
 	$('#pdp-properties--table').find('h3').each(function() {
 		// Get the text content of the current h3 tag as the key
 		let key = $(this).text();
-		console.log(`Current key: ${key}`);
+		// console.log(`Current key: ${key}`);
 
 		// Find the immediately following p tag and get its text content as the value
 		let value = $(this).parent() // Moves to .parent
@@ -240,7 +257,7 @@ export async function productDetailsParser(html, uploadPath) {
 							.text()
 							.trim(); 
 		
-		console.log(`Current value: ${value}`);
+		// console.log(`Current value: ${value}`);
 
 		// Add the key-value pair to the propertiesObject
 		productProperties[key] = value;
