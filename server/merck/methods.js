@@ -162,6 +162,86 @@ export async function productListParser(html, type) {
 	return results;
 };
 
+export async function productDetailsParser(html, uploadPath) {
+	console.log(`Entered product details parser with ${uploadPath}`);
+	/*
+		JSON TO RETURN:
+		{
+			id: uploadPath,
+			ProductName: '',
+			ProductDescription: '',
+			productDetails: {
+				// LOOP
+			},
+			productProperties: {
+				// LOOP
+			}
+    	}
+	*/
+
+	/*
+		PRODUCT NAME = span id="product-name"
+		PRODUCT DESCRIPTION = span id="product-description"
+
+		PRODUCT DETAILS:
+		(ROOT) div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12" (unique)
+		key = MuiTypography-root jss219 MuiTypography-caption
+		value = MuiTypography-root jss220 MuiTypography-body1
+
+		PRODUCT PROPERTIES:
+		div id (ROOT) = pdp-properties--table
+		key = h3.span 
+		value = p.span
+	*/
+
+	const $ = cheerio.load(html);
+	let product = {};
+	let productDetails = {};
+	let productProperties = {};
+	
+	let productName = $('span#product-name').text().trim();
+	let productDescription = $('span#product-description').text().trim();
+
+	console.log(`Product name: ${productName}`);
+	console.log(`Product description: ${productDescription}`);
+
+	// PRODUCT DETAILS
+	let $productDetailsRoot = $('.MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12');
+	console.log(`ProductDetailsRoot: ${$productDetailsRoot}`);
+
+	// Iterate through potential child divs
+	$productDetailsRoot.find('div').each(function() {
+		// Get the class attribute of the current div
+		const classAttr = $(this).attr('class');
+
+		// Check if this div's class ends with "MuiTypography-caption"
+		if (classAttr && classAttr.endsWith('MuiTypography-caption')) {
+			let key = $(this).text().trim();
+			let value = $(this).next().find('span').text().trim();
+
+			productDetails[key] = value;
+		}
+	});
+
+	// PRODUCT PROPERTIES
+	$('div#pdp-proprties--table').each(function () {
+		let key = $(this).find('h3').text().trim();
+		let value = $(this).find('p').text().trim();
+
+		productProperties[key] = value;
+	});
+
+	product.push({
+		id: uploadPath,
+		productName: productName,
+		productDescription: productDescription,
+		productDetails: productDetails,
+		productProperties: productProperties
+	});
+
+	return product;
+};	
+
 // Function to request product details 
 export async function requestProductDetails(uploadPath) {
 	console.log(`Upload path: ${uploadPath}`);
@@ -197,7 +277,7 @@ export async function requestProductDetails(uploadPath) {
 
             response.on('end', function () {
 				const doc = result;
-				const filePath = 'got.html';
+				const filePath = 'got2.html';
 
 				// Write HTML content to file
 				fs.writeFile(filePath, doc, (err) => {			

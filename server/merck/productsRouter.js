@@ -1,7 +1,7 @@
 import admin from 'firebase-admin';
 import serviceAccount from '../config/creds.json' assert { type: "json" };
 import express from 'express';
-import { requestCookie, requestProductDetails, requestList, productListParser } from './methods.js'
+import { requestCookie, requestProductDetails, requestList, productListParser, productDetailsParser } from './methods.js'
 
 const router = express.Router();
 
@@ -41,25 +41,31 @@ router.get('/getProduct', async (req, res) => {
     console.log(`Got ${uploadPath}`);
     // TODO: change '/' to '_'
     const documentID = uploadPath;
-    const collectionName = "products";
+    // const collectionName = "products";
 
     try {
-        let documentSnapshot = await firestore.collection(collectionName).doc(documentID).get();
+        // let documentSnapshot = await firestore.collection(collectionName).doc(documentID).get();
 
-        if (documentSnapshot.exists) {
-            console.log(`Found cached product`);
-            const productData = documentSnapshot.data();
+        // if (documentSnapshot.exists) {
+        //     console.log(`Found cached product`);
+        //     const productData = documentSnapshot.data();
 
-            res.type('json').send(productData);
+        //     res.type('json').send(productData);
 
-        } else {
+        // } else {
             console.log(`Caching to server with new documentID: ${documentID}`);
 
             console.log(`Sending ${uploadPath}`);
-            const productDetails = await requestProductDetails(uploadPath);
+            const html = await requestProductDetails(uploadPath);
 
             // TEMP
+            // console.log(html);
+
+            // Parse HTML file and receive details in JSON format
+            const productDetails = await productDetailsParser(html, uploadPath)
+
             console.log(productDetails);
+
             // const data = {
             //     doc: productDetails
             // }
@@ -79,9 +85,9 @@ router.get('/getProduct', async (req, res) => {
 
             //     res.send({ error: 'Failed' });
             // }
-        }
+        // }
 
-    } catch {
+    } catch (error) {
         console.error(`Error fetching data: ${error}`);
     }
 })
