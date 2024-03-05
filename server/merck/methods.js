@@ -202,31 +202,47 @@ export async function productDetailsParser(html, uploadPath) {
 	let productName = $('span#product-name').text().trim();
 	let productDescription = $('span#product-description').text().trim();
 
-	console.log(`Product name: ${productName}`);
-	console.log(`Product description: ${productDescription}`);
-
 	// PRODUCT DETAILS
 	let $productDetailsRoot = $('[class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"]');
 
 	// Iterate through potential child divs
-	$productDetailsRoot.find('div').each(function() {
-		// Get the class attribute of the current div
-		const classAttr = $(this).attr('class');
+	// $productDetailsRoot.find('div').each(function() {
+	// 	// Get the class attribute of the current div
+	// 	const classAttr = $(this).attr('class');
 
-		// Check if this div's class ends with "MuiTypography-caption"
-		if (classAttr && classAttr.endsWith('MuiTypography-caption')) {
-			let key = $(this).text().trim();
-			let value = $(this).next().find('span').text().trim();
+	// 	// Check if this div's class ends with "MuiTypography-caption"
+	// 	if (classAttr && classAttr.endsWith('MuiTypography-caption')) {
+	// 		let key = $(this).text().trim();
+	// 		// console.log(`Current key: ${key}`);
 
-			productDetails[key] = value;
-		}
-	});
+	// 		let value = $(this).next().text().trim();
+	// 		// if this.next() returns nothing, go to cousin
+	// 		// OR
+
+			
+	// 		// console.log(`Current value: ${value}`);
+
+	// 		productDetails[key] = value;
+	// 	}
+	// });
 
 	// PRODUCT PROPERTIES
-	$('div#pdp-proprties--table').each(function () {
-		let key = $(this).find('h3').text().trim();
-		let value = $(this).find('p').text().trim();
+	// TODO: Some keys seem to be in string format, others are not
+	$('#pdp-properties--table').find('h3').each(function() {
+		// Get the text content of the current h3 tag as the key
+		let key = $(this).text();
+		console.log(`Current key: ${key}`);
 
+		// Find the immediately following p tag and get its text content as the value
+		let value = $(this).parent() // Moves to .parent
+							.next() // Moves to .parent-sibling
+							.find('p')
+							.text()
+							.trim(); 
+		
+		console.log(`Current value: ${value}`);
+
+		// Add the key-value pair to the propertiesObject
 		productProperties[key] = value;
 	});
 
@@ -275,17 +291,17 @@ export async function requestProductDetails(uploadPath) {
             });
 
             response.on('end', function () {
-				const doc = result;
-				const filePath = 'got2.html';
+				// const doc = result;
+				// const filePath = 'got2.html';
 
-				// Write HTML content to file
-				fs.writeFile(filePath, doc, (err) => {			
-					if (err) {
-						console.error('Error writing file:', err);
-					} else {
-						console.log('HTML file saved successfully!');
-					}
-				});
+				// // Write HTML content to file
+				// fs.writeFile(filePath, doc, (err) => {			
+				// 	if (err) {
+				// 		console.error('Error writing file:', err);
+				// 	} else {
+				// 		console.log('HTML file saved successfully!');
+				// 	}
+				// });
 
 				resolve(result);
             });
