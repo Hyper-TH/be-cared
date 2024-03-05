@@ -206,8 +206,7 @@ export async function productDetailsParser(html, uploadPath) {
 	console.log(`Product description: ${productDescription}`);
 
 	// PRODUCT DETAILS
-	let $productDetailsRoot = $('.MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12');
-	console.log(`ProductDetailsRoot: ${$productDetailsRoot}`);
+	let $productDetailsRoot = $('[class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"]');
 
 	// Iterate through potential child divs
 	$productDetailsRoot.find('div').each(function() {
@@ -231,13 +230,13 @@ export async function productDetailsParser(html, uploadPath) {
 		productProperties[key] = value;
 	});
 
-	product.push({
+	product = {
 		id: uploadPath,
 		productName: productName,
 		productDescription: productDescription,
 		productDetails: productDetails,
 		productProperties: productProperties
-	});
+	};
 
 	return product;
 };	
