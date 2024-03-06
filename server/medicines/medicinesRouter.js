@@ -1,5 +1,6 @@
 import admin from 'firebase-admin';
-import serviceAccount from '../config/creds.json' assert { type: "json" };
+// import serviceAccount from '../config/creds.json' assert { type: "json" };
+import { serviceAccount } from '../config/config.js';
 import express from 'express';
 import { tokenOptions } from './tokenOptions.js';
 import { requestToken, requestList, requestDocument } from './methods.js'
