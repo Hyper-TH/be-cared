@@ -31,6 +31,8 @@ const ProductPage = ({ backTo }) => {
                 console.error(`Axios Error: ${error}`);
                 setError("Local Server Error");
             }
+
+            setIsLoading(false);
         };
 
         getProductDetails();
@@ -39,8 +41,14 @@ const ProductPage = ({ backTo }) => {
 
 
     // TODO: Linear Formula Sub on Numbers
+    // TODO: Loading div
     return (
         <>
+        <div className="product_information">
+        {isLoading ? (
+            <div>Loading...</div>
+        ) : (
+            <>
             <h1>{productInformation.productName}</h1>
 
             <h2>{productInformation.productDescription}</h2>
@@ -58,14 +66,18 @@ const ProductPage = ({ backTo }) => {
             <div>
             {Object.entries(productInformation?.productProperties ?? {}).map(([key, value]) => (
                 <div key={key}>
-                <strong>{key}</strong>: {value}
+                    <strong>{key}</strong>: {value}
                 </div>
             ))}
             </div>
+            </>
+        )}
+            
+        </div>    
 
-            <button>
-                <Link to={backTo}>Back to the Search Page</Link>
-            </button>    
+        <button>
+            <Link to={backTo}>Back to the Search Page</Link>
+        </button>
         </>
     )
 };
