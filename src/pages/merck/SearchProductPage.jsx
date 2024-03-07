@@ -25,7 +25,8 @@ const SearchProductPage = ({ backTo }) => {
         setError("");
 
         try {
-            const response = await Axios.get(`http://localhost:8000/getProds?prodQuery=${encodeURIComponent(prodQuery)}&searchType=${encodeURIComponent(searchType)}`);
+            // const response = await Axios.get(`http://localhost:8000/getProds?prodQuery=${encodeURIComponent(prodQuery)}&searchType=${encodeURIComponent(searchType)}`);
+            const response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/getProds?prodQuery=${encodeURIComponent(prodQuery)}&searchType=${encodeURIComponent(searchType)}`);
             
             if (response.data.products) {
                 setProductList(response.data.products);

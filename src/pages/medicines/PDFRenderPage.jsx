@@ -17,7 +17,7 @@ const PDFRenderPage = () => {
             
             if (type === 'PIL') { 
                 try {
-                    const response = await Axios.get(`http://localhost:8000/grabCache?uploadPath=${encodeURIComponent(medicine.pils[0].activePil.file.name)}`);
+                    const response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/grabCache?uploadPath=${encodeURIComponent(medicine.pils[0].activePil.file.name)}`);
 
                     // console.log("Response:", response.data.doc.data);
 

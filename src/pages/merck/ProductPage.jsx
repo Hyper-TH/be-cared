@@ -17,7 +17,7 @@ const ProductPage = ({ backTo }) => {
             setError("");
     
             try {
-                const response = await Axios.get(`http://localhost:8000/getProduct?uploadPath=${encodeURIComponent(product.href)}`);
+                const response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/getProduct?uploadPath=${encodeURIComponent(product.href)}`);
                 
                 console.log(response.data.doc)
                 if (response.data) {

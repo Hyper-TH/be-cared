@@ -24,7 +24,7 @@ const SearchDrugPage = ({backTo}) => {
 		setError("");
 
 		try {
-			const res = await Axios.get(`http://localhost:8000/autoComplete?input=${encodeURIComponent(input)}`);
+			const res = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/autoComplete?input=${encodeURIComponent(input)}`);
 
 			if (res.data.drugs) {
 				setDrugList(res.data.drugs);

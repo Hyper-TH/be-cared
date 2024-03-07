@@ -13,7 +13,7 @@ const GuestPDFRenderPage = () => {
     useEffect(() => {
         const getDocument = async () => {         
             try {
-                const response = await Axios.get(`http://localhost:8000/grabCache?uploadPath=${encodeURIComponent(medicine.pils[0].activePil.file.name)}`);
+                const response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/grabCache?uploadPath=${encodeURIComponent(medicine.pils[0].activePil.file.name)}`);
 
                 if (response.data) {
                     const blob = new Blob([new Uint8Array(response.data.doc.data)], { type: 'application/pdf' });

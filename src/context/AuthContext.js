@@ -40,7 +40,7 @@ export const AuthContextProvider = ({ children }) => {
                     
                     // Get type of user from login endpoint (i.e., standard or verified)
                     const response = await Axios.get(
-                        `http://localhost:8000/login`,
+                        `${process.env.REACT_APP_LOCALHOST}/login`,
                         {
                             params: {
                                 user: currentUser.email,

@@ -5,7 +5,7 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
         <>
             <h1>{subPageName}</h1>
             
-            <div class="medicine_list">
+            <div className="medicine_list">
                 
 
             </div>
