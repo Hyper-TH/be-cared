@@ -1,27 +1,26 @@
-import React from 'react'
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
-const GuestMedicinePage = ({subPageName, backTo}) => {
-    const { medicineName, pil, company, activeIngredient } = useParams();
+const GuestMedicinePage = ({ backTo }) => {
+
+    let location = useLocation();
+    let state = location.state;
+    let medicine = state.medicine;
 
     const navigate = useNavigate();
 
-    const renderPIL = (medicineName, pil, company, activeIngredient) => {
-
-        navigate({
-            pathname: `/guest/render/${encodeURIComponent(medicineName)}/${encodeURIComponent(pil)}/${encodeURIComponent(company)}/${activeIngredient}`
-        });
+    const renderPIL = (medicine) => {
+        navigate(`/guest/render/${encodeURIComponent(medicine.name)}`, { state : { medicine }});
     };
 
     return (
         <>
-            <h1>{medicineName}</h1>
+            <h1>{medicine.name}</h1>
             <div>
-                <p>Company: {company}</p>
-                <p>Active Ingredient: {activeIngredient}</p>
+                <p>Company: {medicine.company.name}</p>
+                <p>Active Ingredient: {medicine.ingredients[0].name}</p>
             </div>
 
-            <button onClick={() => renderPIL(medicineName, pil, company, activeIngredient)}>
+            <button onClick={() => renderPIL(medicine)}>
                 View PIL Document
             </button>
 

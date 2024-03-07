@@ -1,31 +1,30 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react'; 
-import '@react-pdf-viewer/core/lib/styles/index.css';
 import Axios from 'axios';
 
-const PDFRenderPage = ({ subPageName, backTo }) => {
+const PDFRenderPage = () => {
     const [PDFURL, setPDFURL] = useState("");
     const [error, setError] = useState("");
 
-    // URL of uploadPath in FireStore
-    const { medicineName, spc, pil, company, activeIngredient, type } = useParams();
-
+    let location = useLocation();
+    let state = location.state;
+    let medicine = state.medicine;
+    let type = state.type;
+    
+    // TODO: Download the pdf file button!
     useEffect(() => {
         const getDocument = async () => {
             
-            if (type == 'PIL') { 
+            if (type === 'PIL') { 
                 try {
-                    const response = await Axios.get(`http://localhost:8000/grabCache?uploadPath=${encodeURIComponent(pil)}`);
+                    const response = await Axios.get(`http://localhost:8000/grabCache?uploadPath=${encodeURIComponent(medicine.pils[0].activePil.file.name)}`);
 
-                    console.log("Response:", response.data.doc.data);
+                    // console.log("Response:", response.data.doc.data);
 
                     if (response.data) {
                     
                         const blob = new Blob([new Uint8Array(response.data.doc.data)], { type: 'application/pdf' });
-                        console.log(blob);
                         const blob_url = URL.createObjectURL(blob);
-
-                        console.log(blob_url);
 
                         setPDFURL(blob_url);
                         setError("");
@@ -37,22 +36,20 @@ const PDFRenderPage = ({ subPageName, backTo }) => {
 
                 } catch (error) {
                     console.error(`Axios Error: ${error}`);
+
                     setPDFURL("");
                     setError("Local Server Error");
                 }
             } else {
                 try {
-                    const response = await Axios.get(`http://localhost:8000/grabCache?uploadPath=${encodeURIComponent(spc)}`);
+                    const response = await Axios.get(`http://localhost:8000/grabCache?uploadPath=${encodeURIComponent(medicine.activeSPC.file.name)}`);
 
-                    console.log("Response:", response.data.doc.data);
+                    // console.log("Response:", response.data.doc.data);
 
                     if (response.data) {
                     
                         const blob = new Blob([new Uint8Array(response.data.doc.data)], { type: 'application/pdf' });
-                        console.log(blob);
                         const blob_url = URL.createObjectURL(blob);
-
-                        console.log(blob_url);
 
                         setPDFURL(blob_url);
                         setError("");
@@ -64,6 +61,7 @@ const PDFRenderPage = ({ subPageName, backTo }) => {
 
                 } catch (error) {
                     console.error(`Axios Error: ${error}`);
+                    
                     setPDFURL("");
                     setError("Local Server Error");
                 }
@@ -73,15 +71,13 @@ const PDFRenderPage = ({ subPageName, backTo }) => {
 
         // Fetch document only when the component mounts
         getDocument();
-    }, [pil]);
+    }, [type]);
 
     const navigate = useNavigate();
 
-    const returnToMed = (medicineName, spc, pil, company, activeIngredient) => {
-        navigate({
-            pathname: `/result/${encodeURIComponent(medicineName)}/${encodeURIComponent(spc)}/${encodeURIComponent(pil)}/${encodeURIComponent(company)}/${encodeURIComponent(activeIngredient)}`
-        })
-    }
+    const returnToMed = (medicine) => {
+        navigate(`/result/${encodeURIComponent(medicine.name)}`, { state: { medicine }});
+    };
 
     return (    
         <>
@@ -94,7 +90,7 @@ const PDFRenderPage = ({ subPageName, backTo }) => {
                 >
             </iframe>
 
-            <button onClick={() => returnToMed(medicineName, spc, pil, company, activeIngredient)}>
+            <button onClick={() => returnToMed(medicine)}>
                 Return
             </button>
 

@@ -19,8 +19,6 @@ const SearchPage = ({ backTo }) => {
         try {
             const response = await Axios.get(`http://localhost:8000/getMeds?medQuery=${encodeURIComponent(medQuery)}`);
 
-            // console.log(response.data.medicines.entities);
-
             if (response.data.medicines) {
                 setMedicineList(response.data.medicines.entities);
             } else {
@@ -35,12 +33,8 @@ const SearchPage = ({ backTo }) => {
 
     const navigate = useNavigate();
 
-    // TODO: shorten the pathname (base on SearchProductPage.jsx)
     const handleViewDetails = (medicine) => {
-        navigate({
-            pathname: 
-            `/result/${encodeURIComponent(medicine.name)}/${encodeURIComponent(medicine.activeSPC.file.name)}/${encodeURIComponent(medicine.pils[0].activePil.file.name)}/${encodeURIComponent(medicine.company.name)}/${encodeURIComponent(medicine.ingredients[0].name)}`,
-        });
+        navigate(`/result/${encodeURIComponent(medicine.name)}`, { state: { medicine }});
     };
   
     return (
@@ -52,6 +46,7 @@ const SearchPage = ({ backTo }) => {
                     Search a medicine:
                     <input type="text" value={medQuery} onChange={medicineChange} />
                 </label>
+                
                 <button onClick={searchMedicine}>Search</button>
             </div>
 

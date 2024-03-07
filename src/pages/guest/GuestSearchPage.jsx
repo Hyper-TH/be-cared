@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import Axios from 'axios';
-import { useState, useEffect } from 'react';
 
 const GuestSearchPage = ({ backTo }) => {
     const [medQuery, setMedQuery] = useState("");
@@ -19,8 +19,6 @@ const GuestSearchPage = ({ backTo }) => {
         try {
             const response = await Axios.get(`http://localhost:8000/getMeds?medQuery=${encodeURIComponent(medQuery)}`);
 
-            // console.log(response.data.medicines.entities);
-
             if (response.data.medicines) {
                 setMedicineList(response.data.medicines.entities);
             } else {
@@ -36,10 +34,7 @@ const GuestSearchPage = ({ backTo }) => {
     const navigate = useNavigate();
 
     const handleViewDetails = (medicine) => {
-        navigate({
-            pathname: 
-            `/guest/result/${encodeURIComponent(medicine.name)}/${encodeURIComponent(medicine.pils[0].activePil.file.name)}/${encodeURIComponent(medicine.company.name)}/${encodeURIComponent(medicine.ingredients[0].name)}`,
-        });
+        navigate(`/guest/result/${encodeURIComponent(medicine.name)}`, { state : { medicine }});
     };
 
     return (

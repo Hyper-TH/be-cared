@@ -1,8 +1,5 @@
 import './App.css';
-import {
-	Routes,
-	Route
-} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AuthContextProvider } from './context/AuthContext.js';
 import { 
 	GuestPage, GuestSearchPage, GuestMedicinePage, 
@@ -11,7 +8,6 @@ import {
 	SearchDrugPage, FoodInteractionsPage, SearchProductPage, 
 	ProductPage, PDFRenderPage 
 } from './RouteImports.js';
-
 import ProtectedRoute from './components/auth/ProtectedRoute.js';
 
 function App() {
@@ -33,12 +29,12 @@ function App() {
 				/>
 				
 				<Route 
-					path="/guest/result/:medicineName/:pil/:company/:activeIngredient"
+					path="/guest/result/:medicineName"
 					element={<GuestMedicinePage subPageName="Guest Medicine" backTo="/guest/search" />}
 				/>
 				
 				<Route 
-					path="/guest/render/:medicineName/:pil/:company/:activeIngredient"
+					path="/guest/render/:medicineName"
 					element={<GuestPDFRenderPage subPageName="Guest Render" backTo="/guest/result" />}
 				/>
 				{/* END GUEST PAGES */}
@@ -89,7 +85,7 @@ function App() {
 				/>
 
 				<Route
-					path="/result/:medicineName/:spc/:pil/:company/:activeIngredient"
+					path="/result/:medicineName"
 					element={
 					<ProtectedRoute>
 						<MedicinePage subPageName="Medicine" backTo="/search" />
@@ -99,7 +95,7 @@ function App() {
 
 				<Route
 					
-					path="/render/:medicineName/:spc/:pil/:company/:activeIngredient/:type"
+					path="/render/:medicineName/:type"
 					element={
 					<ProtectedRoute>
 						<PDFRenderPage subPageName="Document" backTo="/result" />
@@ -107,7 +103,6 @@ function App() {
 					}
 				/>
 
-				
 				<Route 
 					path="/searchProduct" 
 					element={
@@ -117,7 +112,7 @@ function App() {
 				/>
 				
 				<Route 
-					path="/result/product" 
+					path="/result/product/:productName" 
 					element={
 					<ProtectedRoute>
 						<ProductPage subPageName="Merck" backTo="/searchProduct" />

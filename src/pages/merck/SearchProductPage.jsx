@@ -1,10 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
-import Axios from 'axios';
 import { useState } from 'react';
+import Axios from 'axios';
 import Product from '../../components/merck/Product';
 
 const SearchProductPage = ({ backTo }) => {
-    const [prodQuery, setProdQuery] = useState(""); // State for product query to send to server
+    const [prodQuery, setProdQuery] = useState("");     // State for product query to send to server
     const [productList, setProductList] = useState([])  // State for list of product responses
     const [searchType, setSearchType] = useState("");   // Default to name
     const [isLoading, setIsLoading] = useState(false);
@@ -27,8 +27,6 @@ const SearchProductPage = ({ backTo }) => {
         try {
             const response = await Axios.get(`http://localhost:8000/getProds?prodQuery=${encodeURIComponent(prodQuery)}&searchType=${encodeURIComponent(searchType)}`);
             
-            console.log(response.data);
-
             if (response.data.products) {
                 setProductList(response.data.products);
             } else {
@@ -45,7 +43,7 @@ const SearchProductPage = ({ backTo }) => {
     const navigate = useNavigate();
 
     const handleViewDetails = (product) => {
-        navigate(`/result/product`, { state: {product}});
+        navigate(`/result/product/${encodeURIComponent(product.productID)}`, { state: { product }});
     };
 
     return (
@@ -75,7 +73,6 @@ const SearchProductPage = ({ backTo }) => {
                 <Link to={backTo}>Back to Home</Link>
             </button>
 
-            {/* TODO: handleViewDetails based on ID selected */}
             {isLoading ? (
                 <div>Loading...</div>
             ) : productList === null ? (

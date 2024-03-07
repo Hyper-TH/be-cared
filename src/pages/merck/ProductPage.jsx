@@ -1,4 +1,4 @@
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Axios from 'axios';
 import { useState, useEffect } from 'react';
 
@@ -7,7 +7,6 @@ const ProductPage = ({ backTo }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
 
-    // Accessing the state in the target component
     let location = useLocation();
     let state = location.state;
     let product = state.product;
@@ -38,41 +37,38 @@ const ProductPage = ({ backTo }) => {
         getProductDetails();
     }, []);
 
-
-
     // TODO: Linear Formula Sub on Numbers
     // TODO: Loading div
     return (
         <>
         <div className="product_information">
-        {isLoading ? (
-            <div>Loading...</div>
-        ) : (
-            <>
-            <h1>{productInformation.productName}</h1>
+            {isLoading ? (
+                <div>Loading...</div>
+            ) : (
+                <>
+                <h1>{productInformation.productName}</h1>
 
-            <h2>{productInformation.productDescription}</h2>
+                <h2>{productInformation.productDescription}</h2>
 
-            <h3>Product Information</h3>    
-            <div>
-            {Object.entries(productInformation?.productDetails ?? {}).map(([key, value]) => (
-                <div key={key}>
-                <strong>{key}</strong>: {value}
+                <h3>Product Information</h3>    
+                <div>
+                    {Object.entries(productInformation?.productDetails ?? {}).map(([key, value]) => (
+                        <div key={key}>
+                        <strong>{key}</strong>: {value}
+                        </div>
+                    ))}
                 </div>
-            ))}
-            </div>
 
-            <h3>Product Properties</h3>
-            <div>
-            {Object.entries(productInformation?.productProperties ?? {}).map(([key, value]) => (
-                <div key={key}>
-                    <strong>{key}</strong>: {value}
+                <h3>Product Properties</h3>
+                <div>
+                    {Object.entries(productInformation?.productProperties ?? {}).map(([key, value]) => (
+                        <div key={key}>
+                            <strong>{key}</strong>: {value}
+                        </div>
+                    ))}
                 </div>
-            ))}
-            </div>
-            </>
-        )}
-            
+                </>
+            )}
         </div>    
 
         <button>

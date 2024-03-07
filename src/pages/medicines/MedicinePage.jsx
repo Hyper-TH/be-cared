@@ -1,40 +1,47 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
-const MedicinePage = ({ subPageName, backTo }) => {
-    const { medicineName, spc, pil, company, activeIngredient } = useParams();
+const MedicinePage = ({ backTo }) => {
+    let location = useLocation();
+    let state = location.state;
+    let medicine = state.medicine;
     
     const navigate = useNavigate();
 
-    const renderSPC = (medicineName, spc, pil, company, activeIngredient) => {
+    const renderSPC = (medicine) => {
         const type = "SPC";
 
-        navigate({
-            pathname: `/render/${encodeURIComponent(medicineName)}/${encodeURIComponent(spc)}/${encodeURIComponent(pil)}/${encodeURIComponent(company)}/${activeIngredient}/${type}`
-        });
+        navigate(`/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, { state: { medicine, type }});
     };
 
-    const renderPIL = (medicineName, spc, pil, company, activeIngredient) => {
+    const renderPIL = (medicine) => {
         const type = "PIL";
-
-        navigate({
-            pathname: `/render/${encodeURIComponent(medicineName)}/${encodeURIComponent(spc)}/${encodeURIComponent(pil)}/${encodeURIComponent(company)}/${activeIngredient}/${type}`
-        });
+        
+        navigate(`/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, { state: { medicine, type }});
     };
+
+    // const subscribe = (medicine) => {
+
+    // };
 
     return (
         <>
-            <h1>{medicineName}</h1>
+            {/* TODO: Get medicine images and whether its market status */}
+            <h1>{medicine.name}</h1>
             <div>
-                <p>Company: {company}</p>
-                <p>Active Ingredient: {activeIngredient}</p>
+                <p>Company: {medicine.company.name}</p>
+                <p>Active Ingredient: {medicine.ingredients[0].name}</p>
             </div>
-            <button onClick={() => renderSPC(medicineName, spc, pil, company, activeIngredient)}>
+            <button onClick={() => renderSPC(medicine)}>
                 View SPC Document
             </button>
 
-            <button onClick={() => renderPIL(medicineName, spc, pil, company, activeIngredient)}>
+            <button onClick={() => renderPIL(medicine)}>
                 View PIL Document
             </button>
+
+            {/* <button onClick={() => subscribe(medicine)}>
+                Subscribe
+            </button> */}
 
             <button>
                 <Link to={backTo}>Back to the Search Page</Link>
