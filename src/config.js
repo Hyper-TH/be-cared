@@ -3,14 +3,16 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore'
 
+console.log(process.env.REACT_APP_TEST);
+
 const app =  initializeApp({
-    apiKey: `${process.env.apiKey}`,
+    apiKey: process.env.REACT_APP_APIKEY,
     authDomain: "be-cared.fireabaseapp.com",
     projectId: "be-cared",
     storageBucket: "be-cared.appspot.com",
-    messagingSenderId: `${process.env.messagingSenderId}`,
-    appId: `${process.env.appId}`,
-    measurementId: `${process.env.measurementId}`
+    messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+    appId: process.env.REACT_APP_APPID,
+    measurementId: process.env.REACT_APP_MEASUREMENTID
 });
 
 // Initialize Firebase
