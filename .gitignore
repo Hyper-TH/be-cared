@@ -4,11 +4,9 @@
 
 # config
 .env
-/server/config/creds.json
 
 # dependencies
 /node_modules
-/server/node_modules
 /.pnp
 .pnp.js
 
