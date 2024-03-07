@@ -76,7 +76,7 @@ const SearchDrugPage = ({backTo}) => {
 			// Encode the JSON string to be URL-safe
 			const encodedDrugs = encodeURIComponent(drugsJSON);
 	
-			const res = await Axios.get(`http://localhost:8000/interactions?drugs=${encodedDrugs}`);
+			const res = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/interactions?drugs=${encodedDrugs}`);
 	
 			console.log(res.data.interactions);
 			

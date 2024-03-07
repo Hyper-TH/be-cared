@@ -42,7 +42,7 @@ const PDFRenderPage = () => {
                 }
             } else {
                 try {
-                    const response = await Axios.get(`http://localhost:8000/grabCache?uploadPath=${encodeURIComponent(medicine.activeSPC.file.name)}`);
+                    const response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/grabCache?uploadPath=${encodeURIComponent(medicine.activeSPC.file.name)}`);
 
                     // console.log("Response:", response.data.doc.data);
 
