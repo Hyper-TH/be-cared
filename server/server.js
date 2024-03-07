@@ -13,9 +13,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-  
-// Create a GET route
-// /message is an endpoint that returns JSON object with message
+// Endpoint for testing
 app.get('/message', (req, res) => {
     res.json({ message: 'Hello from server!' });
 });
@@ -25,7 +23,7 @@ app.listen(8000, () => {
     console.log(`Server is running on port 8000`);
 });
 
-// endpoint to get user authentications
+// Endpoint to get user authentications
 app.get('/login', async (req, res) => {
     try {
         const usersCollectionRef = collection(db, "users");
@@ -50,7 +48,9 @@ app.get('/login', async (req, res) => {
             console.log("Unverified Token");
             return res.sendStatus(401);
         }
-        res.json({ message: filteredData[0]});
+
+        // Send type of user back to AuthContext.js
+        res.json({ message: filteredData[0].type});
 
     } catch (error) {
         console.error(`Error: ${error}`);
