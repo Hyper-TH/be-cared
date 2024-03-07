@@ -1,22 +1,11 @@
-import admin from 'firebase-admin';
-// import serviceAccount from '../config/creds.json' assert { type: "json" };
-import { serviceAccount } from '../config/config.js';
 import express from 'express';
+import { firestore } from '../config/config.js';
 import { tokenOptions } from './tokenOptions.js';
 import { requestToken, requestList, requestDocument } from './methods.js'
- 
+
 const router = express.Router();
 
-// TODO: Cannot reinitialize firebase admin sdk
-// // Initialize Firebase Admin SDK 
-// admin.initializeApp({
-//     credential: admin.credential.cert(serviceAccount),
-//     databaseURL: `https://be-cared.firebaseio.com/`
-// });
-
-// const firestore = admin.firestore();
-
-// end point to get list of medicines
+// Endpoint to get list of medicines
 router.get('/getMeds', async (req, res) => {
     try {
         const { medQuery } = req.query;
@@ -27,9 +16,6 @@ router.get('/getMeds', async (req, res) => {
             const token = await requestToken(tokenOptions);
             const medsData = await requestList(token, medQuery);
 
-            console.log(medsData);
-
-            // Assuming requestList returns an array of medicines
             res.json({ medicines: medsData });
         }
     } catch (error) {
@@ -38,6 +24,7 @@ router.get('/getMeds', async (req, res) => {
     }
 });
 
+// Endpoint to get cache document
 router.get('/grabCache', async (req, res) => {
     const { uploadPath } = req.query;
 
@@ -90,6 +77,4 @@ router.get('/grabCache', async (req, res) => {
     }
 });
 
-// TODO: Caching/Refreshing
-// Note that medicines.ie has a flag for any updates within 30 days!
 export default router;

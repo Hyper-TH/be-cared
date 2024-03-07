@@ -30,7 +30,7 @@ export async function requestToken(options) {
     });
 }
 
-// Function to get list of medicines in JSON format
+// Method to get list of medicines in JSON format
 export async function requestList(token, search) {
     const option2 = {
         host: "backend-prod.medicines.ie",
@@ -58,7 +58,6 @@ export async function requestList(token, search) {
                 try {
                     const parsed = JSON.parse(result);
                     
-                    // console.log(parsed);
                     resolve(parsed);
                 } catch (error) {
                     console.error('Error parsing JSON:', error);
@@ -110,7 +109,7 @@ export async function requestDocument(token, uploadPath) {
         
                 // This event indicates that the response has been completely received.
                 const pdfBuffer = Buffer.concat(pdfChunks);
-                console.log(pdfBuffer.toString('utf-8'));
+                // console.log(pdfBuffer.toString('utf-8'));
                 
                 resolve(pdfBuffer);                
             });

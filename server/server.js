@@ -3,20 +3,17 @@ import cors from 'cors';
 import admin from 'firebase-admin';
 import { db } from './config/config.js';
 import { getDocs, collection } from 'firebase/firestore';
-import dotenv from 'dotenv';
 import medicinesRouter from './medicines/medicinesRouter.js';
 import drugbankRouter from './drugbank/drugbankRouter.js';
 import productsRouter from './merck/productsRouter.js';
-
-dotenv.config();
-
-// TODO: Refetch every week for all PDF documents
+import cacheRouter from './weeklyCache/cacheRouter.js';
 
 // Create Express application
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+  
 // Create a GET route
 // /message is an endpoint that returns JSON object with message
 app.get('/message', (req, res) => {
@@ -63,3 +60,4 @@ app.get('/login', async (req, res) => {
 app.use(drugbankRouter);
 app.use(medicinesRouter);
 app.use(productsRouter);
+app.use(cacheRouter);

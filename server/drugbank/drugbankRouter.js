@@ -1,18 +1,14 @@
-import https from 'https';
 import express from 'express';
-import { autoComplete, getInteractions, getFoodInteractions, getToken, htmlParser, foodParser } from './methods.js';
+import { autoComplete, getInteractions, getFoodInteractions, getToken } from './methods.js';
+import { foodParser, drugParser } from './htmlParsers.js';
 
 const router = express.Router();
 
 router.get('/autoComplete', async (req, res) => {
     try {
         const { input } = req.query;
-        // console.log("Input: ", input);
         const drugsData = await autoComplete(input);
 
-        // console.log(drugsData);
-
-        // Assuming requestList returns an array of drugs
         res.json({ drugs: drugsData });
         
     } catch (error) {
@@ -23,11 +19,10 @@ router.get('/autoComplete', async (req, res) => {
 });
 
 router.get('/interactions', async (req, res) => {
+
     try {
-        // Extract the 'drugs' query parameter from the request URL
         const { drugs } = req.query;
 
-        // Check if the 'drugs' parameter exists
         if (!drugs) {
             return res.status(400).json({ error: "Drugs parameter is missing" });
         }
@@ -37,14 +32,12 @@ router.get('/interactions', async (req, res) => {
         
         // Parse the JSON string into an array
         const drugsArray = JSON.parse(decodedDrugs);
-        // console.log(drugsArray);
 
         const token = await getToken();
         const interactions = await getInteractions(token, drugsArray);
 
-        const interactionResults = await htmlParser(interactions);
+        const interactionResults = await drugParser(interactions);
 
-        // Send a response back with the interactions or any other relevant data
         res.json({ interactions: interactionResults });
 
     } catch (error) {
@@ -54,11 +47,10 @@ router.get('/interactions', async (req, res) => {
 });
 
 router.get('/foodInteractions', async (req, res) => {
+
     try {
-        // Extract the 'drugs' query parameter from the request URL
         const { drugs } = req.query;
 
-        // Check if the 'drugs' parameter exists
         if (!drugs) {
             return res.status(400).json({ error: "Drugs parameter is missing" });
         }
@@ -68,15 +60,12 @@ router.get('/foodInteractions', async (req, res) => {
         
         // Parse the JSON string into an array
         const drugsArray = JSON.parse(decodedDrugs);
-        // console.log(drugsArray);
 
         const token = await getToken();
         const interactions = await getFoodInteractions(token, drugsArray);
 
-        // console.log(interactions)
         const interactionResults = await foodParser(interactions);
 
-        // Send a response back with the interactions or any other relevant data
         res.json({ interactions: interactionResults });
 
     } catch (error) {
@@ -84,6 +73,5 @@ router.get('/foodInteractions', async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
-
 
 export default router;

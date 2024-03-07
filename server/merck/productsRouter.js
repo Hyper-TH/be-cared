@@ -1,19 +1,11 @@
-import admin from 'firebase-admin';
-// import serviceAccount from '../config/creds.json' assert { type: "json" };
-import { serviceAccount } from '../config/config.js';
 import express from 'express';
-import { requestCookie, requestProductDetails, requestList, productListParser, productDetailsParser } from './methods.js'
+import { firestore } from '../config/config.js';
+import { requestCookie, requestProductDetails, requestList } from './methods.js';
+import { productListParser, productDetailsParser } from './htmlParsers.js';
 
 const router = express.Router();
 
-// Initialize Firebase Admin SDK 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: `https://be-cared.firebaseio.com/`
-});
-
-const firestore = admin.firestore();
-
+// Endpoint to get search results of products
 router.get('/getProds', async (req, res) => {
     try {
         const { prodQuery, searchType } = req.query;
@@ -36,11 +28,16 @@ router.get('/getProds', async (req, res) => {
     }
 });
 
+
+// Endpoint to get product details
 router.get('/getProduct', async (req, res) => {
     const { uploadPath } = req.query;
 
     console.log(`Got ${uploadPath}`);
+
+    // Replace / with _ for firestore
     const documentID = uploadPath.replace(/[\/]/g, "_");
+
     const collectionName = "products";
 
     try {
@@ -57,6 +54,7 @@ router.get('/getProduct', async (req, res) => {
 
             console.log(`Sending ${uploadPath}`);
             const html = await requestProductDetails(uploadPath);
+
             // Parse HTML file and receive details in JSON format
             const productDetails = await productDetailsParser(html, uploadPath)
 
@@ -84,6 +82,6 @@ router.get('/getProduct', async (req, res) => {
     } catch (error) {
         console.error(`Error fetching data: ${error}`);
     }
-})
+});
 
 export default router;

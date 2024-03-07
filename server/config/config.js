@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore'
 import dotenv from 'dotenv';
+import admin from 'firebase-admin';
 
 dotenv.config();
 
@@ -31,6 +32,15 @@ export const serviceAccount = {
     "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-m9r0i%40be-cared.iam.gserviceaccount.com",
     "universe_domain": "googleapis.com"
 };
+
+
+// Initialize Firebase Admin SDK 
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: `https://be-cared.firebaseio.com/`
+});
+
+export const firestore = admin.firestore();
 
 // Initialize Firebase
 export default app;
