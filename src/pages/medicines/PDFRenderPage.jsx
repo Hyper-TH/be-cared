@@ -19,8 +19,6 @@ const PDFRenderPage = () => {
                 try {
                     const response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/grabCache?uploadPath=${encodeURIComponent(medicine.pils[0].activePil.file.name)}`);
 
-                    // console.log("Response:", response.data.doc.data);
-
                     if (response.data) {
                     
                         const blob = new Blob([new Uint8Array(response.data.doc.data)], { type: 'application/pdf' });
@@ -43,8 +41,6 @@ const PDFRenderPage = () => {
             } else {
                 try {
                     const response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/grabCache?uploadPath=${encodeURIComponent(medicine.activeSPC.file.name)}`);
-
-                    // console.log("Response:", response.data.doc.data);
 
                     if (response.data) {
                     
