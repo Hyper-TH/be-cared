@@ -36,6 +36,8 @@ export const AuthContextProvider = ({ children }) => {
                 const idToken = await currentUser.getIdToken();
 
                 try {
+                    console.log(`Calling server now...`);
+                    
                     // Get type of user from login endpoint (i.e., standard or verified)
                     const response = await Axios.get(
                         `http://localhost:8000/login`,
@@ -51,7 +53,10 @@ export const AuthContextProvider = ({ children }) => {
                     );
         
                     if (response.data.message) {
+                        console.log(`Got response`);
+
                         setUserType(response.data.message);
+
                         setError("");
                     } else {
                         setUserType({});
