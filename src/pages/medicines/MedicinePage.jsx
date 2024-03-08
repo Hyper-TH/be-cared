@@ -1,11 +1,11 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { UserAuth } from '../../context/AuthContext.js';
 import Axios from 'axios';
 
 const MedicinePage = ({ backTo }) => {
     const { user } = UserAuth();
-    const [subscription, setSubscription] = useState(null);
+    const [subscription, setSubscription] = useState(false);
 
     let location = useLocation();
     let state = location.state;
@@ -41,10 +41,48 @@ const MedicinePage = ({ backTo }) => {
         );
 
         console.log(response.data.medicines);
-        // If successful, make the button unclickable
+
+        // After subscribing, re-check the subscription status
+        await checkSub(medicine);
     };
 
-    // Useffect if user is already subscribed to this medicine, make the button unclickable
+    const checkSub = async (medicine) => {
+        try {
+            const response = await Axios.get(
+                `${process.env.REACT_APP_LOCALHOST}/checkSub`,
+                {
+                    params: {
+                        user: user.email,
+                        name: encodeURIComponent(medicine.name),
+                    }
+                }           
+            );
+
+            if (response.data.exists === true) {
+                console.log(`Medicine subbed`);
+                setSubscription(true);
+            } else {
+                console.log(`Medicine not subbed`);
+                setSubscription(false);
+            }
+
+        } catch (error) {
+            console.error(`Axios Error: ${error}`);
+        }
+    };
+
+    // Styles for the button
+    const buttonStyle = {
+        opacity: subscription ? 0.5 : 1, // Make button transparent when subscription is true
+        cursor: subscription ? 'not-allowed' : 'pointer', // Change cursor style
+    };
+
+    // useEffect should call checkSub with the correct medicine parameter
+    useEffect(() => {
+        if (medicine) {
+            checkSub(medicine);
+        }
+    }, [medicine]); // Dependency array includes `medicine` to re-run when it changes
 
     return (
         <>
@@ -62,7 +100,10 @@ const MedicinePage = ({ backTo }) => {
                 View PIL Document
             </button>
 
-            <button onClick={() => subscribe(medicine)}>
+            <button 
+                style={buttonStyle}
+                disabled={subscription}
+                onClick={() => subscribe(medicine)}>
                 Subscribe
             </button>
 
