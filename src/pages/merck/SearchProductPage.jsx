@@ -25,7 +25,10 @@ const SearchProductPage = ({ backTo }) => {
         setError("");
 
         try {
+            console.log(`Requesting server for product list..`);
             const response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/getProds?prodQuery=${encodeURIComponent(prodQuery)}&searchType=${encodeURIComponent(searchType)}`);
+            
+            console.log(`Got response: ${response.data.products}`);
             
             if (response.data.products) {
                 setProductList(response.data.products);
