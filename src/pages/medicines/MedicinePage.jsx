@@ -1,6 +1,12 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { UserAuth } from '../../context/AuthContext.js';
+import Axios from 'axios';
 
 const MedicinePage = ({ backTo }) => {
+    const { user } = UserAuth();
+    const [subscription, setSubscription] = useState(null);
+
     let location = useLocation();
     let state = location.state;
     let medicine = state.medicine;
@@ -19,9 +25,26 @@ const MedicinePage = ({ backTo }) => {
         navigate(`/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, { state: { medicine, type }});
     };
 
-    // const subscribe = (medicine) => {
+    const subscribe = async (medicine) => {
+        const response = await Axios.get(
+            `${process.env.REACT_APP_LOCALHOST}/subscribe`,
+            {
+                params: {
+                    user: user.email,
+                    name: encodeURIComponent(medicine.name),
+                    activeIngredient: encodeURIComponent(medicine.ingredients[0].name),
+                    company: encodeURIComponent(medicine.company.name),
+                    pil: encodeURIComponent(medicine.pils[0].activePil.file.name),
+                    spc: encodeURIComponent(medicine.activeSPC.file.name)
+                }
+            }
+        );
 
-    // };
+        console.log(response.data.medicines);
+        // If successful, make the button unclickable
+    };
+
+    // Useffect if user is already subscribed to this medicine, make the button unclickable
 
     return (
         <>
@@ -39,9 +62,9 @@ const MedicinePage = ({ backTo }) => {
                 View PIL Document
             </button>
 
-            {/* <button onClick={() => subscribe(medicine)}>
+            <button onClick={() => subscribe(medicine)}>
                 Subscribe
-            </button> */}
+            </button>
 
             <button>
                 <Link to={backTo}>Back to the Search Page</Link>
