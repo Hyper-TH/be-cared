@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { UserAuth } from '../context/AuthContext.js';
 import Axios from 'axios';
 
-// TODO: button to unsub the medicine
 const SubscriptionsPage = ({subPageName, backTo}) => {
     const { user } =  UserAuth();
     const [medicineList, setMedicineList] = useState(null);
@@ -17,23 +16,20 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
         try {
             const response = await Axios.get(
                 `${process.env.REACT_APP_LOCALHOST}/getSubs`,
-                {
-                    params: { user: user.email }
-                }
+                { params: { user: user.email } }
             );
-
-            if (response.data.medicines && response.data.medicines.length > 0) {
-                setMedicineList(response.data.medicines); 
+    
+            if (response.data && response.data.medicines) {
+                setMedicineList(response.data.medicines);
             } else {
                 setMedicineList([]);
             }
-
         } catch (error) {
             console.error(`Axios Error: ${error}`);
-            setError("Local Server Error");
+            setError("Failed to load subscribed medicines.");
+        } finally {
+            setIsLoading(false);
         }
-
-        setIsLoading(false);
     };
 
     const navigate = useNavigate();
@@ -58,10 +54,33 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
         );
     };
 
-    useEffect(() => {
-        getMedicines();
-    }, []); // Pass an empty array to run only once on component mount 
+    const unsubscribe = async (medicine) => {
 
+        try {
+            const response = await Axios.get(
+                `${process.env.REACT_APP_LOCALHOST}/unSub`,
+                {
+                    params: { user: user.email, medicineName: medicine.name }
+                }
+            );
+
+            if (response.data.medicines && response.data.medicines.length > 0) {
+                setMedicineList(response.data.medicines); 
+            } 
+
+        } catch (error) {
+            console.error(`Axios Error: ${error}`);
+            setError("Local Server Error");
+        }
+
+    };
+    
+    useEffect(() => {
+        if (user && user.email) {
+            getMedicines();
+        }
+    }, [user]); // Depend on `user` so that `getMedicines` runs again if `user` changes
+    
     return (
         <>
             <h1>{subPageName}</h1>
@@ -82,6 +101,9 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
                             </button>
                             <button onClick={() => renderPIL(medicine)}>
                                 View PIL Document
+                            </button>
+                            <button onClick={() => unsubscribe(medicine)}>
+                                Unsubscribe to this medicine
                             </button>
                         </div>
                     ))
