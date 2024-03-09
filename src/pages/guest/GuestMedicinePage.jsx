@@ -9,7 +9,10 @@ const GuestMedicinePage = ({ backTo }) => {
     const navigate = useNavigate();
 
     const renderPIL = (medicine) => {
-        navigate(`/guest/render/${encodeURIComponent(medicine.name)}`, { state : { medicine }});
+        navigate(
+            `/guest/render/${encodeURIComponent(medicine.name)}`, 
+            { state : { medicine } }
+        );
     };
 
     return (

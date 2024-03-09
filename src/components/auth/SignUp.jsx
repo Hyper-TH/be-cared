@@ -51,5 +51,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-// TODO: When a user signs up, users database is updated with an empty medicine field (if possible)
-

@@ -16,13 +16,19 @@ const MedicinePage = ({ backTo }) => {
     const renderSPC = (medicine) => {
         const type = "SPC";
 
-        navigate(`/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, { state: { medicine, type }});
+        navigate(
+            `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 
+            { state: { medicine, type } }
+        );
     };
 
     const renderPIL = (medicine) => {
         const type = "PIL";
         
-        navigate(`/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, { state: { medicine, type }});
+        navigate(
+            `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 
+            { state: { medicine, type } }
+        );
     };
 
     const subscribe = async (medicine) => {

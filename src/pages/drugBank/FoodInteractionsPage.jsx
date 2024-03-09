@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Drug } from '../../components/drugBank/Drug';
 import { FoodInteraction } from '../../components/drugBank/FoodInteraction';
 
+// TODO: AUTO COMPLETE NOT COMPLETELY RESPONSIVE
 const FoodInteractionsPage = ({backTo}) => {
     const [drugQuery, setDrugQuery] = useState("");	// Used for auto complete
     const [drugList, setDrugList] = useState([]);	// List for drug search
@@ -24,7 +25,9 @@ const FoodInteractionsPage = ({backTo}) => {
 		setError("");
 
 		try {
-			const res = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/autoComplete?input=${encodeURIComponent(input)}`);
+			const res = await Axios.get(
+				`${process.env.REACT_APP_LOCALHOST}/autoComplete`,
+				{ params: { input: input } });
 
 			if (res.data.drugs) {
 				setDrugList(res.data.drugs);
@@ -32,7 +35,8 @@ const FoodInteractionsPage = ({backTo}) => {
 				setDrugList([]);
 			}
 		} catch (error) {
-			// console.error(`Axios Error: ${error}`);
+			console.error(`Axios Error: ${error}`);
+			
 			setDrugList([]);
 			setError("Local Server Error");
 		}
@@ -76,7 +80,9 @@ const FoodInteractionsPage = ({backTo}) => {
 				// Encode the JSON string to be URL-safe
 				const encodedDrugs = encodeURIComponent(drugsJSON);
 		
-				const res = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/foodInteractions?drugs=${encodedDrugs}`);
+				const res = await Axios.get(
+					`${process.env.REACT_APP_LOCALHOST}/foodInteractions`,
+					{ params: { drugs: encodedDrugs } });
 		
 				console.log(res.data.interactions);
 				if (res.data.interactions) {

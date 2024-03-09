@@ -17,7 +17,12 @@ const ProductPage = ({ backTo }) => {
             setError("");
     
             try {
-                const response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/getProduct?uploadPath=${encodeURIComponent(product.href)}`);
+                const response = await Axios.get(
+                    `${process.env.REACT_APP_LOCALHOST}/getProduct`,
+                    {
+                        params: { uploadPath: product.href }
+                    }
+                );
                 
                 console.log(response.data.doc)
                 if (response.data) {
@@ -87,6 +92,8 @@ const ProductPage = ({ backTo }) => {
         <button>
             <Link to={backTo}>Back to the Search Page</Link>
         </button>
+
+        {error && <p style={{ color: "red" }}>{error}</p>}
         </>
     )
 };

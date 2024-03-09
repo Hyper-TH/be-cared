@@ -27,7 +27,14 @@ const SearchProductPage = ({ backTo }) => {
         if (prodQuery && searchType) {
             try {
                 console.log(`Requesting server for product list..`);
-                const response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/getProds?prodQuery=${encodeURIComponent(prodQuery)}&searchType=${encodeURIComponent(searchType)}`);
+                const response = await Axios.get(
+                    `${process.env.REACT_APP_LOCALHOST}/getProds`,
+                {
+                    params: { 
+                        prodQuery: prodQuery,
+                        searchType: searchType
+                    }
+                });
                 
                 console.log(`Got response: ${response.data.products}`);
                 
@@ -53,6 +60,7 @@ const SearchProductPage = ({ backTo }) => {
         navigate(`/result/product/${encodeURIComponent(product.productID)}`, { state: { product }});
     };
 
+    // TODO: Indicate user to start typing etc
     return (
         <>
         <h2>Product Search Page</h2>

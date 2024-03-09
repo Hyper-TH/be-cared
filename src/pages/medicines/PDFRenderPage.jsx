@@ -22,9 +22,14 @@ const PDFRenderPage = () => {
                     let response;
                     
                     if (filePath) {
-                        response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/grabCache?uploadPath=${encodeURIComponent(filePath)}`);
+                        response = await Axios.get(
+                            `${process.env.REACT_APP_LOCALHOST}/grabCache`,
+                        { params: { uploadPath: filePath } });
+                    
                     } else {
-                        response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/grabCache?uploadPath=${encodeURIComponent(medicine.pils[0].activePil.file.name)}`);
+                        response = await Axios.get(
+                            `${process.env.REACT_APP_LOCALHOST}/grabCache`,
+                            { params: { uploadPath: medicine.pils[0].activePil.file.name }});
                     }
 
                     if (response.data) {
@@ -52,10 +57,14 @@ const PDFRenderPage = () => {
                     let response;
 
                     if (filePath) {
-                        response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/grabCache?uploadPath=${encodeURIComponent(filePath)}`);
+                        response = await Axios.get(
+                            `${process.env.REACT_APP_LOCALHOST}/grabCache`,
+                            { params: { uploadPath: filePath } });
 
                     } else {
-                        response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/grabCache?uploadPath=${encodeURIComponent(medicine.activeSPC.file.name)}`);
+                        response = await Axios.get(
+                            `${process.env.REACT_APP_LOCALHOST}/grabCache`,
+                            { params: { uploadPath: medicine.activeSPC.file.name} });
                     }
 
                     if (response.data) {

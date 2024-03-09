@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { UserAuth } from '../context/AuthContext.js';
 import Axios from 'axios';
 
+// TODO: button to unsub the medicine
 const SubscriptionsPage = ({subPageName, backTo}) => {
     const { user } =  UserAuth();
     const [medicineList, setMedicineList] = useState(null);
@@ -14,11 +15,10 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
         setError("");
 
         try {
-            // TODO: CHANGE ALL AXIOS REQUESTS TO A BETTER FORMAT
             const response = await Axios.get(
                 `${process.env.REACT_APP_LOCALHOST}/getSubs`,
                 {
-                    params: { user: user.email}
+                    params: { user: user.email }
                 }
             );
 
@@ -42,14 +42,20 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
         const type = "SPC";
         const filePath = medicine.spc;
 
-        navigate(`/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, { state: { medicine, filePath, type }});
+        navigate(
+            `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 
+            { state: { medicine, filePath, type } }
+        );
     };
 
     const renderPIL = (medicine) => {
         const type = "PIL";
         const filePath = medicine.pil;
 
-        navigate(`/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, { state: { medicine, filePath, type }});
+        navigate(
+            `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 
+            { state: { medicine, filePath, type } } 
+        );
     };
 
     useEffect(() => {
@@ -89,6 +95,8 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
             <button>
                 <Link to={backTo}>Back to Home</Link>
             </button>
+
+            {error && <p style={{ color: "red" }}>{error}</p>}
         </>
     );
 };

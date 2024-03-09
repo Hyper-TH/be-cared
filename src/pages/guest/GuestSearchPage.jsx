@@ -18,7 +18,9 @@ const GuestSearchPage = ({ backTo }) => {
 
         if (medQuery) {
             try {
-                const response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/getMeds?medQuery=${encodeURIComponent(medQuery)}`);
+                const response = await Axios.get(
+                    `${process.env.REACT_APP_LOCALHOST}/getMeds`,
+                    { params: { medQuery: medQuery } });
     
                 if (response.data.medicines) {
                     setMedicineList(response.data.medicines.entities);
