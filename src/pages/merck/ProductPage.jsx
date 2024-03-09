@@ -37,8 +37,19 @@ const ProductPage = ({ backTo }) => {
         getProductDetails();
     }, []);
 
+    // const formatLinearFormula = (linearFormula) => {
+    //     // Split the string into parts by a regular expression that looks for numbers
+    //     const parts = linearFormula.split(/(\d+)/);
+      
+    //     // Map over the parts and wrap numbers with <sub> tags
+    //     const formattedParts = parts.map((part, index) => 
+    //       /\d+/.test(part) ? <sub key={index}>{part}</sub> : part
+    //     );
+      
+    //     return <>{formattedParts}</>; // Return the parts as a single JSX fragment
+    // }
+
     // TODO: Linear Formula Sub on Numbers
-    // TODO: Loading div
     return (
         <>
         <div className="product_information">
@@ -49,6 +60,8 @@ const ProductPage = ({ backTo }) => {
                 <h1>{productInformation.productName}</h1>
 
                 <h2>{productInformation.productDescription}</h2>
+
+                {/* <h3>Linear Formula: </h3> {formatLinearFormula(productInformation.linearFormula)}; */}
 
                 <h3>Product Information</h3>    
                 <div>

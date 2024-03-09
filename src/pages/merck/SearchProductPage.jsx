@@ -24,20 +24,24 @@ const SearchProductPage = ({ backTo }) => {
         setIsLoading(true);
         setError("");
 
-        try {
-            console.log(`Requesting server for product list..`);
-            const response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/getProds?prodQuery=${encodeURIComponent(prodQuery)}&searchType=${encodeURIComponent(searchType)}`);
-            
-            console.log(`Got response: ${response.data.products}`);
-            
-            if (response.data.products) {
-                setProductList(response.data.products);
-            } else {
-                setProductList([]);
+        if (prodQuery && searchType) {
+            try {
+                console.log(`Requesting server for product list..`);
+                const response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/getProds?prodQuery=${encodeURIComponent(prodQuery)}&searchType=${encodeURIComponent(searchType)}`);
+                
+                console.log(`Got response: ${response.data.products}`);
+                
+                if (response.data.products) {
+                    setProductList(response.data.products);
+                } else {
+                    setProductList([]);
+                }
+            } catch (error) {
+                console.error(`Axios Error: ${error}`);
+                setError("Local Server Error");
             }
-        } catch (error) {
-            console.error(`Axios Error: ${error}`);
-            setError("Local Server Error");
+        } else {
+            setError("Choose a type then input a drug to start searching!");
         }
 
         setIsLoading(false);
@@ -54,7 +58,6 @@ const SearchProductPage = ({ backTo }) => {
         <h2>Product Search Page</h2>
         <div>
             <form>
-                {/* TODO: Have it so that if user hasn't chosen, default to name OR have them choose */}
                 <label htmlFor="dropdown">Choose search type:</label>
                 <select id="dropdown" value={searchType} onChange={handleDropdownChange}>
                     <option value="">Select...</option>

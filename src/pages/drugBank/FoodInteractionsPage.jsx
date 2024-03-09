@@ -69,30 +69,33 @@ const FoodInteractionsPage = ({backTo}) => {
 
     // Query to get interactions based on the chosen drug
 	const getFoodInteractions = async (drugs) => {
-		// TODO: If there are no drugs in the list, do not send query, throw error
-		try {
-			// Serialize the array into a JSON string
-			const drugsJSON = JSON.stringify(drugs);
-			// Encode the JSON string to be URL-safe
-			const encodedDrugs = encodeURIComponent(drugsJSON);
+		if (drugs.length > 0) {
+			try {
+				// Serialize the array into a JSON string
+				const drugsJSON = JSON.stringify(drugs);
+				// Encode the JSON string to be URL-safe
+				const encodedDrugs = encodeURIComponent(drugsJSON);
+		
+				const res = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/foodInteractions?drugs=${encodedDrugs}`);
+		
+				console.log(res.data.interactions);
+				if (res.data.interactions) {
+					setInteractions(res.data.interactions);
+					
+					setError("");
+				} else {
+					setInteractions([]);
 	
-			const res = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/foodInteractions?drugs=${encodedDrugs}`);
-	
-			console.log(res.data.interactions);
-			if (res.data.interactions) {
-				setInteractions(res.data.interactions);
-				
-				setError("");
-			} else {
+					setError("Error retrieving interaction results");
+				}
+			} catch (error) {
+				console.error(`Axios Error: ${error}`);
 				setInteractions([]);
-
-				setError("Error retrieving interaction results");
+	
+				setError("Local Server Error");
 			}
-		} catch (error) {
-			console.error(`Axios Error: ${error}`);
-			setInteractions([]);
-
-			setError("Local Server Error");
+		} else {
+			setError("Choose at least 1 or more drugs!");
 		}
 	};
 
