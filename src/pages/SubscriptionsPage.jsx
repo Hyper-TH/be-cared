@@ -42,14 +42,14 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
         const type = "SPC";
         const filePath = medicine.spc;
 
-        navigate(`/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, { state: { filePath, type }});
+        navigate(`/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, { state: { medicine, filePath, type }});
     };
 
     const renderPIL = (medicine) => {
         const type = "PIL";
         const filePath = medicine.pil;
 
-        navigate(`/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, { state: { filePath, type }});
+        navigate(`/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, { state: { medicine, filePath, type }});
     };
 
     useEffect(() => {

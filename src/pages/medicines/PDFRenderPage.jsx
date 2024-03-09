@@ -87,14 +87,13 @@ const PDFRenderPage = () => {
 
     // Function to navigate back with a fallback if coming from a default page
     const returnToMed = () => {
-        if (medicine && type) {
-            console.log(`Medicine:`, medicine, `Type:`, type);
-            console.log(`Returning to search page`);
-            navigate(`/result/${encodeURIComponent(medicine.name)}`, { state: { medicine, type }});
-        } else {
+        if (filePath) {
             console.log(`Returning to sub page`);
 
             navigate('/subscriptions');
+        } else {
+            console.log(`Returning to search page`);
+            navigate(`/result/${encodeURIComponent(medicine.name)}`, { state: { medicine, type }});
         }
     };
 
