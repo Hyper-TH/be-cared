@@ -1,5 +1,6 @@
 import { useState } from 'react'
 // import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { UserAuth } from '../context/AuthContext.js';
 import { auth } from '../../config.js';
 import Axios from 'axios';
 
