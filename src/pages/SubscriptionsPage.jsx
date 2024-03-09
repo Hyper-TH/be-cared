@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { UserAuth } from '../context/AuthContext.js';
 import Axios from 'axios';
 
@@ -9,7 +9,7 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const getMedicines = async () => {
+    const getMedicines = useCallback(async () => {
         setIsLoading(true);
         setError("");
 
@@ -30,7 +30,7 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [user.email]);
 
     const navigate = useNavigate();
 
@@ -57,29 +57,26 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
     const unsubscribe = async (medicine) => {
 
         try {
-            const response = await Axios.get(
+            await Axios.get(
                 `${process.env.REACT_APP_LOCALHOST}/unSub`,
                 {
                     params: { user: user.email, medicineName: medicine.name }
                 }
             );
 
-            if (response.data.medicines && response.data.medicines.length > 0) {
-                setMedicineList(response.data.medicines); 
-            } 
-
         } catch (error) {
             console.error(`Axios Error: ${error}`);
             setError("Local Server Error");
         }
 
+        getMedicines();
     };
     
     useEffect(() => {
         if (user && user.email) {
             getMedicines();
         }
-    }, [user]); // Depend on `user` so that `getMedicines` runs again if `user` changes
+    }, [user, getMedicines]); // Depend on `user` so that `getMedicines` runs again if `user` changes
     
     return (
         <>
