@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+// import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUser } from '../../context/AuthContext.js';
 import { auth } from '../../config.js';
 import Axios from 'axios';
 
@@ -11,27 +12,10 @@ const SignUp = () => {
         e.preventDefault();
         
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            console.log(userCredential);
-            
-            // const type = "standard";
-            // Create user instance
+            const type = "standard";
+            const userCredential = await createUser(auth, email, password, type);
 
-            console.log(`Calling axios now...`);
-            const response = await Axios.get(
-                `${process.env.REACT_APP_LOCALHOST}/signUp`,
-                {
-                    params: { 
-                        user: userCredential.user.email, 
-                        // type: type
-                    }
-                }
-            );
-    
-            console.log(`Finished calling axios...`);
-
-
-            if (response) {
+            if (userCredential) {
                 console.log(`Successful login!`);
             }
         } catch (error) {
