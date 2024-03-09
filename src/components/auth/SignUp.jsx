@@ -16,6 +16,8 @@ const SignUp = () => {
             
             // const type = "standard";
             // Create user instance
+
+            console.log(`Calling axios now...`);
             const response = await Axios.get(
                 `${process.env.REACT_APP_LOCALHOST}/signUp`,
                 {
@@ -26,6 +28,9 @@ const SignUp = () => {
                 }
             );
     
+            console.log(`Finished calling axios...`);
+
+
             if (response) {
                 console.log(`Successful login!`);
             }
