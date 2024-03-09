@@ -27,7 +27,7 @@ const Signin = () => {
         <div>
             <h1>Sign in to your account</h1>
             <p>
-                Don't have an account? <Link to='/signup'>Sign up</Link>.
+                Don't have an account? <Link to='/signUp'>Sign up</Link>.
             </p>
 
             <form onSubmit={handleSubmit}>
