@@ -1,7 +1,6 @@
 import { useState } from 'react'
 // import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { UserAuth } from '../../context/AuthContext.js';
-import { auth } from '../../config.js';
 import Axios from 'axios';
 
 const SignUp = () => {
@@ -14,7 +13,7 @@ const SignUp = () => {
         
         try {
             const type = "standard";
-            const userCredential = await createUser(auth, email, password, type);
+            const userCredential = await createUser(email, password, type);
 
             if (userCredential) {
                 console.log(`Successful login!`);
