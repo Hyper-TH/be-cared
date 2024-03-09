@@ -19,11 +19,10 @@ export const AuthContextProvider = ({ children }) => {
 
     const createUser = async (email, password, type) => {
         setType(type);
-        
+
         // When successful, this automatically calls /login
         const userCredential = createUserWithEmailAndPassword(auth, email, password);
-        console.log(userCredential);    
-
+        
         return userCredential;
     };
     
