@@ -1,12 +1,13 @@
 import { useState } from 'react'
-// import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router';
 import { UserAuth } from '../../context/AuthContext.js';
-import Axios from 'axios';
 
 const SignUp = () => {
     const { createUser } = UserAuth();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const navigate = useNavigate();
 
     const signUp = async (e) => {
         e.preventDefault();
@@ -17,6 +18,7 @@ const SignUp = () => {
 
             if (userCredential) {
                 console.log(`Successful login!`);
+                navigate('/home');
             }
         } catch (error) {
             console.error(error);
