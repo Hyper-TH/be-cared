@@ -15,19 +15,24 @@ const SearchPage = ({ backTo }) => {
     const searchMedicine = async () => {
         setIsLoading(true);
         setError("");
-
-        try {
-            const response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/getMeds?medQuery=${encodeURIComponent(medQuery)}`);
-
-            if (response.data.medicines) {
-                setMedicineList(response.data.medicines.entities);
-            } else {
-                setMedicineList([]);
+        
+        if (medQuery) {
+            try {
+                const response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/getMeds?medQuery=${encodeURIComponent(medQuery)}`);
+    
+                if (response.data.medicines) {
+                    setMedicineList(response.data.medicines.entities);
+                } else {
+                    setMedicineList([]);
+                }
+            } catch (error) {
+                console.error(`Axios Error: ${error}`);
+                setError("Local Server Error");
             }
-        } catch (error) {
-            console.error(`Axios Error: ${error}`);
-            setError("Local Server Error");
+        } else {
+            setError("Input a medicine to start searching!");
         }
+        
         setIsLoading(false);
     };
 

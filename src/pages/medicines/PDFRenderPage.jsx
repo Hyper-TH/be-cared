@@ -5,6 +5,7 @@ import Axios from 'axios';
 const PDFRenderPage = () => {
     const [PDFURL, setPDFURL] = useState("");
     const [PDFName, setPDFName] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
 
     let location = useLocation();
@@ -13,7 +14,9 @@ const PDFRenderPage = () => {
     
     useEffect(() => {   
         const getDocument = async () => {
-            
+            setIsLoading(true);
+            setError("");
+
             if (type === 'PIL') { 
                 try {
                     let response;
@@ -77,6 +80,7 @@ const PDFRenderPage = () => {
                 }
             }
 
+            setIsLoading(false);
         };
 
         // Fetch document only when the component mounts
@@ -100,17 +104,22 @@ const PDFRenderPage = () => {
     return (    
         <>
             <h1>PDF Renderer Page</h1>
-			<iframe
-                src={PDFURL}
-                title="PDF"
-                width="100%"
-                height="400"
-                >
-            </iframe>
+            {isLoading ? (
+                <div>Loading...</div>
+            ) : (
+                <>
+                <iframe
+                        src={PDFURL}
+                        title="PDF"
+                        width="100%"
+                        height="400" 
+                />
+                <a href={PDFURL} download={PDFName}>
+                    <button>Download PDF</button>
+                </a>
+                </>
+            )}
 
-            <a href={PDFURL} download={PDFName}>
-                <button>Download PDF</button>
-            </a>
 
             <button onClick={() => returnToMed(medicine)}>
                 Return
