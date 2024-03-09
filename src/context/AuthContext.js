@@ -13,24 +13,18 @@ const UserContext = createContext();
 export const AuthContextProvider = ({ children }) => {
     const [user, setUser] = useState({});
     const [userType, setUserType] = useState("");
+    const [type, setType] = useState("");   // For adding new users
     const [token , setToken] = useState("");
     const [error, setError] = useState("");
 
     const createUser = async (email, password, type) => {
+        setType(type);
+        
+        // When successful, this automatically calls /login
         const userCredential = createUserWithEmailAndPassword(auth, email, password);
-        console.log(userCredential);
+        console.log(userCredential);    
 
-        const response = await Axios.get(
-            `${process.env.REACT_APP_LOCALHOST}/signUp`,
-            {
-                params: { 
-                    user: userCredential.email, 
-                    type: type
-                }
-            }
-        );
-
-        return response;
+        return userCredential;
     };
     
     const signIn = (email, password) =>  {
@@ -57,7 +51,8 @@ export const AuthContextProvider = ({ children }) => {
                         {
                             params: {
                                 user: currentUser.email,
-                                uid: currentUser.uid
+                                uid: currentUser.uid,
+                                type: type
                             },
                             headers: {
                                 token: idToken
