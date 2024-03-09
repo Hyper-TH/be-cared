@@ -113,12 +113,11 @@ const SearchDrugPage = ({backTo}) => {
 			</label>
 		</div>
 
-		{/*
-			TODO: Add this warning box:
-			Warning: If no interactions are found between two drugs, 
+		<div className="no_interactions_warning">
+			<h3>If no interactions are found between two drugs, 
 			it does not necessarily mean that no interactions exist. 
-			Always consult with a healthcare professional.
-		*/}
+			Always consult with a healthcare professional.</h3>
+		</div>
 		<div className="drug_interaction_results">
 			{interactions?.length === 0 ? (
 				<div>No Interactions found</div>
