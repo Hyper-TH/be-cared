@@ -4,18 +4,14 @@ import Axios from 'axios';
 
 const PDFRenderPage = () => {
     const [PDFURL, setPDFURL] = useState("");
+    const [PDFName, setPDFName] = useState("");
     const [error, setError] = useState("");
 
     let location = useLocation();
-    // let state = location.state;
-    // let medicine = state.medicine;
-    // let type = state.type;
 
     const { medicine, type, filePath } = location.state || {}; // Destructuring with a fallback to an empty object
     
-
-    // TODO: Download the pdf file button!
-    useEffect(() => {
+    useEffect(() => {   
         const getDocument = async () => {
             
             if (type === 'PIL') { 
@@ -34,6 +30,7 @@ const PDFRenderPage = () => {
                         const blob_url = URL.createObjectURL(blob);
 
                         setPDFURL(blob_url);
+                        setPDFName(`${medicine.name}_pil.pdf`);
                         setError("");
 
                     } else {
@@ -64,6 +61,7 @@ const PDFRenderPage = () => {
                         const blob_url = URL.createObjectURL(blob);
 
                         setPDFURL(blob_url);
+                        setPDFName(`${medicine.name}_spc.pdf`);
                         setError("");
 
                     } else {
@@ -110,6 +108,10 @@ const PDFRenderPage = () => {
                 height="400"
                 >
             </iframe>
+
+            <a href={PDFURL} download={PDFName}>
+                <button>Download PDF</button>
+            </a>
 
             <button onClick={() => returnToMed(medicine)}>
                 Return
