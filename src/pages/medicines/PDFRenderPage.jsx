@@ -13,6 +13,7 @@ const PDFRenderPage = () => {
 
     const { medicine, type, filePath } = location.state || {}; // Destructuring with a fallback to an empty object
     
+
     // TODO: Download the pdf file button!
     useEffect(() => {
         const getDocument = async () => {
@@ -89,9 +90,12 @@ const PDFRenderPage = () => {
     // Function to navigate back with a fallback if coming from a default page
     const returnToMed = () => {
         if (medicine && type) {
-            navigate(`/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, { state: { medicine, type }});
+            console.log(`Medicine:`, medicine, `Type:`, type);
+            console.log(`Returning to search page`);
+            navigate(`/result/${encodeURIComponent(medicine.name)}`, { state: { medicine, type }});
         } else {
-            // Define your fallback navigation here
+            console.log(`Returning to sub page`);
+
             navigate('/subscriptions');
         }
     };

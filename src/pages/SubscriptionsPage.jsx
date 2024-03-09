@@ -70,12 +70,12 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
                     // Map over the medicine list if it has items
                     medicineList.map((medicine) => (
                         <div key={medicine.id}>
-                            <p>Medicine Name: {medicine.name}</p>
+                            <p>Medicine Name: {decodeURIComponent(medicine.name)}</p>
                             <button onClick={() => renderSPC(medicine)}>
                                 View SPC Document
                             </button>
                             <button onClick={() => renderPIL(medicine)}>
-                                View SPC Document
+                                View PIL Document
                             </button>
                         </div>
                     ))
