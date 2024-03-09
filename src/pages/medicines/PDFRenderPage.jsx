@@ -7,9 +7,11 @@ const PDFRenderPage = () => {
     const [error, setError] = useState("");
 
     let location = useLocation();
-    let state = location.state;
-    let medicine = state.medicine;
-    let type = state.type;
+    // let state = location.state;
+    // let medicine = state.medicine;
+    // let type = state.type;
+
+    const { medicine, type, filePath } = location.state || {}; // Destructuring with a fallback to an empty object
     
     // TODO: Download the pdf file button!
     useEffect(() => {
@@ -17,7 +19,13 @@ const PDFRenderPage = () => {
             
             if (type === 'PIL') { 
                 try {
-                    const response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/grabCache?uploadPath=${encodeURIComponent(medicine.pils[0].activePil.file.name)}`);
+                    let response;
+                    
+                    if (filePath) {
+                        response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/grabCache?uploadPath=${encodeURIComponent(filePath)}`);
+                    } else {
+                        response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/grabCache?uploadPath=${encodeURIComponent(medicine.pils[0].activePil.file.name)}`);
+                    }
 
                     if (response.data) {
                     
@@ -40,7 +48,14 @@ const PDFRenderPage = () => {
                 }
             } else {
                 try {
-                    const response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/grabCache?uploadPath=${encodeURIComponent(medicine.activeSPC.file.name)}`);
+                    let response;
+
+                    if (filePath) {
+                        response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/grabCache?uploadPath=${encodeURIComponent(filePath)}`);
+
+                    } else {
+                        response = await Axios.get(`${process.env.REACT_APP_LOCALHOST}/grabCache?uploadPath=${encodeURIComponent(medicine.activeSPC.file.name)}`);
+                    }
 
                     if (response.data) {
                     
@@ -71,8 +86,14 @@ const PDFRenderPage = () => {
 
     const navigate = useNavigate();
 
-    const returnToMed = (medicine) => {
-        navigate(`/result/${encodeURIComponent(medicine.name)}`, { state: { medicine }});
+    // Function to navigate back with a fallback if coming from a default page
+    const returnToMed = () => {
+        if (medicine && type) {
+            navigate(`/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, { state: { medicine, type }});
+        } else {
+            // Define your fallback navigation here
+            navigate('/subscriptions');
+        }
     };
 
     return (    
