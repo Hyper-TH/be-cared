@@ -18,12 +18,13 @@ export const AuthContextProvider = ({ children }) => {
 
     const createUser = async (email, password, type) => {
         const userCredential = createUserWithEmailAndPassword(auth, email, password);
+        console.log(userCredential);
 
         const response = await Axios.get(
             `${process.env.REACT_APP_LOCALHOST}/signUp`,
             {
                 params: { 
-                    user: userCredential.user.email, 
+                    user: userCredential.email, 
                     type: type
                 }
             }
