@@ -1,7 +1,5 @@
 import { useState } from 'react'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { Link, useNavigate } from 'react-router-dom';
-import { UserAuth } from '../../context/AuthContext';
 import { auth } from '../../config.js';
 import Axios from 'axios';
 
@@ -9,16 +7,31 @@ const SignUp = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const signUp = (e) => {
+    const signUp = async (e) => {
         e.preventDefault();
         
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                console.log(userCredential);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            console.log(userCredential);
+            
+            // const type = "standard";
+            // Create user instance
+            const response = await Axios.get(
+                `${process.env.REACT_APP_LOCALHOST}/signUp`,
+                {
+                    params: { 
+                        user: userCredential.user.email, 
+                        // type: type
+                    }
+                }
+            );
+    
+            if (response) {
+                console.log(`Successful login!`);
+            }
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
