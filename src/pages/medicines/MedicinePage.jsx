@@ -105,6 +105,7 @@ const MedicinePage = ({ backTo }) => {
         // Only call checkSub if the medicine and user.email are defined
         if (medicine && user && user.email) {
             checkSub(medicine);
+            cacheMed(medicine);
         }
     }, [medicine, user]); // Depend on both `medicine` and `user` so that checkSub runs again if either changes
     
