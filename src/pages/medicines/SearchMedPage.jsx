@@ -24,7 +24,9 @@ const SearchPage = ({ backTo }) => {
                         params : { medQuery: medQuery }
                     }
                 );
-    
+                    
+                // console.log(response.data.medicines.entities[0].activeSPC);
+
                 if (response.data.medicines) {
                     setMedicineList(response.data.medicines.entities);
                 } else {
@@ -44,7 +46,10 @@ const SearchPage = ({ backTo }) => {
     const navigate = useNavigate();
 
     const handleViewDetails = (medicine) => {
-        navigate(`/result/${encodeURIComponent(medicine.name)}`, { state: { medicine }});
+        navigate(
+            `/result/${encodeURIComponent(medicine.name)}`, 
+            { state: { medicine }}
+        );
     };
   
     return (
