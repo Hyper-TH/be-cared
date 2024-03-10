@@ -9,6 +9,8 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
 
+    const navigate = useNavigate();
+
     const getMedicines = useCallback(async () => {
         setIsLoading(true);
         setError("");
@@ -32,8 +34,24 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
         }
     }, [user.email]);
 
-    const navigate = useNavigate();
 
+    const unsubscribe = async (medicine) => {
+        try {
+            await Axios.get(
+                `${process.env.REACT_APP_LOCALHOST}/unSub`,
+                {
+                    params: { user: user.email, id: medicine.id }
+                }
+            );
+
+        } catch (error) {
+            console.error(`Axios Error: ${error}`);
+            setError("Local Server Error");
+        }
+
+        getMedicines();
+    };
+    
     const renderSPC = (medicine) => {
         const type = "SPC";
         const filePath = medicine.spc;
@@ -54,30 +72,12 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
         );
     };
 
-    const unsubscribe = async (medicine) => {
-
-        try {
-            await Axios.get(
-                `${process.env.REACT_APP_LOCALHOST}/unSub`,
-                {
-                    params: { user: user.email, medicineName: medicine.name }
-                }
-            );
-
-        } catch (error) {
-            console.error(`Axios Error: ${error}`);
-            setError("Local Server Error");
-        }
-
-        getMedicines();
-    };
-    
     useEffect(() => {
         if (user && user.email) {
             getMedicines();
         }
     }, [user, getMedicines]); // Depend on `user` so that `getMedicines` runs again if `user` changes
-    
+
     return (
         <>
             <h1>{subPageName}</h1>
