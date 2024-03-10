@@ -8,29 +8,10 @@ const MedicinePage = ({ backTo }) => {
     const [subscription, setSubscription] = useState(false);
 
     let location = useLocation();
+    const navigate = useNavigate();
     let state = location.state;
     let medicine = state.medicine;
     
-    const navigate = useNavigate();
-
-    const renderSPC = (medicine) => {
-        const type = "SPC";
-
-        navigate(
-            `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 
-            { state: { medicine, type } }
-        );
-    };
-
-    const renderPIL = (medicine) => {
-        const type = "PIL";
-        
-        navigate(
-            `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 
-            { state: { medicine, type } }
-        );
-    };
-
     const cacheMed = async (medicine) => {
         await Axios.get(
             `${process.env.REACT_APP_LOCALHOST}/cacheMed`,
@@ -99,7 +80,24 @@ const MedicinePage = ({ backTo }) => {
         cursor: subscription ? 'not-allowed' : 'pointer', // Change cursor style
     };
 
-   
+    const renderSPC = (medicine) => {
+        const type = "SPC";
+
+        navigate(
+            `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 
+            { state: { medicine, type } }
+        );
+    };
+
+    const renderPIL = (medicine) => {
+        const type = "PIL";
+        
+        navigate(
+            `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 
+            { state: { medicine, type } }
+        );
+    };
+
     // useEffect should call checkSub with the correct medicine and user parameter
     useEffect(() => {
         // Only call checkSub if the medicine and user.email are defined
@@ -108,7 +106,7 @@ const MedicinePage = ({ backTo }) => {
             cacheMed(medicine);
         }
     }, [medicine, user]); // Depend on both `medicine` and `user` so that checkSub runs again if either changes
-    
+
     return (
         <>
             <h1>{medicine.name}</h1>
