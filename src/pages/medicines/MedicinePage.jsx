@@ -56,7 +56,7 @@ const MedicinePage = ({ backTo }) => {
                 {
                     params: {
                         user: user.email,
-                        name: encodeURIComponent(medicine.name),
+                        id: encodeURIComponent(medicine.id),
                     }
                 }           
             );
