@@ -5,6 +5,7 @@ import Axios from 'axios';
 
 const MedicinePage = ({ backTo }) => {
     const { user } = UserAuth();
+    const [isLoading, setIsLoading] = useState(false);
     const [subscription, setSubscription] = useState(false);
 
     let location = useLocation();
@@ -22,28 +23,30 @@ const MedicinePage = ({ backTo }) => {
                     activeIngredient: medicine.ingredients[0].name,
                     company: medicine.company.name,
                     status: medicine.legalCategory,
-                    pil: medicine.pils[0].activePil.file.name,
-                    spc: medicine.activeSPC.file.name
+                    pil: medicine.pils && medicine.pils[0] && medicine.pils[0].activePil && medicine.pils[0].activePil.file && medicine.pils[0].activePil.file.name 
+                    ? encodeURIComponent(medicine.pils[0].activePil.file.name) : '', 
+                    spc: medicine.activeSPC && medicine.activeSPC.file && medicine.activeSPC.file.name 
+                    ? encodeURIComponent(medicine.activeSPC.file.name) : '' 
                 }
             }
         );
     };
 
     const subscribe = async (medicine) => {
-        const response = await Axios.get(
+        await Axios.get(
             `${process.env.REACT_APP_LOCALHOST}/subscribe`,
             {
                 params: {
                     user: user.email,
                     id: encodeURIComponent(medicine.id),
                     name: encodeURIComponent(medicine.name),
-                    pil: encodeURIComponent(medicine.pils[0].activePil.file.name),
-                    spc: encodeURIComponent(medicine.activeSPC.file.name)
+                    pil: medicine.pils && medicine.pils[0] && medicine.pils[0].activePil && medicine.pils[0].activePil.file && medicine.pils[0].activePil.file.name 
+                    ? encodeURIComponent(medicine.pils[0].activePil.file.name) : '', 
+                    spc: medicine.activeSPC && medicine.activeSPC.file && medicine.activeSPC.file.name 
+                    ? encodeURIComponent(medicine.activeSPC.file.name) : '' 
                 }
             }
         );
-
-        console.log(response.data.medicines);
 
         // After subscribing, re-check the subscription status
         await checkSub(medicine);
@@ -102,33 +105,44 @@ const MedicinePage = ({ backTo }) => {
     useEffect(() => {
         // Only call checkSub if the medicine and user.email are defined
         if (medicine && user && user.email) {
+            setIsLoading(true);
+
             checkSub(medicine);
             cacheMed(medicine);
+
+            setIsLoading(false);
         }
     }, [medicine, user]); // Depend on both `medicine` and `user` so that checkSub runs again if either changes
 
     return (
         <>
             <h1>{medicine.name}</h1>
-            <div>
-                <p>Company: {medicine.company.name}</p>
-                <p>Active Ingredient: {medicine.ingredients[0].name}</p>
-                <p>Status: {medicine.legalCategory}</p>
-            </div>
-            <button onClick={() => renderSPC(medicine)}>
-                View SPC Document
-            </button>
+            {isLoading ? (
+                <div>Loading...</div>
+            ) : (
+                <> 
+                <div>
+                    <p>Company: {medicine.company.name}</p>
+                    <p>Active Ingredient: {medicine.ingredients[0].name}</p>
+                    <p>Status: {medicine.legalCategory}</p>
+                </div>
+                <button onClick={() => renderSPC(medicine)}>
+                    View SPC Document
+                </button>
 
-            <button onClick={() => renderPIL(medicine)}>
-                View PIL Document
-            </button>
+                <button onClick={() => renderPIL(medicine)}>
+                    View PIL Document
+                </button>
 
-            <button 
-                style={buttonStyle}
-                disabled={subscription}
-                onClick={() => subscribe(medicine)}>
-                Subscribe
-            </button>
+                <button 
+                    style={buttonStyle}
+                    disabled={subscription}
+                    onClick={() => subscribe(medicine)}>
+                    Subscribe
+                </button>
+                </>
+            )}
+           
 
             <button>
                 <Link to={backTo}>Back to the Search Page</Link>
