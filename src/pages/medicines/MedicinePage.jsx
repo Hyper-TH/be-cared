@@ -5,6 +5,8 @@ import Axios from 'axios';
 
 const MedicinePage = ({ backTo }) => {
     const { user } = UserAuth();
+    const [isPil, setIsPil] = useState(false);
+    const [isSPC, setIsSPC] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [subscription, setSubscription] = useState(false);
 
@@ -13,6 +15,22 @@ const MedicinePage = ({ backTo }) => {
     let state = location.state;
     let medicine = state.medicine;
     
+    const checkFiles = () => {
+        // Check each level of the object to avoid accessing a property on undefined
+        if (medicine.pils && medicine.pils[0] && medicine.pils[0].activePil && medicine.pils[0].activePil.file && medicine.pils[0].activePil.file.name) {
+            setIsPil(true);
+        } else {
+            setIsPil(false); // Set to false if the path doesn't exist
+        }
+    
+        if (medicine.activeSPC && medicine.activeSPC.file && medicine.activeSPC.file.name) {
+            setIsSPC(true);
+        } else {
+            setIsSPC(false); // Set to false if the path doesn't exist
+        }
+    }
+    
+
     const cacheMed = async (medicine) => {
         await Axios.get(
             `${process.env.REACT_APP_LOCALHOST}/cacheMed`,
@@ -24,9 +42,11 @@ const MedicinePage = ({ backTo }) => {
                     company: medicine.company.name,
                     status: medicine.legalCategory,
                     pil: medicine.pils && medicine.pils[0] && medicine.pils[0].activePil && medicine.pils[0].activePil.file && medicine.pils[0].activePil.file.name 
-                    ? encodeURIComponent(medicine.pils[0].activePil.file.name) : '', 
+                  ? encodeURIComponent(medicine.pils[0].activePil.file.name) 
+                  : '', 
                     spc: medicine.activeSPC && medicine.activeSPC.file && medicine.activeSPC.file.name 
-                    ? encodeURIComponent(medicine.activeSPC.file.name) : '' 
+                  ? encodeURIComponent(medicine.activeSPC.file.name) 
+                  : '' 
                 }
             }
         );
@@ -41,9 +61,11 @@ const MedicinePage = ({ backTo }) => {
                     id: encodeURIComponent(medicine.id),
                     name: encodeURIComponent(medicine.name),
                     pil: medicine.pils && medicine.pils[0] && medicine.pils[0].activePil && medicine.pils[0].activePil.file && medicine.pils[0].activePil.file.name 
-                    ? encodeURIComponent(medicine.pils[0].activePil.file.name) : '', 
-                    spc: medicine.activeSPC && medicine.activeSPC.file && medicine.activeSPC.file.name 
-                    ? encodeURIComponent(medicine.activeSPC.file.name) : '' 
+                  ? encodeURIComponent(medicine.pils[0].activePil.file.name) 
+                  : '', 
+            spc: medicine.activeSPC && medicine.activeSPC.file && medicine.activeSPC.file.name 
+                  ? encodeURIComponent(medicine.activeSPC.file.name) 
+                  : '' 
                 }
             }
         );
@@ -103,6 +125,8 @@ const MedicinePage = ({ backTo }) => {
 
     // useEffect should call checkSub with the correct medicine and user parameter
     useEffect(() => {
+        checkFiles();
+
         // Only call checkSub if the medicine and user.email are defined
         if (medicine && user && user.email) {
             setIsLoading(true);
@@ -126,13 +150,32 @@ const MedicinePage = ({ backTo }) => {
                     <p>Active Ingredient: {medicine.ingredients[0].name}</p>
                     <p>Status: {medicine.legalCategory}</p>
                 </div>
-                <button onClick={() => renderSPC(medicine)}>
-                    View SPC Document
-                </button>
 
-                <button onClick={() => renderPIL(medicine)}>
-                    View PIL Document
-                </button>
+                {isPil ?  (
+                    <button 
+                        onClick={() => renderSPC(medicine)}>
+                        View SPC Document
+                    </button>
+                ) : (
+                    <button 
+                        style={{ opacity: 0.5, cursor: 'not-allowed' }}
+                        onClick={() => renderSPC(medicine)}>
+                        No available SPC Document
+                    </button>
+                )}
+
+                {isSPC ? ( 
+                    <button onClick={() => renderPIL(medicine)}>
+                        View PIL Document
+                    </button>
+                ) : ( 
+                    <button 
+                        style={{ opacity: 0.5, cursor: 'not-allowed' }}
+                        onClick={() => renderPIL(medicine)}>
+                        No available PIL Document
+                    </button>
+                )}
+
 
                 <button 
                     style={buttonStyle}
