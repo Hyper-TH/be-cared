@@ -1,9 +1,9 @@
 export const Medicine = (props) => {
-    const hasPil = props.medicine.pil;
-    const hasSpc = props.medicine.spc;
+    const hasPil = props.medicine.pil.doc;
+    const hasSpc = props.medicine.spc.doc;
 
     const pilButton = hasPil ? (
-        <button onClick={() => props.viewPil(props.medicine.pils[0].activePil.file.name)}>
+        <button onClick={() => props.renderPIL(props.medicine)}>
             View PIL Document
         </button>
     ) : (
@@ -13,7 +13,7 @@ export const Medicine = (props) => {
     );
 
     const spcButton = hasSpc ? (
-        <button onClick={() => props.viewSpc(props.medicine.activeSPC.file.name)}>
+        <button onClick={() => props.renderSPC(props.medicine)}>
             View SPC Document
         </button>
     ) : (

@@ -5,7 +5,7 @@ import Axios from 'axios';
 
 const MedicinePage = ({ backTo }) => {
     const { user } = UserAuth();
-    const [isPil, setIsPil] = useState(false);
+    const [isPIL, setIsPIL] = useState(false);
     const [isSPC, setIsSPC] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [subscription, setSubscription] = useState(false);
@@ -18,9 +18,9 @@ const MedicinePage = ({ backTo }) => {
     const checkFiles = () => {
         // Check each level of the object to avoid accessing a property on undefined
         if (medicine.pils && medicine.pils[0] && medicine.pils[0].activePil && medicine.pils[0].activePil.file && medicine.pils[0].activePil.file.name) {
-            setIsPil(true);
+            setIsPIL(true);
         } else {
-            setIsPil(false); // Set to false if the path doesn't exist
+            setIsPIL(false); // Set to false if the path doesn't exist
         }
     
         if (medicine.activeSPC && medicine.activeSPC.file && medicine.activeSPC.file.name) {
@@ -30,7 +30,6 @@ const MedicinePage = ({ backTo }) => {
         }
     }
     
-
     const cacheMed = async (medicine) => {
         await Axios.get(
             `${process.env.REACT_APP_LOCALHOST}/cacheMed`,
@@ -63,7 +62,7 @@ const MedicinePage = ({ backTo }) => {
                     pil: medicine.pils && medicine.pils[0] && medicine.pils[0].activePil && medicine.pils[0].activePil.file && medicine.pils[0].activePil.file.name 
                   ? encodeURIComponent(medicine.pils[0].activePil.file.name) 
                   : '', 
-            spc: medicine.activeSPC && medicine.activeSPC.file && medicine.activeSPC.file.name 
+                    spc: medicine.activeSPC && medicine.activeSPC.file && medicine.activeSPC.file.name 
                   ? encodeURIComponent(medicine.activeSPC.file.name) 
                   : '' 
                 }
@@ -151,7 +150,7 @@ const MedicinePage = ({ backTo }) => {
                     <p>Status: {medicine.legalCategory}</p>
                 </div>
 
-                {isPil ?  (
+                {isSPC ?  (
                     <button 
                         onClick={() => renderSPC(medicine)}>
                         View SPC Document
@@ -164,7 +163,7 @@ const MedicinePage = ({ backTo }) => {
                     </button>
                 )}
 
-                {isSPC ? ( 
+                {isPIL ? ( 
                     <button onClick={() => renderPIL(medicine)}>
                         View PIL Document
                     </button>
