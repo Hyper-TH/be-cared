@@ -54,21 +54,21 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
     
     const renderSPC = (medicine) => {
         const type = "SPC";
-        const filePath = medicine.spc;
+        const doc = medicine.spc
 
         navigate(
             `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 
-            { state: { medicine, filePath, type } }
+            { state: { medicine, doc, type } }
         );
     };
 
     const renderPIL = (medicine) => {
         const type = "PIL";
-        const filePath = medicine.pil;
+        const doc = medicine.pil
 
         navigate(
             `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 
-            { state: { medicine, filePath, type } } 
+            { state: { medicine, doc, type } } 
         );
     };
 
