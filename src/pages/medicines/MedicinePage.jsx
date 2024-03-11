@@ -57,8 +57,8 @@ const MedicinePage = ({ backTo }) => {
             {
                 params: {
                     user: user.email,
-                    id: encodeURIComponent(medicine.id),
-                    name: encodeURIComponent(medicine.name),
+                    id: medicine.id,
+                    name: medicine.name,
                     pil: medicine.pils && medicine.pils[0] && medicine.pils[0].activePil && medicine.pils[0].activePil.file && medicine.pils[0].activePil.file.name 
                   ? encodeURIComponent(medicine.pils[0].activePil.file.name) 
                   : '', 
