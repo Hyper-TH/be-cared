@@ -24,7 +24,7 @@ const SearchPage = ({ backTo }) => {
                         params : { medQuery: medQuery }
                     }
                 );
-                    
+                   
                 // console.log(response.data.medicines.entities[0].activeSPC);
 
                 if (response.data.medicines) {

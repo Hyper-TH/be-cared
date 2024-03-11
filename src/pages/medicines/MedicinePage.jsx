@@ -41,10 +41,10 @@ const MedicinePage = ({ backTo }) => {
                     company: medicine.company.name,
                     status: medicine.legalCategory,
                     pil: medicine.pils && medicine.pils[0] && medicine.pils[0].activePil && medicine.pils[0].activePil.file && medicine.pils[0].activePil.file.name 
-                  ? encodeURIComponent(medicine.pils[0].activePil.file.name) 
+                  ? medicine.pils[0].activePil.file.name
                   : '', 
                     spc: medicine.activeSPC && medicine.activeSPC.file && medicine.activeSPC.file.name 
-                  ? encodeURIComponent(medicine.activeSPC.file.name) 
+                  ? medicine.activeSPC.file.name
                   : '' 
                 }
             }
@@ -63,7 +63,7 @@ const MedicinePage = ({ backTo }) => {
                   ? encodeURIComponent(medicine.pils[0].activePil.file.name) 
                   : '', 
                     spc: medicine.activeSPC && medicine.activeSPC.file && medicine.activeSPC.file.name 
-                  ? encodeURIComponent(medicine.activeSPC.file.name) 
+                  ? medicine.activeSPC.file.name
                   : '' 
                 }
             }
