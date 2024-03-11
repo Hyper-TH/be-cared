@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
 import { UserAuth } from '../context/AuthContext.js';
+import { Medicine } from '../components/medicine/Medicine.js';
 import Axios from 'axios';
 
 const SubscriptionsPage = ({subPageName, backTo}) => {
@@ -91,18 +92,12 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
                 ) : medicineList.length > 0 ? (
                     // Map over the medicine list if it has items
                     medicineList.map((medicine) => (
-                        <div key={medicine.id}>
-                            <p>Medicine Name: {decodeURIComponent(medicine.name)}</p>
-                            <button onClick={() => renderSPC(medicine)}>
-                                View SPC Document
-                            </button>
-                            <button onClick={() => renderPIL(medicine)}>
-                                View PIL Document
-                            </button>
-                            <button onClick={() => unsubscribe(medicine)}>
-                                Unsubscribe to this medicine
-                            </button>
-                        </div>
+                        <Medicine 
+                            medicine={medicine}
+                            renderSPC={renderSPC}
+                            renderPIL={renderPIL}
+                            unsubscribe={unsubscribe}
+                        />
                     ))
                 ) : (
                     // If empty array
