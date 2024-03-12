@@ -7,6 +7,7 @@ import Axios from 'axios';
 const SubscriptionsPage = ({subPageName, backTo}) => {
     const { user } =  UserAuth();
     const [medicineList, setMedicineList] = useState(null);
+    const [notifications, setNotifications] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
 
@@ -21,9 +22,15 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
                 `${process.env.REACT_APP_LOCALHOST}/getSubs`,
                 { params: { user: user.email } }
             );
+            
+            console.log(`Response:`, response.data);
+
+            // Directly accessing data and count from response.data
+            const { medicines, count } = response.data;
     
-            if (response.data && response.data.medicines) {
-                setMedicineList(response.data.medicines);
+            if (medicines) {
+                setMedicineList(medicines);
+                setNotifications(count);
             } else {
                 setMedicineList([]);
             }
@@ -90,15 +97,20 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
                     // Render nothing if medicineList is null, which is the initial state before loading
                     null
                 ) : medicineList.length > 0 ? (
-                    // Map over the medicine list if it has items
-                    medicineList.map((medicine) => (
+                    <>
+                        <div>
+                            Notifications count: {notifications}
+                        </div>
+                    
+                    {medicineList.map((medicine) => (
                         <Medicine 
                             medicine={medicine}
                             renderSPC={renderSPC}
                             renderPIL={renderPIL}
                             unsubscribe={unsubscribe}
                         />
-                    ))
+                    ))}
+                    </>
                 ) : (
                     // If empty array
                     <div>No medicines found</div>
