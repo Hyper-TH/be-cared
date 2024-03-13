@@ -31,24 +31,55 @@ const MedicinePage = ({ backTo }) => {
     }
     
     const cacheMed = async (medicine) => {
-        await Axios.get(
-            `${process.env.REACT_APP_LOCALHOST}/cacheMed`,
-            {
-                params: {
-                    id: medicine.id,
-                    name: medicine.name,
-                    activeIngredient: medicine.ingredients[0].name,
-                    company: medicine.company.name,
-                    status: medicine.legalCategory,
-                    pil: medicine.pils && medicine.pils[0] && medicine.pils[0].activePil && medicine.pils[0].activePil.file && medicine.pils[0].activePil.file.name 
-                  ? medicine.pils[0].activePil.file.name
-                  : '', 
-                    spc: medicine.activeSPC && medicine.activeSPC.file && medicine.activeSPC.file.name 
-                  ? medicine.activeSPC.file.name
-                  : '' 
+        try {
+            const status = await Axios.get(
+                `${process.env.REACT_APP_LOCALHOST}/cacheMed`,
+                {
+                    params: {
+                        id: medicine.id,
+                        name: medicine.name,
+                        activeIngredient: medicine.ingredients[0].name,
+                        company: medicine.company.name,
+                        status: medicine.legalCategory,
+                        pil: medicine.pils && medicine.pils[0] && medicine.pils[0].activePil && medicine.pils[0].activePil.file && medicine.pils[0].activePil.file.name 
+                        ? medicine.pils[0].activePil.file.name
+                        : '', 
+                        spc: medicine.activeSPC && medicine.activeSPC.file && medicine.activeSPC.file.name 
+                        ? medicine.activeSPC.file.name
+                        : '' 
+                    }
+                   
                 }
+            );
+
+            console.log(status);
+    
+            try {
+                // TODO: Not getting called!
+                const status = await Axios.get(
+                    `${process.env.REACT_APP_LOCALHOST}/cacheDoc`,
+                    {
+                        params: {
+                            pil: medicine.pils && medicine.pils[0] && medicine.pils[0].activePil && medicine.pils[0].activePil.file && medicine.pils[0].activePil.file.name 
+                            ? medicine.pils[0].activePil.file.name
+                            : '', 
+                            spc: medicine.activeSPC && medicine.activeSPC.file && medicine.activeSPC.file.name 
+                            ? medicine.activeSPC.file.name
+                            : '' 
+                        }
+                    }
+                );
+
+                console.log(status);
+                
+            } catch (error) {
+                console.error(`Axios Error: ${error}`);
             }
-        );
+
+        } catch (error) {
+            console.error(`Axios Error: ${error}`);
+        };
+       
     };
 
     const subscribe = async (medicine) => {

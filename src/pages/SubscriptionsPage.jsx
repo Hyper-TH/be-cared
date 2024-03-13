@@ -23,11 +23,10 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
                 { params: { user: user.email } }
             );
             
-            console.log(`Response:`, response.data);
-
             // Directly accessing data and count from response.data
             const { medicines, count } = response.data;
-    
+            console.log(medicines);
+            
             if (medicines) {
                 setMedicineList(medicines);
                 setNotifications(count);
@@ -62,7 +61,7 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
     
     const renderSPC = (medicine) => {
         const type = "SPC";
-        const doc = medicine.spc
+        const doc = medicine.spc.doc
 
         navigate(
             `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 
@@ -72,7 +71,7 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
 
     const renderPIL = (medicine) => {
         const type = "PIL";
-        const doc = medicine.pil
+        const doc = medicine.pil.doc
 
         navigate(
             `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 

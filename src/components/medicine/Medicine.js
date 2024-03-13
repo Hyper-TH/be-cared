@@ -1,6 +1,6 @@
 export const Medicine = (props) => {
-    const hasPil = props.medicine.pil.doc;
-    const hasSpc = props.medicine.spc.doc;
+    const hasPil = props.medicine.pil.available;
+    const hasSpc = props.medicine.spc.available;
 
     const pilButton = hasPil ? (
         <button onClick={() => props.renderPIL(props.medicine)}>
