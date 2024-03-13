@@ -36,9 +36,8 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
         } catch (error) {
             console.error(`Axios Error: ${error}`);
             setError("Failed to load subscribed medicines.");
-        } finally {
-            setIsLoading(false);
-        }
+        } 
+        setIsLoading(false);
     }, [user.email]);
 
 
@@ -59,6 +58,7 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
         getMedicines();
     };
     
+    // TODO: Pass medicine ID instead of the doc itself
     const renderSPC = (medicine) => {
         const type = "SPC";
         const doc = medicine.spc.doc

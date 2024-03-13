@@ -55,7 +55,6 @@ const MedicinePage = ({ backTo }) => {
             console.log(status);
     
             try {
-                // TODO: Not getting called!
                 const status = await Axios.get(
                     `${process.env.REACT_APP_LOCALHOST}/cacheDoc`,
                     {
