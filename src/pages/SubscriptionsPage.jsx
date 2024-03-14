@@ -58,26 +58,6 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
         getMedicines();
     };
     
-    // TODO: Pass medicine ID instead of the doc itself
-    const renderSPC = (medicine) => {
-        const type = "SPC";
-        const doc = medicine.spc.doc
-
-        navigate(
-            `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 
-            { state: { medicine, doc, type } }
-        );
-    };
-
-    const renderPIL = (medicine) => {
-        const type = "PIL";
-        const doc = medicine.pil.doc
-
-        navigate(
-            `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 
-            { state: { medicine, doc, type } } 
-        );
-    };
 
     useEffect(() => {
         if (user && user.email) {
@@ -85,6 +65,26 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
         }
     }, [user, getMedicines]); // Depend on `user` so that `getMedicines` runs again if `user` changes
 
+    const renderSPC = (medicine) => {
+        const type = "SPC";
+        const path = medicine.spc.path
+
+        navigate(
+            `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 
+            { state: { medicine, path, type } }
+        );
+    };
+
+    const renderPIL = (medicine) => {
+        const type = "PIL";
+        const path = medicine.pil.path
+
+        navigate(
+            `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 
+            { state: { medicine, path, type } } 
+        );
+    };
+    
     return (
         <>
             <h1>{subPageName}</h1>

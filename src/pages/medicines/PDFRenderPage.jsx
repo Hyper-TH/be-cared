@@ -10,7 +10,7 @@ const PDFRenderPage = () => {
 
     let location = useLocation();
 
-    const { medicine, type, doc } = location.state || {}; // Destructuring with a fallback to an empty object
+    const { medicine, type, path } = location.state || {}; // Destructuring with a fallback to an empty object
     
     useEffect(() => {   
         const getDocument = async () => {
@@ -20,13 +20,30 @@ const PDFRenderPage = () => {
             if (type === 'PIL') { 
                 let response;
                 
-                if (doc) {
-                    const blob = new Blob([new Uint8Array(doc.doc.data)], { type: 'application/pdf' });
-                    const blob_url = URL.createObjectURL(blob);
-
-                    setPDFURL(blob_url);
-                    setPDFName(`${medicine.name}_pil.pdf`);
-                    setError("");
+                if (path) {
+                    try {
+                        response = await Axios.get(
+                            `${process.env.REACT_APP_LOCALHOST}/grabCache`,
+                            { params: { uploadPath: path }});
+                        
+                        if (response.data) {
+                            const blob = new Blob([new Uint8Array(response.data.doc.data)], { type: 'application/pdf' });
+                            const blob_url = URL.createObjectURL(blob);
+    
+                            setPDFURL(blob_url);
+                            setPDFName(`${medicine.medicineName}_pil.pdf`);
+                            setError("");
+    
+                        } else {
+                            setPDFURL("");
+                            setError("Error retrieving PIL");
+                        }
+                    } catch (error) {
+                        console.error(`Axios Error: ${error}`);
+    
+                        setPDFURL("");
+                        setError("Local Server Error");
+                    }
 
                 } else {
                     try {
@@ -58,13 +75,27 @@ const PDFRenderPage = () => {
             } else {
                 let response;
 
-                if (doc) {
-                    const blob = new Blob([new Uint8Array(doc.doc.data)], { type: 'application/pdf' });
-                    const blob_url = URL.createObjectURL(blob);
-
-                    setPDFURL(blob_url);
-                    setPDFName(`${medicine.name}_spc.pdf`);
-                    setError("");
+                if (path) {
+                    try {
+                        response = await Axios.get(
+                            `${process.env.REACT_APP_LOCALHOST}/grabCache`,
+                            { params: { uploadPath: path} });
+                    
+                        if (response.data) {
+                    
+                            const blob = new Blob([new Uint8Array(response.data.doc.data)], { type: 'application/pdf' });
+                            const blob_url = URL.createObjectURL(blob);
+    
+                            setPDFURL(blob_url);
+                            setPDFName(`${medicine.medicineName}_spc.pdf`);
+                            setError("");
+                        } else {
+                            setPDFURL("");
+                            setError("Error retrieving SPC");
+                        }
+                    } catch (error) {
+                        console.error(error);
+                    }
 
                 } else {
 
@@ -102,7 +133,7 @@ const PDFRenderPage = () => {
 
     // Function to navigate back with a fallback if coming from a default page
     const returnToMed = () => {
-        if (doc) {
+        if (path) {
             navigate('/subscriptions');
         } else {
             navigate(`/result/${encodeURIComponent(medicine.name)}`, { state: { medicine, type }});
