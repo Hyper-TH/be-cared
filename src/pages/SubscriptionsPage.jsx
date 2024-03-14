@@ -41,12 +41,13 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
     }, [user.email]);
 
 
+    // TODO: Not working
     const unsubscribe = async (medicine) => {
         try {
             await Axios.get(
                 `${process.env.REACT_APP_LOCALHOST}/unSub`,
                 {
-                    params: { user: user.email, id: medicine.id }
+                    params: { user: user.email, id: medicine.medicineID }
                 }
             );
 
@@ -84,7 +85,7 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
             { state: { medicine, path, type } } 
         );
     };
-    
+
     return (
         <>
             <h1>{subPageName}</h1>
