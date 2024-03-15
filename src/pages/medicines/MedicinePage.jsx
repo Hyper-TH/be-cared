@@ -1,5 +1,5 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { UserAuth } from '../../context/AuthContext.js';
 import Axios from 'axios';
 
@@ -15,7 +15,7 @@ const MedicinePage = ({ backTo }) => {
     let state = location.state;
     let medicine = state.medicine;
     
-    const checkFiles = () => {
+    const checkFiles = useCallback(() => {
         // Check each level of the object to avoid accessing a property on undefined
         if (medicine.pils && medicine.pils[0] && medicine.pils[0].activePil && medicine.pils[0].activePil.file && medicine.pils[0].activePil.file.name) {
             setIsPIL(true);
@@ -28,8 +28,33 @@ const MedicinePage = ({ backTo }) => {
         } else {
             setIsSPC(false); // Set to false if the path doesn't exist
         }
-    }
+    }, [medicine]);
     
+    const checkSub = useCallback(async (medicine) => {
+        try {
+            const response = await Axios.get(
+                `${process.env.REACT_APP_LOCALHOST}/checkSub`,
+                {
+                    params: {
+                        user: user.email,
+                        id: encodeURIComponent(medicine.id),
+                    }
+                }           
+            );
+
+            if (response.data.exists === true) {
+                console.log(`Medicine subbed`);
+                setSubscription(true);
+            } else {
+                console.log(`Medicine not subbed`);
+                setSubscription(false);
+            }
+
+        } catch (error) {
+            console.error(`Axios Error: ${error}`);
+        }
+    },[user]);
+
     const cacheMed = async (medicine) => {
         try {
             const status = await Axios.get(
@@ -103,30 +128,7 @@ const MedicinePage = ({ backTo }) => {
         await checkSub(medicine);
     };
 
-    const checkSub = async (medicine) => {
-        try {
-            const response = await Axios.get(
-                `${process.env.REACT_APP_LOCALHOST}/checkSub`,
-                {
-                    params: {
-                        user: user.email,
-                        id: encodeURIComponent(medicine.id),
-                    }
-                }           
-            );
 
-            if (response.data.exists === true) {
-                console.log(`Medicine subbed`);
-                setSubscription(true);
-            } else {
-                console.log(`Medicine not subbed`);
-                setSubscription(false);
-            }
-
-        } catch (error) {
-            console.error(`Axios Error: ${error}`);
-        }
-    };
 
     // Styles for the button
     const buttonStyle = {
@@ -165,7 +167,7 @@ const MedicinePage = ({ backTo }) => {
 
             setIsLoading(false);
         }
-    }, [medicine, user]); // Depend on both `medicine` and `user` so that checkSub runs again if either changes
+    }, [medicine, user, checkFiles, checkSub]); // Depend on both `medicine` and `user` so that checkSub runs again if either changes
 
     return (
         <>
