@@ -4,9 +4,9 @@ import { UserAuth } from '../context/AuthContext.js';
 import { Medicine } from '../components/medicine/Medicine.js';
 import Axios from 'axios';
 
-const SubscriptionsPage = ({subPageName, backTo}) => {
+const SubscriptionsPage = ({ backTo }) => {
     const { user } =  UserAuth();
-    const [medicineList, setMedicineList] = useState(null);
+    const [medicineList, setMedicineList] = useState([]);
     const [notifications, setNotifications] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
@@ -37,11 +37,11 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
             console.error(`Axios Error: ${error}`);
             setError("Failed to load subscribed medicines.");
         } 
+                    
         setIsLoading(false);
     }, [user.email]);
 
 
-    // TODO: Not working
     const unsubscribe = async (medicine) => {
         try {
             await Axios.get(
@@ -90,22 +90,31 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
 
     return (
         <>
-            <h1>{subPageName}</h1>
+            <div className='title'>
+                <h1>
+                    Medicine Subscriptions
+                </h1>
+            </div>
             
             <div className="medicine_list">
+                
                 {isLoading ? (
                     <div>Loading...</div>
-                ) : medicineList === null ? (
-                    // Render nothing if medicineList is null, which is the initial state before loading
-                    null
                 ) : medicineList.length > 0 ? (
                     <>
                         <div>
-                            Notifications count: {notifications}
+                        {(notifications != 0) ? (
+                           <p> Updated documents: {notifications}</p>
+
+                        ) : (
+                            <p>No updated documents</p>
+                        )}
                         </div>
-                    
+                
                     {medicineList.map((medicine) => (
+                        
                         <Medicine 
+                            key={medicine.medicineID}
                             medicine={medicine}
                             renderSPC={renderSPC}
                             renderPIL={renderPIL}
@@ -114,15 +123,14 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
                     ))}
                     </>
                 ) : (
-                    // If empty array
-                    <div>No medicines found</div>
+                    <div>No subscriptions found</div>
                 )}
 
-            </div>
+                <button>
+                    <Link to={backTo}>Back to Home</Link>
+                </button>
 
-            <button>
-                <Link to={backTo}>Back to Home</Link>
-            </button>
+            </div>
 
             {error && <p style={{ color: "red" }}>{error}</p>}
         </>
