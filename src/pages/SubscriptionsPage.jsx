@@ -67,22 +67,24 @@ const SubscriptionsPage = ({subPageName, backTo}) => {
     }, [user, getMedicines]); // Depend on `user` so that `getMedicines` runs again if `user` changes
 
     const renderSPC = (medicine) => {
-        const type = "SPC";
-        const path = medicine.spc.path
+        const type = "spc";
+        const path = medicine.spc.path;
+        const id = medicine.medicineID;
 
         navigate(
-            `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 
-            { state: { medicine, path, type } }
+            `/render/${encodeURIComponent(medicine.medicineName)}/${encodeURIComponent(type)}`, 
+            { state: { id, medicine, path, type } }
         );
     };
 
     const renderPIL = (medicine) => {
-        const type = "PIL";
-        const path = medicine.pil.path
+        const type = "pil";
+        const path = medicine.pil.path;
+        const id = medicine.medicineID;
 
         navigate(
-            `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 
-            { state: { medicine, path, type } } 
+            `/render/${encodeURIComponent(medicine.medicineName)}/${encodeURIComponent(type)}`, 
+            { state: { id, medicine, path, type } } 
         );
     };
 

@@ -1,8 +1,10 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react'; 
+import { UserAuth } from '../../context/AuthContext.js';
 import Axios from 'axios';
 
 const PDFRenderPage = () => {
+    const { user } =  UserAuth();
     const [PDFURL, setPDFURL] = useState("");
     const [PDFName, setPDFName] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -10,14 +12,18 @@ const PDFRenderPage = () => {
 
     let location = useLocation();
 
-    const { medicine, type, path } = location.state || {}; // Destructuring with a fallback to an empty object
+    const { medicine, id, path, type } = location.state || {}; // Destructuring with a fallback to an empty object
     
     useEffect(() => {   
+        console.log(user.email);
+
         const getDocument = async () => {
             setIsLoading(true);
             setError("");
 
-            if (type === 'PIL') { 
+            console.log(user);
+
+            if (type === 'pil') { 
                 let response;
                 
                 if (path) {
@@ -45,11 +51,24 @@ const PDFRenderPage = () => {
                         setError("Local Server Error");
                     }
 
+                    try {
+                        console.log(`Calling /updateUser now`);
+                        const response = await Axios.get(
+                            `${process.env.REACT_APP_LOCALHOST}/updateUser`,
+                            { params: {user: user.email, id: id, type: type }}
+                        );
+
+                        console.log(response);
+                    } catch (error) {
+                        console.error("Axios error: ", error);
+                    }
+
                 } else {
                     try {
                         response = await Axios.get(
                             `${process.env.REACT_APP_LOCALHOST}/grabCache`,
-                            { params: { uploadPath: medicine.pils[0].activePil.file.name }});
+                            { params: { uploadPath: medicine.pils[0].activePil.file.name }}
+                        );
                         
                         if (response.data) {
                             const blob = new Blob([new Uint8Array(response.data.doc.data)], { type: 'application/pdf' });
@@ -95,6 +114,19 @@ const PDFRenderPage = () => {
                         }
                     } catch (error) {
                         console.error(error);
+                    }
+
+                    try {
+                        console.log(`Calling /updateUser now`);
+                        const response = await Axios.get(
+                            `${process.env.REACT_APP_LOCALHOST}/updateUser`,
+                            { params: {user: user.email, id: id, type: type }}
+                        );
+
+                        console.log(response);
+
+                    } catch (error) {
+                        console.error("Axios error: ", error);
                     }
 
                 } else {

@@ -135,7 +135,7 @@ const MedicinePage = ({ backTo }) => {
     };
 
     const renderSPC = (medicine) => {
-        const type = "SPC";
+        const type = "spc";
 
         navigate(
             `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 
@@ -144,7 +144,7 @@ const MedicinePage = ({ backTo }) => {
     };
 
     const renderPIL = (medicine) => {
-        const type = "PIL";
+        const type = "pil";
         
         navigate(
             `/render/${encodeURIComponent(medicine.name)}/${encodeURIComponent(type)}`, 
