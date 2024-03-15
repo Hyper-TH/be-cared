@@ -15,29 +15,36 @@ const HomePage = () => {
 		} catch (e) {
 			console.log(e.message);
 		}
-	}
+	};
  
+    // TODO: Make it so that it renders everything at once!
     return (
-        <div className="App">
-            <div>
-            <h2>Home Page</h2>
-            <div>
+        <div className="home_page">
+            <div className="title">
+                <h2>Home Page</h2>
+            </div>
+            
+            <div className="buttons">
                 <p>Choose an option:</p>
+
                 <button>
                     <Link to="/search">Search Medicine</Link>
                 </button>
 
                 {user && user.email ? (
                 <>
-                    <p>{`Signed In as ${user.email}`}</p>
-                    <button>
-                        <Link to="/subscriptions">Subscriptions</Link>
-                    </button>
-                    <button>
-                                <Link to="/foodInteractions">Search food interactions</Link>
-                    </button>
+                    <div className="standard_buttons">
+                        <p>{`Signed In as ${user.email}`}</p>
 
-                    <div>    
+                        <button>
+                            <Link to="/subscriptions">Subscriptions</Link>
+                        </button>
+
+                        <button>
+                                    <Link to="/foodInteractions">Search food interactions</Link>
+                        </button>
+
+                        <div className="verified_pages">    
                         {userType === 'verified' && (
                             <>
                             <button>
@@ -49,12 +56,13 @@ const HomePage = () => {
                             </button>
                             </>
                         )}
+
+                        </div>
                     </div>
 
                     <button onClick={handleLogout}>Logout</button>
                 </>
                 ) : ( <p>Signed Out</p> )}
-            </div>
             </div>
         </div>
     );

@@ -6,10 +6,10 @@ const GuestSignIn = () => {
 
     const handleSubmit = () => {
         navigate('/guestHome');
-    }
+    };
 
     return (
-        <div>
+        <div className='guest_login'>
             <button onClick={handleSubmit}>Login as Guest</button>
         </div>
     );
