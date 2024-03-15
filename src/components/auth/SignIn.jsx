@@ -51,7 +51,11 @@ const Signin = () => {
                     </div>
                     <div>
                         <label>Password: </label>
-                        <input type="password" onChange={(e) =>  setPassword(e.target.value)}/>
+                        <input 
+                            type="password" 
+                            placeholder='Enter your password'
+                            value={password}
+                            onChange={(e) =>  setPassword(e.target.value)}/>
                     </div>
 
                     <button>Login</button>
