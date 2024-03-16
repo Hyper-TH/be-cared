@@ -24,7 +24,7 @@ const HomePage = () => {
                 <h2>Home Page</h2>
             </div>
             
-            <div className="buttons">
+            <div className="home_buttons">
                 <p>Choose an option:</p>
 
                 <button>
