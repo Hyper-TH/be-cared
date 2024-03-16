@@ -32,28 +32,41 @@ const GuestMedicinePage = ({ backTo }) => {
 
     return (
         <>
-            <h1>{medicine.name}</h1>
-            <div>
+        <div className='medicine_details'>
+            <div className='medicine_name'>
+                <h1>{medicine.name}</h1>
+
+            </div>
+            <div className='medicine_sub_details'>
                 <p>Company: {medicine.company.name}</p>
                 <p>Active Ingredient: {medicine.ingredients[0].name}</p>
+
+                <div className='medicine_status'>
+                    Status: {medicine.legalCategory}
+                </div>
             </div>
+            
+            <div className='document_buttons'>
+                {isPIL ?  (
+                    <button 
+                        onClick={() => renderPIL(medicine)}>
+                        View PIL Document
+                    </button>
+                ) : (
+                    <button 
+                        style={{ opacity: 0.5, cursor: 'not-allowed' }}
+                        onClick={() => renderPIL(medicine)}>
+                        No available PIL Document
+                    </button>
+                )}
 
-            {isPIL ?  (
-                <button 
-                    onClick={() => renderPIL(medicine)}>
-                    View PIL Document
-                </button>
-            ) : (
-                <button 
-                    style={{ opacity: 0.5, cursor: 'not-allowed' }}
-                    onClick={() => renderPIL(medicine)}>
-                    No available PIL Document
-                </button>
-            )}
-
+            </div>
+            
             <button>
                 <Link to={backTo}>Back to the Search Page</Link>
             </button>
+        </div>
+            
         </>
     );
 };

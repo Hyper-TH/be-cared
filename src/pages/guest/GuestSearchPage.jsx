@@ -47,9 +47,12 @@ const GuestSearchPage = ({ backTo }) => {
 
     return (
         <>
-            <h2>Medicine Search Page</h2>
+        <div className='search_medicine'>
+            <div className='title'>
+                <h2>Medicine Search Page</h2>
+            </div>
 
-            <div>
+            <div className='search_bar'>
                 <label>
                     Search a medicine:
                     <input type="text" value={medQuery} onChange={medicineChange} />
@@ -57,7 +60,7 @@ const GuestSearchPage = ({ backTo }) => {
                 <button onClick={searchMedicine}>Search</button>
             </div>
 
-            <div>
+            <div className='medicine_search_list'>
                 <button>
                     <Link to={backTo}>Back to Home</Link>
                 </button>
@@ -84,6 +87,7 @@ const GuestSearchPage = ({ backTo }) => {
 
                 {error && <p style={{ color: "red" }}>{error}</p>}
             </div>
+        </div>
         </>
     );
 };

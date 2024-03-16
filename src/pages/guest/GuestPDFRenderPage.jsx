@@ -60,28 +60,37 @@ const GuestPDFRenderPage = () => {
 
     return (    
         <>
-            <h1>PDF Renderer Page</h1>
-            {isLoading ? (
-                <div>Loading...</div>
-            ) : (
-                <>
-                <iframe
-                        src={PDFURL}
-                        title="PDF"
-                        width="100%"
-                        height="400" 
-                />
-                <a href={PDFURL} download={PDFName}>
-                    <button>Download PDF</button>
-                </a>
-                </>
-            )}
+        <div className='pdf_render'>
+            <div className='title'>
+                <h1>PDF Renderer Page</h1>
+
+            </div>
+
+            <div className='pdf'>
+                {isLoading ? (
+                    <div>Loading...</div>
+                ) : (
+                    <>
+                    <iframe
+                            src={PDFURL}
+                            title="PDF"
+                            width="100%"
+                            height="400" 
+                    />
+                    <a href={PDFURL} download={PDFName}>
+                        <button>Download PDF</button>
+                    </a>
+                    </>
+                )}
+            </div>
 
             <button onClick={() => returnToMed(medicine)}>
                 Return
             </button>
 
-            {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        </div>
+
         </>
     );
 };
