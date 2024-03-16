@@ -103,7 +103,7 @@ const SubscriptionsPage = ({ backTo }) => {
                 ) : medicineList.length > 0 ? (
                     <>
                         <div>
-                        {(notifications != 0) ? (
+                        {(notifications !== 0) ? (
                            <p> Updated documents: {notifications}</p>
 
                         ) : (
