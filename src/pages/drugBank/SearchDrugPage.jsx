@@ -108,9 +108,12 @@ const SearchDrugPage = ({backTo}) => {
 
 	return (
 		<>
-		<h2>Drug Search Page</h2>
+		<div className='drug_interactions'>
+		<div className='title'>
+			<h2>Drug Search Page</h2>
+		</div>
 
-		<div>
+		<div className='search_bar'>
 			<label>
 				{/* TODO: Improve input search bar so that it's "floating" */}
 				Search a Drug:
@@ -127,6 +130,7 @@ const SearchDrugPage = ({backTo}) => {
 			it does not necessarily mean that no interactions exist. 
 			Always consult with a healthcare professional.</h3>
 		</div>
+		
 		<div className="drug_interaction_results">
 			{interactions?.length === 0 ? (
 				<div>No Interactions found</div>
@@ -147,7 +151,6 @@ const SearchDrugPage = ({backTo}) => {
 			}
 		</div>
 
-		<div>
 			<button>
 				<Link to={backTo}>Back to Home</Link>
 			</button>

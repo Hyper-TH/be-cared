@@ -107,9 +107,12 @@ const FoodInteractionsPage = ({backTo}) => {
 
     return (
         <>
-        <h2>Food Interactions Page</h2>
+		<div className='food_interactions'>
+		<div className='title'>
+	        <h2>Food Interactions Page</h2>
+		</div>
 
-        <div>
+        <div className='search_bar'>
 			<label>
 				{/* TODO: Improve input search bar so that it's "floating" */}
 				Search a Drug:
@@ -121,6 +124,12 @@ const FoodInteractionsPage = ({backTo}) => {
 			</label>
 		</div>
 
+		<div className="no_interactions_warning">
+			<h3>If no interactions are found between two drugs, 
+			it does not necessarily mean that no interactions exist. 
+			Always consult with a healthcare professional.</h3>
+		</div>
+		
 		<div className="food_interaction_results">
 			{interactions.map((interaction) => {
 				return (
@@ -134,7 +143,6 @@ const FoodInteractionsPage = ({backTo}) => {
 			})}
 		</div>
 
-		<div>
 			<button>
 				<Link to={backTo}>Back to Home</Link>
 			</button>
