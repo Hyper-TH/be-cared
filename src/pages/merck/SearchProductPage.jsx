@@ -63,8 +63,11 @@ const SearchProductPage = ({ backTo }) => {
     // TODO: Indicate user to start typing etc
     return (
         <>
-        <h2>Product Search Page</h2>
-        <div>
+        <div className='title'>
+            <h2>Product Search Page</h2>
+        </div>
+
+        <div className='search_bar'>
             <form>
                 <label htmlFor="dropdown">Choose search type:</label>
                 <select id="dropdown" value={searchType} onChange={handleDropdownChange}>
@@ -82,7 +85,7 @@ const SearchProductPage = ({ backTo }) => {
             </form>
         </div>
 
-        <div>
+        <div className='product_list'>
             <button>
                 <Link to={backTo}>Back to Home</Link>
             </button>

@@ -62,14 +62,17 @@ const ProductPage = ({ backTo }) => {
                 <div>Loading...</div>
             ) : (
                 <>
-                <h1>{productInformation.productName}</h1>
+                <div className='product_name'>
+                    <h1>{productInformation.productName}</h1>
+                </div>
 
-                <h2>{productInformation.productDescription}</h2>
+                <div className='product_description'>
+                    <h2>{productInformation.productDescription}</h2>
+                </div>
 
                 {/* <h3>Linear Formula: </h3> {formatLinearFormula(productInformation.linearFormula)}; */}
 
-                <h3>Product Information</h3>    
-                <div>
+                <div className='product_details'>
                     {Object.entries(productInformation?.productDetails ?? {}).map(([key, value]) => (
                         <div key={key}>
                         <strong>{key}</strong>: {value}
@@ -77,13 +80,15 @@ const ProductPage = ({ backTo }) => {
                     ))}
                 </div>
 
-                <h3>Product Properties</h3>
-                <div>
-                    {Object.entries(productInformation?.productProperties ?? {}).map(([key, value]) => (
-                        <div key={key}>
-                            <strong>{key}</strong>: {value}
-                        </div>
-                    ))}
+                <div className='product_properties'>
+                    <h3>Product Properties</h3>
+                    <div className='product_properties_list'>
+                        {Object.entries(productInformation?.productProperties ?? {}).map(([key, value]) => (
+                            <div key={key}>
+                                <strong>{key}</strong>: {value}
+                            </div>
+                        ))}
+                    </div>
                 </div>
                 </>
             )}
