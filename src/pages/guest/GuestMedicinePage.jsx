@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
+// TODO: Add Error usestate()
 const GuestMedicinePage = ({ backTo }) => {
     const [isPIL, setIsPIL] = useState(false);
 
@@ -19,6 +20,7 @@ const GuestMedicinePage = ({ backTo }) => {
         }
     }
 
+    // TODO: Refer to medicinePage to add appropriate render for no PDFs
     const renderPIL = (medicine) => {
         navigate(
             `/guest/render/${encodeURIComponent(medicine.name)}`, 
@@ -30,10 +32,11 @@ const GuestMedicinePage = ({ backTo }) => {
         checkFiles();
     });
 
+    // Add isLoading usestate and appropriate rendering
     return (
         <>
         <div className='medicine_details'>
-            <div className='medicine_name'>
+            <div className='title'>
                 <h1>{medicine.name}</h1>
 
             </div>

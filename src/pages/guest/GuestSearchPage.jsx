@@ -60,7 +60,6 @@ const GuestSearchPage = ({ backTo }) => {
                 <button onClick={searchMedicine}>Search</button>
             </div>
 
-            <div className='medicine_search_list'>
                 <button>
                     <Link to={backTo}>Back to Home</Link>
                 </button>
@@ -73,20 +72,21 @@ const GuestSearchPage = ({ backTo }) => {
                 ) : medicineList.length > 0 ? (
                     // Map over the medicine list if it has items
                     medicineList.map((medicine) => (
+                    <div className='search_medicine_list'>
                         <div key={medicine.id}>
                             <p>Medicine Name: {medicine.name}</p>
                             <button onClick={() => handleViewDetails(medicine)}>
                                 View Medicine Details
                             </button>
                         </div>
+                    </div>
                     ))
                 ) : (
                     // If empty array
-                    <div>No medicines found</div>
+                    <div className='no_results'>No medicines found</div>
                 )}
 
-                {error && <p style={{ color: "red" }}>{error}</p>}
-            </div>
+            {error && <p style={{ color: "red" }}>{error}</p>}
         </div>
         </>
     );
