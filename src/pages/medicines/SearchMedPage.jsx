@@ -25,7 +25,8 @@ const SearchPage = ({ backTo }) => {
                     }
                 );
                    
-                // console.log(response.data.medicines.entities[0].activeSPC);
+                // console.log(response.data.medicines.entities[0].pils[0].activePil.file.name);
+                //encodeURIComponent(medicine.pils[0].activePil.file.name) 
 
                 if (response.data.medicines) {
                     setMedicineList(response.data.medicines.entities);
@@ -54,9 +55,12 @@ const SearchPage = ({ backTo }) => {
   
     return (
         <>
-            <h2>Medicine Search Page</h2>
+        <div className='search_medicine'>
+            <div className='title'>
+                <h2>Medicine Search Page</h2>
+            </div>
 
-            <div>
+            <div className='search_bar'>
                 <label>
                     Search a medicine:
                     <input type="text" value={medQuery} onChange={medicineChange} />
@@ -64,34 +68,34 @@ const SearchPage = ({ backTo }) => {
                 
                 <button onClick={searchMedicine}>Search</button>
             </div>
+            <button>
+                <Link to={backTo}>Back to Home</Link>
+            </button>
 
-            <div>
-                <button>
-                    <Link to={backTo}>Back to Home</Link>
-                </button>
-
-                {isLoading ? (
-                    <div>Loading...</div>
-                ) : medicineList === null ? (
-                    // Render nothing if medicineList is null, which is the initial state before loading
-                    null
-                ) : medicineList.length > 0 ? (
-                    // Map over the medicine list if it has items
-                    medicineList.map((medicine) => (
+            {isLoading ? (
+                <div>Loading...</div>
+            ) : medicineList === null ? (
+                // Render nothing if medicineList is null, which is the initial state before loading
+                null
+            ) : medicineList.length > 0 ? (
+                // Map over the medicine list if it has items
+                medicineList.map((medicine) => (
+                    <div className='search_medicine_list'>
                         <div key={medicine.id}>
                             <p>Medicine Name: {medicine.name}</p>
                             <button onClick={() => handleViewDetails(medicine)}>
                                 View Medicine Details
                             </button>
                         </div>
-                    ))
-                ) : (
-                    // If empty array
-                    <div>No medicines found</div>
-                )}
+                    </div>
+                ))
+            ) : (
+                // If empty array
+                <div className='no_results'>No medicines found</div>
+            )}
 
-                {error && <p style={{ color: "red" }}>{error}</p>}
-            </div>
+            {error && <p style={{ color: "red" }}>{error}</p>}
+        </div>
         </>
     );
 };

@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { UserAuth } from '../../context/AuthContext.js';
 import Axios from 'axios';
 
+// TODO: Add Error usestate()
 const MedicinePage = ({ backTo }) => {
     const { user } = UserAuth();
     const [isPIL, setIsPIL] = useState(false);
@@ -171,41 +172,49 @@ const MedicinePage = ({ backTo }) => {
 
     return (
         <>
-            <h1>{medicine.name}</h1>
+        <div className='medicine_details'>
+            <div className='title'>
+                <h1>{medicine.name}</h1>
+            </div>
             {isLoading ? (
                 <div>Loading...</div>
             ) : (
                 <> 
-                <div>
+                <div className='medicine_sub_details'>
                     <p>Company: {medicine.company.name}</p>
                     <p>Active Ingredient: {medicine.ingredients[0].name}</p>
-                    <p>Status: {medicine.legalCategory}</p>
+                    
+                    <div className='medicine_status'>
+                        <p>Status: {medicine.legalCategory}</p>
+                    </div>
                 </div>
 
-                {isSPC ?  (
-                    <button 
-                        onClick={() => renderSPC(medicine)}>
-                        View SPC Document
-                    </button>
-                ) : (
-                    <button 
-                        style={{ opacity: 0.5, cursor: 'not-allowed' }}
-                        onClick={() => renderSPC(medicine)}>
-                        No available SPC Document
-                    </button>
-                )}
+                <div className='document_buttons'>
+                    {isSPC ?  (
+                        <button 
+                            onClick={() => renderSPC(medicine)}>
+                            View SPC Document
+                        </button>
+                    ) : (
+                        <button 
+                            style={{ opacity: 0.5, cursor: 'not-allowed' }}
+                            onClick={() => renderSPC(medicine)}>
+                            No available SPC Document
+                        </button>
+                    )}
 
-                {isPIL ? ( 
-                    <button onClick={() => renderPIL(medicine)}>
-                        View PIL Document
-                    </button>
-                ) : ( 
-                    <button 
-                        style={{ opacity: 0.5, cursor: 'not-allowed' }}
-                        onClick={() => renderPIL(medicine)}>
-                        No available PIL Document
-                    </button>
-                )}
+                    {isPIL ? ( 
+                        <button onClick={() => renderPIL(medicine)}>
+                            View PIL Document
+                        </button>
+                    ) : ( 
+                        <button 
+                            style={{ opacity: 0.5, cursor: 'not-allowed' }}
+                            onClick={() => renderPIL(medicine)}>
+                            No available PIL Document
+                        </button>
+                    )}
+                </div>
 
 
                 <button 
@@ -221,6 +230,7 @@ const MedicinePage = ({ backTo }) => {
             <button>
                 <Link to={backTo}>Back to the Search Page</Link>
             </button>
+        </div>
         </>
     );
 };
