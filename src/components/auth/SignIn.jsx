@@ -25,6 +25,10 @@ const Signin = () => {
         }
     };
 
+    const handleGuestSubmit = () => {
+        navigate('/guestHome');
+    };
+
     return (
         <div className='sign_in_container'>
             <div className='sign_in_sub_container'>
@@ -59,7 +63,13 @@ const Signin = () => {
                         <a>
                             <Link to='/signUp'>Sign up</Link>
                         </a>
+
                     </p>
+                
+                    <a onClick={handleGuestSubmit}>
+                        Login as guest
+                    </a>
+
 
                     </div>
 
