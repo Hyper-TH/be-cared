@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { UserAuth } from '../../context/AuthContext';
 
 const Signin = () => {
@@ -25,29 +25,39 @@ const Signin = () => {
         }
     };
 
-    const handleGuestSubmit = () => {
+    const guestDirect = () => {
         navigate('/guestHome');
+    };    
+    
+    const signUpDirect = () => {
+        navigate('/signUp');
     };
 
     return (
+        <section className='bg-gray-50 dark:bg-gray-900'>
         <div className='sign_in_container'>
+            <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
+                beCared
+            </a>
+
             <div className='sign_in_sub_container'>
+
                 <div className='sign_in'>
                     <h1>Sign in to your account</h1>
 
-                    <div className='create_account_form'>
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} className='sign_in_form'>
                             <div>
-                                <label>Your email: </label>
+                                <label>Your email</label>
                                 <input 
                                     type="email"
-                                    placeholder='Enter your email'
+                                    placeholder='example@domain.com'
                                     value={email} 
-                                    onChange={(e) =>  setEmail(e.target.value)}
-                                />
+                                    onChange={(e) =>  setEmail(e.target.value)}/>
                             </div>
+
                             <div>
-                                <label>Password: </label>
+                                <label>Password</label>
                                 <input 
                                     type="password" 
                                     placeholder='Enter your password'
@@ -55,28 +65,32 @@ const Signin = () => {
                                     onChange={(e) =>  setPassword(e.target.value)}/>
                             </div>
 
-                            <button className='btn_primary'>Login</button>
-                        </form>
+                            <button className='btn_login'>Login</button>
 
                     <p>
                         Don't have an account? 
-                        <a>
-                            <Link to='/signUp'>Sign up</Link>
-                        </a>
-
                     </p>
-                
-                    <a onClick={handleGuestSubmit}>
-                        Login as guest
-                    </a>
+
+                    <div className='btn_collection_sign_in' role="group">
+                        <button className='sign_up_btn' onClick={signUpDirect}>
+                        Sign Up
+                        </button>
+
+                        <button className='guest_btn' onClick={guestDirect}>
+                            Login as Guest
+                        </button>
 
 
                     </div>
+
+                    </form>
+
 
                     {error && <p style={{ color: "red" }}>{error}</p>}
                 </div>
             </div>
         </div>
+        </section>
     );
 };
 
