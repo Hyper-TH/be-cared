@@ -34,17 +34,18 @@ const Signin = () => {
     };
 
     return (
+        <>
         <section className='bg-gray-50 dark:bg-gray-900'>
         <div className='sign_in_container'>
-            <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+            <a href="www.tudublin.ie" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                 <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
                 beCared
             </a>
-
             <div className='sign_in_sub_container'>
-
-                <div className='sign_in'>
-                    <h1>Sign in to your account</h1>
+                <div className='p-6 space-y-4 md:space-y-6 sm:p-8'>
+                    <h1 className='sign_in_title'>
+                        Sign in to your account
+                    </h1>
 
                         <form onSubmit={handleSubmit} className='sign_in_form'>
                             <div>
@@ -91,6 +92,7 @@ const Signin = () => {
             </div>
         </div>
         </section>
+    </>
     );
 };
 
