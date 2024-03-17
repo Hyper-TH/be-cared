@@ -47,7 +47,7 @@ const GuestPDFRenderPage = () => {
 
         // Fetch document only when the component mounts
         getDocument();
-    }, []);
+    }, [medicine.name, medicine.pils]);
 
     const navigate = useNavigate();
 

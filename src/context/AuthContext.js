@@ -14,8 +14,10 @@ export const AuthContextProvider = ({ children }) => {
     const [user, setUser] = useState({});
     const [userType, setUserType] = useState("");
     const [type, setType] = useState("");   // For adding new users
-    const [token , setToken] = useState("");
+    // const [token , setToken] = useState("");
     const [error, setError] = useState("");
+
+    // TODO: automatically being called on mount
 
     const createUser = async (email, password, type) => {
         setType(type);
@@ -79,7 +81,7 @@ export const AuthContextProvider = ({ children }) => {
         });
     
         return unsubscribe;
-    }, []);
+    }, [type]);
 
     
     return (

@@ -40,7 +40,7 @@ const ProductPage = ({ backTo }) => {
         };
 
         getProductDetails();
-    }, []);
+    }, [product.href]);
 
     // const formatLinearFormula = (linearFormula) => {
     //     // Split the string into parts by a regular expression that looks for numbers
