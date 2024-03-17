@@ -26,43 +26,46 @@ const Signin = () => {
     };
 
     return (
-        <div className='sign_in'>
-            <div className='title'>
-                <h1>Sign in to your account</h1>
+        <div className='sign_in_container'>
+            <div className='sign_in_sub_container'>
+                <div className='sign_in'>
+                    <h1>Sign in to your account</h1>
 
-            </div>
+                    <div className='create_account_form'>
+                        <form onSubmit={handleSubmit}>
+                            <div>
+                                <label>Your email: </label>
+                                <input 
+                                    type="email"
+                                    placeholder='Enter your email'
+                                    value={email} 
+                                    onChange={(e) =>  setEmail(e.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <label>Password: </label>
+                                <input 
+                                    type="password" 
+                                    placeholder='Enter your password'
+                                    value={password}
+                                    onChange={(e) =>  setPassword(e.target.value)}/>
+                            </div>
 
-            <div className='sign_up_prompt'>
-                <p>
-                    Don't have an account? <Link to='/signUp'>Sign up</Link>.
-                </p>
-            </div>
-            
-            <div className='create_account_form'>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>Email Address: </label>
-                        <input 
-                            type="email"
-                            placeholder='Enter your email'
-                            value={email} 
-                            onChange={(e) =>  setEmail(e.target.value)}
-                        />
+                            <button className='btn_primary'>Login</button>
+                        </form>
+
+                    <p>
+                        Don't have an account? 
+                        <a>
+                            <Link to='/signUp'>Sign up</Link>
+                        </a>
+                    </p>
+
                     </div>
-                    <div>
-                        <label>Password: </label>
-                        <input 
-                            type="password" 
-                            placeholder='Enter your password'
-                            value={password}
-                            onChange={(e) =>  setPassword(e.target.value)}/>
-                    </div>
 
-                    <button>Login</button>
-                </form>
+                    {error && <p style={{ color: "red" }}>{error}</p>}
+                </div>
             </div>
-
-            {error && <p style={{ color: "red" }}>{error}</p>}
         </div>
     );
 };
