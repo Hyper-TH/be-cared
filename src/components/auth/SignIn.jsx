@@ -41,8 +41,9 @@ const Signin = () => {
                 <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
                 beCared
             </a>
+
             <div className='sign_in_sub_container'>
-                <div className='p-6 space-y-4 md:space-y-6 sm:p-8'>
+                <div className='sign_in'>
                     <h1 className='sign_in_title'>
                         Sign in to your account
                     </h1>

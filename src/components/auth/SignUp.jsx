@@ -39,14 +39,22 @@ const SignUp = () => {
         };
     };
 
-    return (
-        <div className="sign_up">
-            <div className='title'>
-                <h1>Create your account</h1>
-            </div>
+    const returnLogin = () => {
+        navigate('/');
+    };
 
-            <div className="sign_up_form">
-            <form onSubmit={signUp}>
+    return (
+        <>
+        <section className="bg-gray-50 dark:bg-gray-900">
+        <div className="sign_in_container">
+
+            <div className='sign_in_sub_container'>
+                <div className='sign_in'>
+                <h1 className='sign_in_title'>
+                    Create your account
+                </h1>
+
+            <form onSubmit={signUp} className='sign_in_form'>
                 <div>
                     <label>Email Address: </label>
                     <input 
@@ -78,13 +86,17 @@ const SignUp = () => {
                     />
                </div>
                
-                <button type="submit">Sign Up</button>
+                    <button className='btn_login'>Sign Up</button>
+                    <button className='btn_login' onClick={returnLogin}>Back to login</button>
                 </form>
-             </div>
            
 
             {error && <p style={{ color: "red" }}>{error}</p>}
+            </div>
+            </div>
         </div>
+        </section>
+        </>
     );
 };
 
