@@ -1,14 +1,6 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import { AuthContextProvider } from './context/AuthContext.js';
-// import { 
-// 	GuestPage, GuestSearchPage, GuestMedicinePage, 
-// 	GuestPDFRenderPage, HomePage, LoginPage, 
-// 	MedicinePage, SubscriptionsPage, SearchMedPage, 
-// 	SearchDrugPage, FoodInteractionsPage, SearchProductPage, 
-// 	ProductPage, PDFRenderPage
-// } from './RouteImports.js';
-
 import {
 	LoginPage, SignUpPage, HomePage,
 	GuestPage, GuestSearchPage, GuestMedicinePage,
@@ -16,7 +8,6 @@ import {
 	PDFRenderPage, SubscriptionsPage, SearchDrugPage, 
 	FoodInteractionsPage, SearchProductPage, ProductPage
 } from './RouteImports.js';
-
 import ProtectedRoute from './components/auth/ProtectedRoute.js';
 
 function App() {
