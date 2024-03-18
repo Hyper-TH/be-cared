@@ -130,12 +130,31 @@ const MedicinePage = ({ backTo }) => {
     };
 
 
-
     // Styles for the button
     const buttonStyle = {
         opacity: subscription ? 0.5 : 1, // Make button transparent when subscription is true
         cursor: subscription ? 'not-allowed' : 'pointer', // Change cursor style
     };
+
+    const statusButton = (() => {
+        if (medicine.legalCategory.includes('(A)') || medicine.legalCategory.includes('(B)') || medicine.legalCategory.includes('(C)')) {
+            return (
+                <button className='btn_pharmacy_only_presc'>
+                    Pharmacy Only: Prescription
+                </button>        
+            );
+        } else if (medicine.legalCategory.includes('general sale')) {
+            return (
+                <button className='btn_pharmacy_only'> 
+                    General Sale: Non-prescription
+                </button>
+            );
+        } else {
+            <button className='btn_general_sale'>
+                Pharmacy Only: Non-prescription
+            </button>   
+        }
+    })();  
 
     const renderSPC = (medicine) => {
         const type = "spc";
@@ -172,65 +191,88 @@ const MedicinePage = ({ backTo }) => {
 
     return (
         <>
-        <div className='medicine_details'>
-            <div className='title'>
-                <h1>{medicine.name}</h1>
-            </div>
-            {isLoading ? (
-                <div>Loading...</div>
-            ) : (
-                <> 
-                <div className='medicine_sub_details'>
-                    <p>Company: {medicine.company.name}</p>
-                    <p>Active Ingredient: {medicine.ingredients[0].name}</p>
-                    
-                    <div className='medicine_status'>
-                        <p>Status: {medicine.legalCategory}</p>
+        <section className='main_container'>
+            <Link to={backTo}>
+                <button className='btn_primary'>
+                    &larr;
+                </button>
+            </Link>
+        
+            <div className='sub_container'>
+
+                <div className='medicine_details_container'>
+                    <div className='medicine_details'>
+                        {isLoading ? (
+                            <div>Loading...</div>
+                        ) : (
+                            <> 
+                            <h1 className='medicine_name'>
+                                {medicine.name}
+                            </h1>
+
+                            <div className='medicine_sub_details'>
+                                <div className='flex flex-col mb-4'>
+                                    <span className='medicine_header inline'>Company:</span>
+                                    <span className='medicine_text inline'>{medicine.company.name}</span>
+                                </div>
+
+                                {/* TODO: Active ingredients are in a list sometimes */}
+                                <div className='flex flex-col mb-4'>
+                                    <span className='medicine_header inline'>Active Ingredient:</span>
+                                    <span className='medicine_text inline'>{medicine.ingredients[0].name}</span>
+                                </div>
+
+                                <div className='medicine_status'>
+                                    <span className='medicine_header inline'>Status: </span>
+                                    <span className='medicine_text inline'>{statusButton}</span>
+                                </div>
+                            </div>
+
+                            <div className='btn_collection_medicine'>
+                                {isSPC ?  (
+                                    <button 
+                                        className='btn_collection_med_left'
+                                        onClick={() => renderSPC(medicine)}>
+                                        SPC Document
+                                    </button>
+                                ) : (
+                                    <button 
+                                        className='btn_collection_med_left'
+                                        style={{ opacity: 0.5, cursor: 'not-allowed' }}
+                                        onClick={() => renderSPC(medicine)}>
+                                        No available SPC Document
+                                    </button>
+                                )}
+
+                                {isPIL ? ( 
+                                    <button 
+                                        className='btn_collection_med_mid'
+                                        onClick={() => renderPIL(medicine)}>
+                                        PIL Document
+                                    </button>
+                                ) : ( 
+                                    <button 
+                                        className='btn_collection_med_mid'
+                                        style={{ opacity: 0.5, cursor: 'not-allowed' }}
+                                        onClick={() => renderPIL(medicine)}>
+                                        No available PIL Document
+                                    </button>
+                                )}
+
+                                <button 
+                                    className='btn_collection_med_right'
+                                    style={buttonStyle}
+                                    disabled={subscription}
+                                    onClick={() => subscribe(medicine)}>
+                                    Subscribe
+                                </button>
+                            </div>
+                            </>
+                        )}
                     </div>
                 </div>
-
-                <div className='document_buttons'>
-                    {isSPC ?  (
-                        <button 
-                            onClick={() => renderSPC(medicine)}>
-                            View SPC Document
-                        </button>
-                    ) : (
-                        <button 
-                            style={{ opacity: 0.5, cursor: 'not-allowed' }}
-                            onClick={() => renderSPC(medicine)}>
-                            No available SPC Document
-                        </button>
-                    )}
-
-                    {isPIL ? ( 
-                        <button onClick={() => renderPIL(medicine)}>
-                            View PIL Document
-                        </button>
-                    ) : ( 
-                        <button 
-                            style={{ opacity: 0.5, cursor: 'not-allowed' }}
-                            onClick={() => renderPIL(medicine)}>
-                            No available PIL Document
-                        </button>
-                    )}
-                </div>
-
-
-                <button 
-                    style={buttonStyle}
-                    disabled={subscription}
-                    onClick={() => subscribe(medicine)}>
-                    Subscribe
-                </button>
-                </>
-            )}
-           
-
-            <button>
-                <Link to={backTo}>Back to the Search Page</Link>
-            </button>
-        </div>
+            </div>
+        </section>
         </>
     );
 };
