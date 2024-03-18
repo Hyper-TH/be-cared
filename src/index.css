@@ -120,6 +120,52 @@
 
 /* END HOME */
 
+/* START MEDICINE SEARCH */
+.search_medicine_container {
+	@apply 
+	w-full bg-white rounded-lg shadow dark:border 
+	md:mt-0 sm:max-w-md xl:p-0	
+	dark:bg-gray-800 dark:border-gray-700;
+}
+
+.search_medicine {
+	@apply 
+	p-6 space-y-4 md:space-y-6 sm:p-8;
+}
+
+.search_box {
+	@apply
+	max-w-md mx-auto;
+}
+
+.search_box label {
+	@apply
+	mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white;
+}
+
+.search_icon {
+	@apply 
+	absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none;
+}
+
+.search_icon svg {
+	@apply
+	w-4 h-4 text-gray-500 dark:text-gray-400;
+
+	fill: none;
+}
+
+.search_input {
+	@apply
+	block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+}
+
+.search_med_btn {
+	@apply
+	text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800;
+}
+
+/* END MEDICINE SEARCH */
 .btn_primary {
   	@apply 
 	my-2
