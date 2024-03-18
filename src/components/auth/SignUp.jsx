@@ -45,12 +45,11 @@ const SignUp = () => {
 
     return (
         <>
-        <section className="bg-gray-50 dark:bg-gray-900">
-        <div className="sign_in_container">
+        <div className="sub_container">
 
-            <div className='sign_in_sub_container'>
+            <div className='sign_in_container'>
                 <div className='sign_in'>
-                <h1 className='sign_in_title'>
+                <h1 className='main_title'>
                     Create your account
                 </h1>
 
@@ -95,7 +94,6 @@ const SignUp = () => {
             </div>
             </div>
         </div>
-        </section>
         </>
     );
 };

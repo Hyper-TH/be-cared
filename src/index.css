@@ -2,15 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-/* LOGIN */
-.sign_in_container {
+.main_container {
+	@apply
+	bg-gray-50 dark:bg-gray-900;
+}
+
+.sub_container {
   	@apply 
 	flex flex-col items-center justify-center 
 	px-6 py-8 mx-auto 
 	md:h-screen lg:py-0;
 }
+.main_title {
+	@apply text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white;
+}
 
-.sign_in_sub_container {
+
+/* LOGIN */
+.sign_in_container {
 	@apply 
 	w-full bg-white rounded-lg shadow dark:border 
 	md:mt-0 sm:max-w-md xl:p-0	
@@ -20,10 +29,6 @@
 .sign_in {
 	@apply 
 	p-6 space-y-4 md:space-y-6 sm:p-8;
-}
-
-.sign_in_title {
-	@apply text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white;
 }
 
 .sign_in_form {
