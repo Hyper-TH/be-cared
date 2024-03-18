@@ -5,78 +5,52 @@ import { useState } from 'react';
 
 const SearchPage = ({ backTo }) => {
     const [medQuery, setMedQuery] = useState("");
-    const [selectedMedicine, setSelectedMedicine] = useState(null);
     const [medicineList, setMedicineList] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const fetchMedicines = async (query) => {
+    const medicineChange = (event) => {
+        setMedQuery(event.target.value);
+
+        console.log(`Got: `, medQuery);
+
+        searchMedicine(medQuery);
+    };
+
+    const searchMedicine = async () => {
         setIsLoading(true);
         setError("");
         
-        if (!query) {
-            setMedicineList([]);
-            setError("Input a medicine to start searching!");
-            setIsLoading(false);
-            return;
-        }
+        if (medQuery) {
+            console.log(`Searching for: `, medQuery);
 
-        try {
-            const response = await Axios.get(
-                `${process.env.REACT_APP_LOCALHOST}/getMeds`, { params : { medQuery: query } }
-            );
+            try {
+                const response = await Axios.get(
+                    `${process.env.REACT_APP_LOCALHOST}/getMeds`,
+                    {
+                        params : { medQuery: medQuery }
+                    }
+                );
+                   
+                console.log(response);
+                // console.log(response.data.medicines.entities[0].pils[0].activePil.file.name);
+                // encodeURIComponent(medicine.pils[0].activePil.file.name) 
 
-            if (response.data.medicines) {
-                // setMedicineList(response.data.medicines.entities);
-                setMedicineList(response.data.medicines.entities.slice(0, 5));
-            } else {
-                setMedicineList([]);
+                if (response.data.medicines) {
+                    setMedicineList(response.data.medicines.entities);
+                } else {
+                    setMedicineList([]);
+                }
+            } catch (error) {
+                console.error(`Axios Error: ${error}`);
+                setError("Local Server Error");
             }
-        } catch (error) {
-            console.error(`Axios Error: ${error}`);
-            setError("Local Server Error");
+        } else {
+            setError("Input a medicine to start searching!");
         }
-
+        
         setIsLoading(false);
     };
-
-    // const medicineChange = (event) => {
-    //     setMedQuery(event.target.value);
-
-    //     searchMedicine(medQuery);
-    // };
-
-    // const searchMedicine = async () => {
-    //     setIsLoading(true);
-    //     setError("");
-        
-    //     if (medQuery) {
-    //         try {
-    //             const response = await Axios.get(
-    //                 `${process.env.REACT_APP_LOCALHOST}/getMeds`,
-    //                 {
-    //                     params : { medQuery: medQuery }
-    //                 }
-    //             );
-                   
-    //             // console.log(response.data.medicines.entities[0].pils[0].activePil.file.name);
-    //             // encodeURIComponent(medicine.pils[0].activePil.file.name) 
-
-    //             if (response.data.medicines) {
-    //                 setMedicineList(response.data.medicines.entities);
-    //             } else {
-    //                 setMedicineList([]);
-    //             }
-    //         } catch (error) {
-    //             console.error(`Axios Error: ${error}`);
-    //             setError("Local Server Error");
-    //         }
-    //     } else {
-    //         setError("Input a medicine to start searching!");
-    //     }
-        
-    //     setIsLoading(false);
-    // };
 
     const navigate = useNavigate();
 
@@ -99,9 +73,7 @@ const SearchPage = ({ backTo }) => {
             <div className='search_medicine'>
 
         <div className="search_box">
-            <Combobox as="div" value={selectedMedicine} onChange={setSelectedMedicine}>
-                <Combobox.Label className="combox_label">Search:</Combobox.Label>
-                
+            <Combobox as="div">                
                 <div className="flex items-center">
                     <div className="search_icon">
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -110,17 +82,16 @@ const SearchPage = ({ backTo }) => {
                     </div>
                     <Combobox.Input
                         className="search_input"
-                        onChange={(event) => {
-                            setMedQuery(event.target.value);
-                            fetchMedicines(event.target.value);
-                        }}
-                        displayValue={(medicine) => medicine ? medicine.name : ""}
+                        onChange={medicineChange}
+                        value={medQuery}
                         placeholder="Search medicine..."
                     />
                 </div>
 
                     <Combobox.Options className="combox_auto_complete">
-                        {medicineList === null ? (
+                        {isLoading ? (
+                            <div className="p-2 text-left text-gray-500">Loading...</div>
+                        ) : medicineList === null ? (
                             null 
                         ) : medicineList.length > 0 ? (
                             // Map over the medicine list if it has items
