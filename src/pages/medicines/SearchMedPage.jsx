@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Combobox } from '@headlessui/react';
 import Axios from 'axios';
+import '../../styles/medicinePages/search_medicine.css';
 import { useState } from 'react';
 
 const SearchPage = ({ backTo }) => {

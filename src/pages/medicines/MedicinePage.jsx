@@ -1,6 +1,7 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { UserAuth } from '../../context/AuthContext.js';
+import '../../styles/medicinePages/medicine.css';
 import Axios from 'axios';
 
 // TODO: Add Error usestate()

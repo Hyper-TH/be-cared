@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router';
 import { UserAuth } from '../../context/AuthContext.js';
+import '../../styles/sign_in.css';
 
 const SignUp = () => {
     const { createUser } = UserAuth();

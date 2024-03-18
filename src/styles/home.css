@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.home_container {
+	@apply 
+	w-full bg-white rounded-lg shadow dark:border 
+	md:mt-0 sm:max-w-md xl:p-0	
+	dark:bg-gray-800 dark:border-gray-700;
+}
+
+.home {
+	@apply 
+	p-6 space-y-4 md:space-y-6 sm:p-8;
+}
+
+.home_title {
+	@apply
+	flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white;
+}
+
+.btn_collection {
+	@apply
+	mx-auto
+	w-full
+	max-w-xs flex flex-col rounded-lg shadow-sm;
+}
+
+.btn_collection_top {
+	@apply
+	py-3 px-4 inline-flex items-center gap-x-2 rounded-t-md text-sm font-medium focus:z-10 border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600;
+}
+
+.btn_collection_mid {
+	@apply
+	-mt-px py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium focus:z-10 border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600;
+}
+
+.btn_collection_bottom {
+	@apply
+	-mt-px py-3 px-4 inline-flex items-center gap-x-2 rounded-b-md text-sm font-medium focus:z-10 border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none 
+	dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600;
+}

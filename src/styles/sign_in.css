@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.sign_in_container {
+	@apply 
+	w-full bg-white rounded-lg shadow dark:border 
+	md:mt-0 sm:max-w-md xl:p-0	
+	dark:bg-gray-800 dark:border-gray-700;
+}
+
+.sign_in {
+	@apply 
+	p-6 space-y-4 md:space-y-6 sm:p-8;
+}
+
+.sign_in_form {
+	@apply space-y-4 md:space-y-6;
+}
+
+.sign_in_form label {
+	@apply block mb-2 text-sm font-medium text-gray-900 dark:text-white;
+}
+
+.sign_in_form input {
+	@apply
+	bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+}
+
+.sign_in_form p {
+	@apply
+	text-sm font-light text-gray-500 dark:text-gray-400;
+}
+
+
+.btn_login {
+	@apply
+	w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800;
+}
+
+.btn_collection_sign_in {
+	@apply
+	inline-flex rounded-md shadow-sm
+}
+
+.sign_up_btn {
+	@apply
+	px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white;
+}
+
+.guest_btn {
+	@apply
+	px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white;
+}
