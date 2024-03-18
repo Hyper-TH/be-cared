@@ -17,6 +17,7 @@ const SearchPage = ({ backTo }) => {
         searchMedicine(medQuery);
     };
 
+    // TODO: Set grace period (after 500ms call the API)
     const searchMedicine = async () => {
         setIsLoading(true);
         setError("");
@@ -90,7 +91,7 @@ const SearchPage = ({ backTo }) => {
 
                     <Combobox.Options className="combox_auto_complete">
                         {isLoading ? (
-                            <div className="p-2 text-left text-gray-500">Loading...</div>
+                            <div className="loading">Loading...</div>
                         ) : medicineList === null ? (
                             null 
                         ) : medicineList.length > 0 ? (
@@ -99,7 +100,7 @@ const SearchPage = ({ backTo }) => {
                             <Combobox.Option key={medicine.id} value={medicine}>
                                 {({ active }) => (
                                     <div onClick={() => handleViewDetails(medicine)} 
-                                        className={`${active ? 'text-white bg-blue-500' : 'text-black'}`}>
+                                        className={`cursor-pointer p-2 ${active ? 'text-white bg-blue-500' : 'text-gray-800 hover:bg-gray-100'} border-b border-gray-800 last:border-b-0 first:rounded-t-md last:rounded-b-md`}>
                                         {medicine.name}
                                     </div>
                                 )}
@@ -137,7 +138,7 @@ const SearchPage = ({ backTo }) => {
                     <div className='no_results'>No medicines found</div>
                 )} */}
 
-            <Link to={backTo} className='btn_primary'>Back to Home</Link>
+            {/* <Link to={backTo} className='btn_primary'>Back to Home</Link> */}
                 </div>
             </div>
             {error && <p style={{ color: "red" }}>{error}</p>}
