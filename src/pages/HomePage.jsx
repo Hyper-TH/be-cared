@@ -16,55 +16,88 @@ const HomePage = () => {
 			console.log(e.message);
 		}
 	};
- 
-    // TODO: Make it so that it renders everything at once!
-    return (
-        <div className="home_page">
-            <div className="title">
-                <h2>Home Page</h2>
-            </div>
-            
-            <div className="home_buttons">
-                <p>Choose an option:</p>
 
-                <button>
+    const content = (() => {
+        if (user && user.email  && (userType === 'verified')) {
+            return (
+                <>
+                <h2 className="sub_title">{`Signed In as ${user.email}`}</h2>
+
+                <button className="btn_collection_top">
+                    <Link to="/subscriptions">Subscriptions</Link>
+                </button>
+
+                <button className="btn_collection_mid">
                     <Link to="/search">Search Medicine</Link>
                 </button>
 
-                {user && user.email ? (
-                <>
-                    <div className="standard_buttons">
-                        <p>{`Signed In as ${user.email}`}</p>
+                <button className="btn_collection_mid">
+                            <Link to="/foodInteractions">Search food interactions</Link>
+                </button>
 
-                        <button>
-                            <Link to="/subscriptions">Subscriptions</Link>
-                        </button>
-
-                        <button>
-                                    <Link to="/foodInteractions">Search food interactions</Link>
-                        </button>
-
-                        <div className="verified_pages">    
-                        {userType === 'verified' && (
-                            <>
-                            <button>
-                                <Link to="/searchProduct">Search chemical compound</Link>
-                            </button>
+                <button className="btn_collection_mid">
+                    <Link to="/searchProduct">Search chemical compound</Link>
+                </button>
                             
-                            <button>
-                                <Link to="/searchDrugs">Search drug interactions</Link>
-                            </button>
-                            </>
-                        )}
+                <button className="btn_collection_bottom">
+                    <Link to="/searchDrugs">Search drug interactions</Link>
+                </button>
 
-                        </div>
-                    </div>
+                <button className="btn_primary" onClick={handleLogout}>Logout</button>
 
-                    <button onClick={handleLogout}>Logout</button>
                 </>
-                ) : ( <p>Signed Out</p> )}
+            );
+        } else if (user && user.email && (userType !== 'verified')) {
+            return (
+                <>
+                <h2 className="sub_title">{`Signed In as ${user.email}`}</h2>
+
+                <button className="btn_collection_top">
+                    <Link to="/subscriptions">Subscriptions</Link>
+                </button>
+
+                <button className="btn_collection_mid">
+                    <Link to="/search">Search Medicine</Link>
+                </button>
+
+                <button className="btn_collection_bottom">
+                            <Link to="/foodInteractions">Search food interactions</Link>
+                </button>
+
+                <button className="btn_primary" onClick={handleLogout}>Logout</button>
+
+                </>
+            );
+        } else {
+            return (
+                <>
+                <div>
+                    Loading...
+                </div>
+                </>
+            );
+        }
+    })();
+ 
+    // TODO: Make it so that it renders everything at once!
+    return (
+        <section className="main_container">
+            <div className="sub_container">
+            <h1 className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">Home Page</h1>
+
+            <div className="home_container">
+                <div className="home">
+
+                    <div className="btn_collection">
+                        {content}  
+
+                    </div>   
+
+
+                </div>
             </div>
-        </div>
+            </div>
+        </section>
     );
 };
 

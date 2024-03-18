@@ -17,6 +17,12 @@
 	@apply text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white;
 }
 
+.sub_title {
+	@apply 
+	text-base font-bold leading-tight tracking-tight 
+	text-gray-900 md:text-2xl dark:text-white;
+}
+
 
 /* LOGIN */
 .sign_in_container {
@@ -70,13 +76,53 @@
 	px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white;
 }
 
+/* START HOME */
+.home_container {
+	@apply 
+	w-full bg-white rounded-lg shadow dark:border 
+	md:mt-0 sm:max-w-md xl:p-0	
+	dark:bg-gray-800 dark:border-gray-700;
+}
+
+.home {
+	@apply 
+	p-6 space-y-4 md:space-y-6 sm:p-8;
+}
+
+.btn_collection {
+	@apply
+	mx-auto
+	w-full
+	max-w-xs flex flex-col rounded-lg shadow-sm;
+}
+
+.btn_collection_top {
+	@apply
+	py-3 px-4 inline-flex items-center gap-x-2 rounded-t-md text-sm font-medium focus:z-10 border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600;
+}
+
+.btn_collection_mid {
+	@apply
+	-mt-px py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium focus:z-10 border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600;
+}
+
+.btn_collection_bottom {
+	@apply
+	-mt-px py-3 px-4 inline-flex items-center gap-x-2 rounded-b-md text-sm font-medium focus:z-10 border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none 
+	dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600;
+}
+
+/* END HOME */
 
 .btn_primary {
   	@apply 
+	my-2
 	w-full text-white bg-primary-600 
 	hover:bg-primary-700 focus:ring-4 focus:outline-none 
-	focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800;
+	focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center 
+	dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800;
 }
+
 
 /* TODO: Use this loading button for subscribe (and also check usestate) */
 .loading_btn {
