@@ -239,7 +239,8 @@ const MedicinePage = ({ backTo }) => {
                                     <button 
                                         className='btn_collection_med_left'
                                         style={{ opacity: 0.5, cursor: 'not-allowed' }}
-                                        onClick={() => renderSPC(medicine)}>
+                                        onClick={() => renderSPC(medicine)}
+                                        disabled>
                                         No available SPC Document
                                     </button>
                                 )}
@@ -254,7 +255,8 @@ const MedicinePage = ({ backTo }) => {
                                     <button 
                                         className='btn_collection_med_mid'
                                         style={{ opacity: 0.5, cursor: 'not-allowed' }}
-                                        onClick={() => renderPIL(medicine)}>
+                                        onClick={() => renderPIL(medicine)}
+                                        disabled>
                                         No available PIL Document
                                     </button>
                                 )}
