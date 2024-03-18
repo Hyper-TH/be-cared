@@ -19,6 +19,7 @@
 
 .sub_title {
 	@apply 
+	my-2
 	text-base font-bold leading-tight tracking-tight 
 	text-gray-900 md:text-2xl dark:text-white;
 }
@@ -87,6 +88,11 @@
 .home {
 	@apply 
 	p-6 space-y-4 md:space-y-6 sm:p-8;
+}
+
+.home_title {
+	@apply
+	flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white;
 }
 
 .btn_collection {

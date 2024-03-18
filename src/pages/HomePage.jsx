@@ -71,7 +71,7 @@ const HomePage = () => {
         } else {
             return (
                 <>
-                <div>
+                <div className="main_title">
                     Loading...
                 </div>
                 </>
@@ -83,7 +83,9 @@ const HomePage = () => {
     return (
         <section className="main_container">
             <div className="sub_container">
-            <h1 className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">Home Page</h1>
+            <h1 className="home_title">
+                Welcome to beCared
+            </h1>
 
             <div className="home_container">
                 <div className="home">
