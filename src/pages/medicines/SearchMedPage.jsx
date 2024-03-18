@@ -65,85 +65,61 @@ const SearchPage = ({ backTo }) => {
     return (
         <>
         <section className='main_container'>
+        <Link to={backTo} className='btn_primary'>Back to Home</Link>
             <div className='sub_container'>
-            <h1 className="home_title">
-                Search Medicine
-            </h1>
+                <h1 className="home_title">
+                    Search Medicine
+                </h1>
 
-            <div className='search_medicine_container'>
-            <div className='search_medicine'>
-
-        <div className="search_box">
-            <Combobox as="div">                
-                <div className="flex items-center">
-                    <div className="search_icon">
-                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                        </svg>
-                    </div>
-                    <Combobox.Input
-                        className="search_input"
-                        onChange={medicineChange}
-                        value={medQuery}
-                        placeholder="Search medicine..."
-                    />
-                </div>
-
-                    <Combobox.Options className="combox_auto_complete">
-                        {isLoading ? (
-                            <div className="loading">Loading...</div>
-                        ) : medicineList === null ? (
-                            null 
-                        ) : medicineList.length > 0 ? (
-                            // Map over the medicine list if it has items
-                            medicineList?.map((medicine) => (
-                            <Combobox.Option key={medicine.id} value={medicine}>
-                                {({ active }) => (
-                                    <div onClick={() => handleViewDetails(medicine)} 
-                                        className={`cursor-pointer p-2 ${active ? 'text-white bg-blue-500' : 'text-gray-800 hover:bg-gray-100'} border-b border-gray-800 last:border-b-0 first:rounded-t-md last:rounded-b-md`}>
-                                        {medicine.name}
+                <div className='search_medicine_container'>
+                    <div className='search_medicine'>
+                        <div className="search_box">
+                            <Combobox as="div">                
+                                <div className="flex items-center">
+                                    <div className="search_icon">
+                                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                        </svg>
                                     </div>
-                                )}
-                            </Combobox.Option>
 
-                        ))) : (
-                            <div>
-                                No medicines found
-                            </div>
-                        )}
-                    </Combobox.Options>
-            </Combobox>
-        </div>
-            
+                                    <Combobox.Input
+                                        className="search_input"
+                                        onChange={medicineChange}
+                                        value={medQuery}
+                                        placeholder="Search medicine..."
+                                    />
 
-                {/* {isLoading ? (
-                    <div>Loading...</div>
-                ) : medicineList === null ? (
-                    // Render nothing if medicineList is null, which is the initial state before loading
-                    null
-                ) : medicineList.length > 0 ? (
-                    // Map over the medicine list if it has items
-                    medicineList.map((medicine) => (
-                        <div className='search_medicine_list'>
-                            <div key={medicine.id}>
-                                <p>Medicine Name: {medicine.name}</p>
-                                <button onClick={() => handleViewDetails(medicine)}>
-                                    View Medicine Details
-                                </button>
-                            </div>
+                                </div>
+
+                                <Combobox.Options className="combox_auto_complete">
+                                    {isLoading ? (
+                                        <div className="loading">Loading...</div>
+                                    ) : medicineList === null ? (
+                                        null 
+                                    ) : medicineList.length > 0 ? (
+                                        // Map over the medicine list if it has items
+                                        medicineList?.map((medicine) => (
+                                        <Combobox.Option key={medicine.id} value={medicine}>
+                                            {({ active }) => (
+                                                <div onClick={() => handleViewDetails(medicine)} 
+                                                    className={`cursor-pointer p-2 ${active ? 'text-white bg-blue-500' : 'text-gray-800 hover:bg-gray-100'} border-b border-gray-800 last:border-b-0 first:rounded-t-md last:rounded-b-md`}>
+                                                    {medicine.name}
+                                                </div>
+                                            )}
+                                        </Combobox.Option>
+
+                                    ))) : (
+                                        <div>
+                                            No medicines found
+                                        </div>
+                                    )}
+                                </Combobox.Options>
+                            </Combobox>
                         </div>
-                    ))
-                ) : (
-                    // If empty array
-                    <div className='no_results'>No medicines found</div>
-                )} */}
-
-            {/* <Link to={backTo} className='btn_primary'>Back to Home</Link> */}
+                    </div>
                 </div>
+                {error && <p style={{ color: "red" }}>{error}</p>}
             </div>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-
-        </div>
         </section>
         </>
     );
