@@ -9,17 +9,24 @@ const SearchPage = ({ backTo }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
 
+    let searchTimeoutId = null;
+
     const medicineChange = (event) => {
         setMedQuery(event.target.value);
+        setIsLoading(true);
 
-        console.log(`Got: `, medQuery);
+        // Clear any ongoing timeout to reset the timer
+        if (searchTimeoutId !== null) {
+            clearTimeout(searchTimeoutId);
+        }
 
-        searchMedicine(medQuery);
+        // Set a new timeout to call searchMedicine after 500ms
+        searchTimeoutId = setTimeout(() => {
+            searchMedicine(medQuery); // Pass the latest value to searchMedicine
+        }, 500);
     };
 
-    // TODO: Set grace period (after 500ms call the API)
     const searchMedicine = async () => {
-        setIsLoading(true);
         setError("");
         
         if (medQuery) {
