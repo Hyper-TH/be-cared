@@ -23,25 +23,25 @@ const HomePage = () => {
                 <>
                 <h2 className="sub_title">{`Signed In as ${user.email}`}</h2>
 
-                <button className="btn_collection_top">
-                    <Link to="/subscriptions">Subscriptions</Link>
-                </button>
+                <Link to="/subscriptions" className="btn_collection_top">
+                    Subscriptions
+                </Link>
 
-                <button className="btn_collection_mid">
-                    <Link to="/search">Search Medicine</Link>
-                </button>
+                <Link to="/search" className="btn_collection_mid">
+                    Search Medicine
+                </Link>
 
-                <button className="btn_collection_mid">
-                            <Link to="/foodInteractions">Search food interactions</Link>
-                </button>
+                <Link to="/foodInteractions" className="btn_collection_mid">
+                    Search food interactions
+                </Link>
 
-                <button className="btn_collection_mid">
-                    <Link to="/searchProduct">Search chemical compound</Link>
-                </button>
+                <Link to="/searchProduct" className="btn_collection_mid">
+                    Search chemical compound
+                </Link>
                             
-                <button className="btn_collection_bottom">
-                    <Link to="/searchDrugs">Search drug interactions</Link>
-                </button>
+                <Link to="/searchDrugs" className="btn_collection_bottom">
+                    Search drug interactions
+                </Link>
 
                 <button className="btn_primary" onClick={handleLogout}>Logout</button>
 
@@ -52,17 +52,17 @@ const HomePage = () => {
                 <>
                 <h2 className="sub_title">{`Signed In as ${user.email}`}</h2>
 
-                <button className="btn_collection_top">
-                    <Link to="/subscriptions">Subscriptions</Link>
-                </button>
+                <Link to="/subscriptions" className="btn_collection_top">
+                    Subscriptions
+                </Link>
 
-                <button className="btn_collection_mid">
-                    <Link to="/search">Search Medicine</Link>
-                </button>
+                <Link to="/search" className="btn_collection_mid">
+                        Search Medicine
+                </Link>
 
-                <button className="btn_collection_bottom">
-                            <Link to="/foodInteractions">Search food interactions</Link>
-                </button>
+                <Link to="/foodInteractions" className="btn_collection_bottom">
+                    Search food interactions
+                </Link>
 
                 <button className="btn_primary" onClick={handleLogout}>Logout</button>
 
