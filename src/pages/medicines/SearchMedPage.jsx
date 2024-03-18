@@ -98,34 +98,12 @@ const SearchPage = ({ backTo }) => {
             <div className='search_medicine_container'>
             <div className='search_medicine'>
 
-            {/* <form className="search_box">   
-                <label>Search</label>
-                <div className="relative">
-                    <div className="search_icon">
-                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                        </svg>
-                    </div>
-
-                    <input 
-                        type="text" 
-                        className="search_input" 
-                        placeholder="Search medicine..." 
-                        value={medQuery} 
-                        onChange={medicineChange} 
-                    />
-
-                    <button className="search_med_btn" onClick={searchMedicine}>
-                        Search
-                    </button>
-                </div>
-            </form> */}
-
-        <div className="search_box relative max-w-md mx-auto">
+        <div className="search_box">
             <Combobox as="div" value={selectedMedicine} onChange={setSelectedMedicine}>
-                <Combobox.Label className="mb-2 text-sm font-medium text-gray-900 dark:text-white sr-only">Search:</Combobox.Label>
+                <Combobox.Label className="combox_label">Search:</Combobox.Label>
+                
                 <div className="flex items-center">
-                    <div className="search_icon absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <div className="search_icon">
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                         </svg>
@@ -141,16 +119,26 @@ const SearchPage = ({ backTo }) => {
                     />
                 </div>
 
-                    <Combobox.Options className="absolute z-10 w-full mt-1 overflow-auto text-sm bg-white shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                        {medicineList?.map((medicine) => (
+                    <Combobox.Options className="combox_auto_complete">
+                        {medicineList === null ? (
+                            null 
+                        ) : medicineList.length > 0 ? (
+                            // Map over the medicine list if it has items
+                            medicineList?.map((medicine) => (
                             <Combobox.Option key={medicine.id} value={medicine}>
                                 {({ active }) => (
-                                    <div className={`${active ? 'text-white bg-blue-500' : 'text-black'}`}>
+                                    <div onClick={() => handleViewDetails(medicine)} 
+                                        className={`${active ? 'text-white bg-blue-500' : 'text-black'}`}>
                                         {medicine.name}
                                     </div>
                                 )}
                             </Combobox.Option>
-                        ))}
+
+                        ))) : (
+                            <div>
+                                No medicines found
+                            </div>
+                        )}
                     </Combobox.Options>
             </Combobox>
         </div>
@@ -178,10 +166,11 @@ const SearchPage = ({ backTo }) => {
                     <div className='no_results'>No medicines found</div>
                 )} */}
 
-                {error && <p style={{ color: "red" }}>{error}</p>}
             <Link to={backTo} className='btn_primary'>Back to Home</Link>
                 </div>
             </div>
+            {error && <p style={{ color: "red" }}>{error}</p>}
+
         </div>
         </section>
         </>
