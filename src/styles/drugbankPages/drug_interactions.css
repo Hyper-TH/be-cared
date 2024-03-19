@@ -80,6 +80,56 @@
     dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800;
 }
 
+.drug_interaction_list {
+	@apply
+	flex flex-col 
+}
+
+.interactions_box {
+    @apply 
+    w-full bg-white rounded-lg shadow dark:border 
+    md:mt-0 sm:max-w-lg xl:p-4
+    dark:bg-gray-600 dark:border-gray-800 p-4;
+}
+
+.main_row {
+	@apply
+	flex flex-row m-4
+	items-center;
+}
+
+.subject {
+	@apply
+	w-3/12 justify-center;
+}
+
+.interacts {
+	@apply
+	w-0 p-4
+	justify-center;
+}
+
+.interacts svg {
+	@apply
+	w-6 h-6
+	bg-transparent stroke-purple-800;
+}
+
+.affected {
+	@apply
+	w-3/12 justify-center;
+}
+
+.severity {
+	@apply 
+	w-1/5 justify-center;
+}
+
+.description {
+	@apply
+	w-1/3;
+}
+
 .btn_major {
 	@apply
 	text-white bg-purple-900

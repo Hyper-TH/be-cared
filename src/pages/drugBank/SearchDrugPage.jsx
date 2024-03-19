@@ -209,26 +209,27 @@ const SearchDrugPage = ({ backTo }) => {
 					</button>
 				)}
 
-				<div className="drug_interaction_results">
-					{interactions?.length === 0 ? (
-						<div>No Interactions found</div>
-					) : (
-						interactions?.map((interaction) => {
-						return (
-							<DrugInteraction
-							key={interaction.id}
-							subject={interaction.subject}
-							affected={interaction.affected}
-							severity={interaction.severity}
-							description={interaction.description}
-							actual_description={interaction.actual_description}
-							references={interaction.references}
-							/>
-						);
-						})
-					)}
-				</div>
 				
+			</div>
+
+			<div className="drug_interaction_results">
+				{interactions?.length === 0 ? (
+					<div>No Interactions found</div>
+				) : (
+					interactions?.map((interaction) => {
+					return (
+						<DrugInteraction
+						key={interaction.id}
+						subject={interaction.subject}
+						affected={interaction.affected}
+						severity={interaction.severity}
+						description={interaction.description}
+						actual_description={interaction.actual_description}
+						references={interaction.references}
+						/>
+					);
+					})
+				)}
 			</div>
 
 			{error && (
