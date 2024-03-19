@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 // TODO: Add Error usestate()
 const GuestMedicinePage = ({ backTo }) => {
     const [isPIL, setIsPIL] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     let location = useLocation();
     let state = location.state;
@@ -28,6 +29,26 @@ const GuestMedicinePage = ({ backTo }) => {
         );
     };
 
+    const statusButton = (() => {
+        if (medicine.legalCategory.includes('(A)') || medicine.legalCategory.includes('(B)') || medicine.legalCategory.includes('(C)')) {
+            return (
+                <button className='btn_pharmacy_only_presc'>
+                    Pharmacy Only: Prescription
+                </button>        
+            );
+        } else if (medicine.legalCategory.includes('general sale')) {
+            return (
+                <button className='btn_pharmacy_only'> 
+                    General Sale: Non-prescription
+                </button>
+            );
+        } else {
+            <button className='btn_general_sale'>
+                Pharmacy Only: Non-prescription
+            </button>   
+        }
+    })();  
+
     useEffect(() => {
         checkFiles();
     });
@@ -35,41 +56,67 @@ const GuestMedicinePage = ({ backTo }) => {
     // Add isLoading usestate and appropriate rendering
     return (
         <>
-        <div className='medicine_details'>
-            <div className='title'>
-                <h1>{medicine.name}</h1>
+         <section className='main_container'>
+            <Link to={backTo}>
+                <button className='btn_primary'>
+                    &larr;
+                </button>
+            </Link>
+        
+            <div className='sub_container'>
 
-            </div>
-            <div className='medicine_sub_details'>
-                <p>Company: {medicine.company.name}</p>
-                <p>Active Ingredient: {medicine.ingredients[0].name}</p>
+                <div className='medicine_details_container'>
+                    <div className='medicine_details'>
+                        {isLoading ? (
+                            <div>Loading...</div>
+                        ) : (
+                            <> 
+                            <h1 className='medicine_name'>
+                                {medicine.name}
+                            </h1>
 
-                <div className='medicine_status'>
-                    Status: {medicine.legalCategory}
+                            <div className='medicine_sub_details'>
+                                <div className='flex flex-col mb-4'>
+                                    <span className='medicine_header inline'>Company:</span>
+                                    <span className='medicine_text inline'>{medicine.company.name}</span>
+                                </div>
+
+                                {/* TODO: Active ingredients are in a list sometimes */}
+                                <div className='flex flex-col mb-4'>
+                                    <span className='medicine_header inline'>Active Ingredient:</span>
+                                    <span className='medicine_text inline'>{medicine.ingredients[0].name}</span>
+                                </div>
+
+                                <div className='medicine_status'>
+                                    <span className='medicine_header inline'>Status: </span>
+                                    <span className='medicine_text inline'>{statusButton}</span>
+                                </div>
+                            </div>
+
+                            <div className='btn_collection_medicine'>
+                                {isPIL ? ( 
+                                    <button 
+                                        className='btn_collection_med_guest'
+                                        onClick={() => renderPIL(medicine)}>
+                                        PIL Document
+                                    </button>
+                                ) : ( 
+                                    <button 
+                                        className='btn_collection_med_guest'
+                                        style={{ opacity: 0.5, cursor: 'not-allowed' }}
+                                        onClick={() => renderPIL(medicine)}
+                                        disabled>
+                                        No available PIL Document
+                                    </button>
+                                )}
+
+                            </div>
+                            </>
+                        )}
+                    </div>
                 </div>
             </div>
-            
-            <div className='document_buttons'>
-                {isPIL ?  (
-                    <button 
-                        onClick={() => renderPIL(medicine)}>
-                        View PIL Document
-                    </button>
-                ) : (
-                    <button 
-                        style={{ opacity: 0.5, cursor: 'not-allowed' }}
-                        onClick={() => renderPIL(medicine)}>
-                        No available PIL Document
-                    </button>
-                )}
-
-            </div>
-            
-            <button>
-                <Link to={backTo}>Back to the Search Page</Link>
-            </button>
-        </div>
-            
+        </section>
         </>
     );
 };
