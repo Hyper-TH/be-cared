@@ -167,3 +167,8 @@
 	max-w-40 w-40 text-base uppercase font-bold 
 	flex-initial items-start;
 }
+
+.references_list {
+	@apply
+	ps-5 mt-2 space-y-1 list-decimal list-inside;
+}

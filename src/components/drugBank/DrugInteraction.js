@@ -1,18 +1,13 @@
 import React from 'react';
 import DOMPurify from 'dompurify';
 import  '../../styles/drugbankPages/drug_interactions.css';
-import { useTruncatedElement } from './useTruncatedElement';
+import { useDescTruncatedElement } from './useDescTruncatedElement';
+import { useRefTruncatedElement } from './useRefTruncatedElement';
 
 export const DrugInteraction = (props) => {
     const ref = React.useRef(null);
-    const { isTruncated, isShowingMore, toggleIsShowingMore } = useTruncatedElement({ref});
-
-    // Map the object to an array of JSX elements
-    const listItems = (props.references).map((item, index) => (
-        <li key={index}>{item}</li>
-    ));
-
-
+    const { isDescTruncated, isDescShowingMore, toggleDescIsShowingMore } = useDescTruncatedElement({ref});
+    const { isRefTruncated, isRefShowingMore, toggleRefIsShowingMore } = useRefTruncatedElement({ref});
 
     // Function to wrap numbers with <sub> tags
     const wrapWithSub = (match) => {
@@ -33,14 +28,14 @@ export const DrugInteraction = (props) => {
     const extendedDescription = (() => {
 
         // If less
-        if (isTruncated) {
+        if (isDescTruncated) {
             return (
                 <>
-                <p dangerouslySetInnerHTML={{ __html: clean }} ref={ref} className={`break-words ${!isShowingMore && 'line-clamp-3'}`}>
+                <p dangerouslySetInnerHTML={{ __html: clean }} ref={ref} className={`break-words ${!isDescShowingMore && 'line-clamp-3'}`}>
                 </p>   
-                {isTruncated && (
-                    <button onClick={toggleIsShowingMore}>
-                        {isShowingMore ? 'Show less' : 'Show more'}
+                {isDescTruncated && (
+                    <button onClick={toggleDescIsShowingMore}>
+                        {isDescShowingMore ? 'Show less' : 'Show more'}
                     </button>
                 )} 
                 </>
@@ -48,11 +43,45 @@ export const DrugInteraction = (props) => {
         } else {
             return (
                 <>
-                <p dangerouslySetInnerHTML={{ __html: clean }} ref={ref} className={`break-words ${!isShowingMore && 'line-clamp-3'}`}>
+                <p dangerouslySetInnerHTML={{ __html: clean }} ref={ref} className={`break-words ${!isDescShowingMore && 'line-clamp-3'}`}>
                 </p>   
-                {isTruncated && (
-                    <button onClick={toggleIsShowingMore}>
-                        {isShowingMore ? 'Show less' : 'Show more'}
+                {isDescTruncated && (
+                    <button onClick={toggleDescIsShowingMore}>
+                        {isDescShowingMore ? 'Show less' : 'Show more'}
+                    </button>
+                )} 
+                </>
+            );
+        }
+    })();
+
+    const extendedReferences = (() => {
+        if (isRefTruncated) {
+            return ( 
+            <>
+            <ol className={`break-words space-y-4 list-decimal list-inside ${!isRefShowingMore && 'line-clamp-3'}`} ref={ref}>
+                {(props.references).map((item, index) => (
+                    <li key={index}>{item}</li>
+                ))}
+            </ol>
+            {isRefTruncated && (
+                    <button onClick={toggleRefIsShowingMore}>
+                        {isRefShowingMore ? 'Show less' : 'Show more'}
+                    </button>
+                )} 
+            </>
+            );
+        } else {
+            return (
+                <>
+                <ol className={`break-words space-y-4 list-decimal list-inside  ${!isRefShowingMore && 'line-clamp-3'}`} ref={ref} >
+                    {(props.references).map((item, index) => (
+                        <li key={index}>{item}</li>
+                    ))}
+                </ol>
+                {isRefTruncated && (
+                    <button onClick={toggleRefIsShowingMore}>
+                        {isRefShowingMore ? 'Show less' : 'Show more'}
                     </button>
                 )} 
                 </>
@@ -135,11 +164,12 @@ export const DrugInteraction = (props) => {
                 </div>
 
                 <div className='interactions_col'>
-                    <ol className='ps-5 mt-2 space-y-1 list-decimal list-inside'>
+                    {/* <ol className='references_list'>
                         {(props.references).map((item, index) => (
                             <li key={index}>{item}</li>
                         ))}
-                    </ol>
+                    </ol> */}
+                    {extendedReferences}
                  
                 </div>
             </div>
