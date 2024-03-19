@@ -8,8 +8,8 @@ export const DrugInteraction = (props) => {
     const { isTruncated, isShowingMore, toggleIsShowingMore } = useTruncatedElement({ref});
 
     // Map the object to an array of JSX elements
-    const listItems = Object.entries(props.references).map(([key, value]) => (
-        <li key={key}>{value}</li>
+    const listItems = (props.references).map((item, index) => (
+        <li key={index}>{item}</li>
     ));
 
 
@@ -135,7 +135,11 @@ export const DrugInteraction = (props) => {
                 </div>
 
                 <div className='interactions_col'>
-                    <ol>{listItems}</ol>
+                    <ol className='ps-5 mt-2 space-y-1 list-decimal list-inside'>
+                        {(props.references).map((item, index) => (
+                            <li key={index}>{item}</li>
+                        ))}
+                    </ol>
                  
                 </div>
             </div>
