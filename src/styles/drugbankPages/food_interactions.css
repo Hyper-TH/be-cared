@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.search_drug_container {
+    @apply 
+    w-full bg-white rounded-lg shadow dark:border 
+    md:mt-0 sm:max-w-lg xl:p-4
+    dark:bg-gray-800 dark:border-gray-700 p-4;
+}
+
+.search_drug {
+	@apply 
+	p-6 space-y-4 md:space-y-6 sm:p-8;
+}
+
+.search_box {
+	@apply
+	max-w-md mx-auto relative;
+}
+.combox_label {
+	@apply
+	mb-2 text-sm font-medium text-gray-900 dark:text-white sr-only;
+}
+
+.combox_auto_complete {
+	@apply
+	absolute z-10 w-full overflow-auto bg-white shadow-lg max-h-60 rounded-b-md border border-gray-200 divide-y divide-gray-100 focus:outline-none;
+	/* absolute z-10 w-full mt-1 overflow-auto text-sm bg-white shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm; */
+}
+
+.search_icon {
+	@apply 
+	absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none;
+	/* absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none; */
+}
+
+.search_icon svg {
+	@apply
+	w-4 h-4 text-gray-500 dark:text-gray-400;
+
+	fill: none;
+}
+
+.search_input {
+	@apply
+	block w-full p-4 ps-10 pl-10 text-sm text-gray-900 
+	border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+}
+
+.two_five {
+	@apply
+	text-white italic;
+}
+
+.drug_button {
+    @apply
+    text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800;
+}
+
+.remove_drug {
+    @apply
+    flex-shrink-0 inline me-3 w-5 h-5;
+}
+
+.info {
+	@apply
+	flex-shrink-0 inline w-4 h-4 me-3;
+}
+
+.no_interactions_warning {
+    @apply
+    flex items-center p-4 mb-4 text-sm 
+    text-yellow-800 
+    border border-yellow-300 rounded-lg 
+    bg-yellow-50 
+    dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800;
+}
+
+.food_interaction_results {
+	@apply
+	flex flex-col 
+	sm:max-w-3xl
+	p-4
+}
+
+.interactions_box {
+    @apply 
+    w-full bg-white rounded-lg shadow dark:border 
+    md:mt-0 
+	xl:p-4
+	text-gray-300
+    dark:bg-gray-800 dark:border-gray-700 p-4;
+}
+
+.interactions_row {
+	@apply
+	flex flex-row 
+}
+
+.interactions_row:not(:last-child) {
+	@apply border-b border-gray-600;
+}
+
+.interactions_col {
+	@apply
+	flex flex-col items-center
+	p-4 relative flex-auto
+	justify-start
+}
+
+.subject {
+	@apply
+	w-3/12
+	justify-center
+	text-xl
+	font-semibold;
+}
+
+.interacts {
+	@apply
+	w-0 p-4
+	justify-center;
+}
+
+.interacts_icon {
+	@apply
+	absolute;
+}
+
+.interacts svg {
+	@apply
+	w-6 h-6
+	align-middle	
+	bg-transparent stroke-gray-300;
+}
+
+.affected {
+	@apply
+	w-3/12
+	justify-center
+	text-xl
+	font-semibold; 
+}
+
+.severity {
+	@apply 
+	w-1/5 justify-center;
+}
+
+.description {
+	@apply
+	w-1/4;
+}
+
+.btn_major {
+	@apply
+	text-white bg-purple-900
+	font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 
+}
+
+.btn_moderate {
+	@apply
+	text-white bg-red-700 
+	font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 
+}
+
+.btn_minor {
+	@apply
+	text-white bg-yellow-400 
+	font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 
+}
+
+.label_col {
+	@apply
+	max-w-40 w-40 text-base uppercase font-bold 
+	flex-initial items-start;
+}
+
+.references_list {
+	@apply
+	ps-5 mt-2 space-y-1 list-decimal list-inside;
+}
+ 
+.truncate_btn {
+  @apply absolute right-0 bottom-0 pl-8 underline uppercase text-base rounded-r;
+  background-image: linear-gradient(to right, rgba(247, 247, 247, 0), #f7f7f705 20%);
+}
