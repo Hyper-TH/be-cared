@@ -29,7 +29,7 @@ const HomePage = () => {
                 </Link>
 
                 <Link to="/search" className="btn_collection_mid">
-                    Search Medicine
+                    Search medicines
                 </Link>
 
                 <Link to="/foodInteractions" className="btn_collection_mid">
