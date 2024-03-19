@@ -33,6 +33,10 @@
 	dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800;
 }
 
+.error {
+	@apply 
+	flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400;
+}
 
 /* TODO: Use this loading button for subscribe (and also check usestate) */
 .loading {
