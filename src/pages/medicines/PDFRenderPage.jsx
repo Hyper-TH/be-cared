@@ -176,30 +176,31 @@ const PDFRenderPage = () => {
     return (    
         <>
         <section className='main_container'>
-            <button className='btn_primary' onClick={() => returnToMed(medicine)}>
-                Return
-            </button>
-        <div className='sub_container_pdf'>
 
-            {isLoading ? (
-                <div className='loading'>Loading...</div>
-            ) : (
-                <>
-                <h1 className='home_title'>{type.toUpperCase()} Document</h1>
-                
-                <iframe
-                    className='pdf'
-                    src={PDFURL}
-                    title="PDF"
-                    allowFullScreen
-                />
-                <a href={PDFURL} download={PDFName}>
-                    <button className='btn_primary'>Download PDF</button>
-                </a>
-                </>
-            )}
+            <div className='sub_container_pdf'>
+                <button className='btn_primary' onClick={() => returnToMed(medicine)}>
+                    &larr;
+                </button>
 
-        </div>
+                {isLoading ? (
+                    <div className='loading'>Loading...</div>
+                ) : (
+                    <>
+                    <h1 className='home_title'>{type.toUpperCase()} Document</h1>
+                    
+                    <iframe
+                        className='pdf'
+                        src={PDFURL}
+                        title="PDF"
+                        allowFullScreen
+                    />
+                    <a href={PDFURL} download={PDFName}>
+                        <button className='btn_primary'>Download PDF</button>
+                    </a>
+                    </>
+                )}
+
+            </div>
 
             {error && 
                 <div className='error'>

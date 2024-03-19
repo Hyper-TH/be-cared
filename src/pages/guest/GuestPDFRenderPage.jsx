@@ -62,30 +62,30 @@ const GuestPDFRenderPage = () => {
     return (    
         <>
         <section className='main_container'>
-            <button className='btn_primary' onClick={() => returnToMed(medicine)}>
-                Return
-            </button>
-        <div className='sub_container_pdf'>
+        
+            <div className='sub_container_pdf'>
+                <button className='btn_primary' onClick={() => returnToMed(medicine)}>
+                        &larr;
+                </button>
+                {isLoading ? (
+                    <div className='loading'>Loading...</div>
+                ) : (
+                    <>
+                    <h1 className='home_title'>PIL Document</h1>
+                    
+                    <iframe
+                        className='pdf'
+                        src={PDFURL}
+                        title="PDF"
+                        allowFullScreen
+                    />
+                    <a href={PDFURL} download={PDFName}>
+                        <button className='btn_primary'>Download PDF</button>
+                    </a>
+                    </>
+                )}
 
-            {isLoading ? (
-                <div className='loading'>Loading...</div>
-            ) : (
-                <>
-                <h1 className='home_title'>PIL Document</h1>
-                
-                <iframe
-                    className='pdf'
-                    src={PDFURL}
-                    title="PDF"
-                    allowFullScreen
-                />
-                <a href={PDFURL} download={PDFName}>
-                    <button className='btn_primary'>Download PDF</button>
-                </a>
-                </>
-            )}
-
-        </div>
+            </div>
 
             {error && 
                 <div className='error'>
