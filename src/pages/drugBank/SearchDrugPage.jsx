@@ -188,6 +188,27 @@ const SearchDrugPage = ({ backTo }) => {
 					</div>
 				</div>
 
+				<div className="drug_interaction_list">
+				{drugs?.map((drug) => {
+					return (
+					<Drug
+						key={drug.id}
+						drugId={drug.id}
+						drugName={drug.name}
+						deleteDrug={deleteDrug}
+					/>
+					);
+				})}
+				</div>
+
+				{drugs.length === 0 || drugs.length === 1 ? (
+					<p>Add at least two and up to 5 drugs</p>
+				) : (
+					<button className='btn_primary' onClick={() => getInteractions(drugs)}>
+						Get interactions
+					</button>
+				)}
+
 				<div className="drug_interaction_results">
 					{interactions?.length === 0 ? (
 						<div>No Interactions found</div>
@@ -207,27 +228,6 @@ const SearchDrugPage = ({ backTo }) => {
 						})
 					)}
 				</div>
-
-				<div className="drug_interaction_list">
-				{drugs?.map((drug) => {
-					return (
-					<Drug
-						key={drug.id}
-						drugId={drug.id}
-						drugName={drug.name}
-						deleteDrug={deleteDrug}
-					/>
-					);
-				})}
-				</div>
-
-				{drugs.length === 0 || drugs.length === 1 ?(
-					<p>Add at least two and up to 5 drugs</p>
-				) : (
-					<button onClick={() => getInteractions(drugs)}>
-						Get interactions
-					</button>
-				)}
 				
 			</div>
 
