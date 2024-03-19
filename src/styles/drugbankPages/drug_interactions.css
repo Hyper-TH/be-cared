@@ -95,7 +95,7 @@
 .interactions_row {
 	@apply
 	flex flex-row mx-12
-	justify-center
+	/* justify-center */
 }
 
 .interactions_col {
@@ -174,11 +174,10 @@
 	relative flex flex-col w-full;
 }
 
-.show_less {
+/* .show_less {
 	@apply
-	/* mh-[calc(24px*2)] */
 	overflow-hidden;
-}
+} */
 
 /* .truncate_btn {
 	@apply

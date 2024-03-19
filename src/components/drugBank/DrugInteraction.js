@@ -11,6 +11,38 @@ export const DrugInteraction = (props) => {
         <li key={key}>{value}</li>
     ));
 
+    const extendedDescription = (() => {
+
+        // If less
+        if (isTruncated) {
+            return (
+                <>
+                <p ref={ref} className={`break-words text-xl ${!isShowingMore && 'line-clamp-3'}`}>
+                    {props.actual_description}
+                </p>   
+                {isTruncated && (
+                    <button onClick={toggleIsShowingMore}>
+                        {isShowingMore ? 'Show less' : 'Show more'}
+                    </button>
+                )} 
+                </>
+            );
+        } else {
+            return (
+                <>
+                <p ref={ref} className={`break-words text-xl ${!isShowingMore && 'line-clamp-3'}`}>
+                    {props.actual_description}
+                </p>   
+                {isTruncated && (
+                    <button onClick={toggleIsShowingMore}>
+                        {isShowingMore ? 'Show less' : 'Show more'}
+                    </button>
+                )} 
+                </>
+            );
+        }
+    })();
+
     const severity =(() => {
         
         if (props.severity === 'Major') {
@@ -76,18 +108,10 @@ export const DrugInteraction = (props) => {
                 </div>
 
                 <div className='interactions_col'>
-                    <div className='truncate_overflow show_less' style={{ maxHeight: 'calc(24px * 2)' }}>
-                        <p ref={ref} className={`break-words text-xl ${!isShowingMore && 'line-clamp-3'}`}>
-                            {props.actual_description}
-                        </p>   
-                        {isTruncated && (
-                            <button onClick={toggleIsShowingMore}>
-                                {isShowingMore ? 'Show less' : 'Show more'}
-                            </button>
-                        )} 
+                    <div className='truncate_overflow'>
+                        {extendedDescription}
                     </div> 
                 </div>
-                
             </div>
 
 {/* 
@@ -102,5 +126,3 @@ export const DrugInteraction = (props) => {
         </div>
     );
 };
-
-                        {/* <span className='truncate_btn'></span> */}
