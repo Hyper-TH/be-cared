@@ -92,17 +92,17 @@
     dark:bg-gray-500 dark:border-gray-700 p-4;
 }
 
-.main_row {
+.interactions_row {
 	@apply
-	flex flex-row m-4
+	flex flex-row mx-12
 	justify-center
-	/* items-center; */
 }
 
 .interactions_col {
 	@apply
 	flex flex-col items-center
 	p-4 relative flex-auto
+	justify-start
 }
 
 .subject {
@@ -162,3 +162,36 @@
 	text-white bg-yellow-400 
 	font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 
 }
+
+.label_col {
+	@apply
+	max-w-40 w-40 text-base uppercase font-bold 
+	flex-initial items-start;
+}
+
+.truncate_overflow {
+	@apply
+	relative flex flex-col w-full;
+}
+
+.show_less {
+	@apply
+	/* mh-[calc(24px*2)] */
+	overflow-hidden;
+}
+
+/* .truncate_btn {
+	@apply
+	absolute right-0 bottom-0 pl-8 cursor-auto;
+}  */
+
+/* .truncate_btn::after {
+	@apply
+	underline uppercase text-base text-white
+	bg-gradient-to-r from-sky-500 to-indigo-500;
+}
+
+.truncate_btn::after {
+	content: "Read more"
+} */
+

@@ -1,7 +1,11 @@
+import React from 'react';
 import  '../../styles/drugbankPages/drug_interactions.css';
+import { useTruncatedElement } from './useTruncatedElement';
 
 export const DrugInteraction = (props) => {
-    
+    const ref = React.useRef(null);
+    const { isTruncated, isShowingMore, toggleIsShowingMore } = useTruncatedElement({ref});
+
     // Map the object to an array of JSX elements
     const listItems = Object.entries(props.references).map(([key, value]) => (
         <li key={key}>{value}</li>
@@ -34,7 +38,7 @@ export const DrugInteraction = (props) => {
     return (
         <div className="interactions_box">
 
-            <div className='main_row'>
+            <div className='interactions_row main_row'>
                 
                 <div className='interactions_col subject'>
                     {props.subject}
@@ -66,6 +70,26 @@ export const DrugInteraction = (props) => {
 
             </div>
 
+            <div className='interactions_row'>
+                <div className='interactions_col label_col'>
+                    Extended Description
+                </div>
+
+                <div className='interactions_col'>
+                    <div className='truncate_overflow show_less' style={{ maxHeight: 'calc(24px * 2)' }}>
+                        <p ref={ref} className={`break-words text-xl ${!isShowingMore && 'line-clamp-3'}`}>
+                            {props.actual_description}
+                        </p>   
+                        {isTruncated && (
+                            <button onClick={toggleIsShowingMore}>
+                                {isShowingMore ? 'Show less' : 'Show more'}
+                            </button>
+                        )} 
+                    </div> 
+                </div>
+                
+            </div>
+
 {/* 
             <div className='longer_description'>
                 Longer description: {props.actual_description}
@@ -78,3 +102,5 @@ export const DrugInteraction = (props) => {
         </div>
     );
 };
+
+                        {/* <span className='truncate_btn'></span> */}
