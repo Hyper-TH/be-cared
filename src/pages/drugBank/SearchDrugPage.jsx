@@ -74,6 +74,8 @@ const SearchDrugPage = ({ backTo }) => {
 		setDrugs(drugs.filter((drug) => drug.id !== id));
 	};
 
+
+	// TODO: Debouncing
 	// Query to get interactions based on the chosen list of drugs
 	const getInteractions = async (drugs) => {
 		if (drugs.length != 5) {
@@ -141,7 +143,7 @@ const SearchDrugPage = ({ backTo }) => {
 									className="search_input"
 									onChange={drugChange}
 									value={drugQuery}
-									placeholder="Search drug..."
+									placeholder="Search drug to add..."
 									/>
 
 								</div>
@@ -202,7 +204,7 @@ const SearchDrugPage = ({ backTo }) => {
 				</div>
 
 				{drugs.length === 0 || drugs.length === 1 ? (
-					<p>Add at least two and up to 5 drugs</p>
+					<p className="two_five">Add at least two and up to 5 drugs</p>
 				) : (
 					<button className='btn_primary' onClick={() => getInteractions(drugs)}>
 						Get interactions
