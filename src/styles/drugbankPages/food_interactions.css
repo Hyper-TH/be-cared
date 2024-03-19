@@ -78,17 +78,18 @@
     dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800;
 }
 
-.food_interaction_results {
+.food_interaction_list {
 	@apply
 	flex flex-col 
 	sm:max-w-3xl
 	p-4
 }
 
-.interactions_box {
+.food_interactions_box {
     @apply 
     w-full bg-white rounded-lg shadow dark:border 
     md:mt-0 
+	my-2
 	xl:p-4
 	text-gray-300
     dark:bg-gray-800 dark:border-gray-700 p-4;

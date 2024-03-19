@@ -4,32 +4,34 @@ export const FoodInteraction = (props) => {
     });
 
     return (
-        <div className="interactions_box">
-          <div className="interaction_row">
+        <div className="food_interactions_box">
             {(props.num_interactions).includes("0") ? (
                 <>
                 <div className="main">
-                    0 food interactions for
-                    <h1>{props.name}</h1>  
+                    0 food interactions for <b>{props.name}</b>  
                 </div>
 
                 <div className="sub">
-                    No known food interactions
+                    <ul className="list-disc list-inside">
+                        <li>
+                            No known food interactions
+                        </li>
+                    </ul>
                 </div>
                 </>
             ) : (
                 <>
                 <div className="main">
-                    {props.num_interactions} for
-                    <h1>{props.name}</h1>
+                    {props.num_interactions} for <b>{props.name}</b>
                 </div>
 
                 <div className="sub">
-                    Interactions: <ol>{listItems}</ol>
+                    <ol className="list-disc list-inside">
+                        {listItems}
+                    </ol>
                 </div>
                 </>
             )}
-            </div>          
         </div>
 
         );
