@@ -193,15 +193,16 @@ const MedicinePage = ({ backTo }) => {
     return (
         <>
         <section className='main_container'>
-            <Link to={backTo}>
-                <button className='btn_primary'>
-                    &larr;
-                </button>
-            </Link>
         
             <div className='sub_container'>
-
+                <Link to={backTo}>
+                    <button className='btn_primary'>
+                        &larr;
+                    </button>
+                </Link>
                 <div className='medicine_details_container'>
+                    
+
                     <div className='medicine_details'>
                         {isLoading ? (
                             <div>Loading...</div>
