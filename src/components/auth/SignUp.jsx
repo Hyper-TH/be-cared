@@ -34,7 +34,7 @@ const SignUp = () => {
             };
 
         } catch (error) {
-            setError(error);
+            setError(error.message);
 
             console.error(error);
         };
@@ -47,53 +47,63 @@ const SignUp = () => {
     return (
         <>
         <div className="sub_container">
-
             <div className='sign_in_container'>
                 <div className='sign_in'>
-                <h1 className='main_title'>
-                    Create your account
-                </h1>
+                    <h1 className='main_title'>
+                        Create your account
+                    </h1>
 
-            <form onSubmit={signUp} className='sign_in_form'>
-                <div>
-                    <label>Email Address: </label>
-                    <input 
-                        type="email"
-                        placeholder="Enter your email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </div>
-               
-               <div>
-                    <label>Password: </label>
-                    <input 
-                        type="password"
-                        placeholder="Enter your password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
+                    <form onSubmit={signUp} className='sign_in_form'>
+                        <div>
+                            <label>Email Address: </label>
+                            <input 
+                                type="email"
+                                placeholder="Enter your email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+                    
+                    <div>
+                            <label>Password: </label>
+                            <input 
+                                type="password"
+                                placeholder="Enter your password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
 
-               </div>
-               
-               <div>
-                    <label>Confirm Password: </label>
-                    <input
-                        type="password"
-                        placeholder="Enter your password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-               </div>
-               
-                    <button className='btn_login'>Sign Up</button>
+                    </div>
+                    
+                    <div>
+                            <label>Confirm Password: </label>
+                            <input
+                                type="password"
+                                placeholder="Enter your password"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                            />
+                    </div>
+                    
+                            <button className='btn_login'>Sign Up</button>
+                    </form>
+
                     <button className='btn_login' onClick={returnLogin}>Back to login</button>
-                </form>
-           
+                
 
-            {error && <p style={{ color: "red" }}>{error}</p>}
+                </div>
             </div>
-            </div>
+            {error && 
+                <div className='error'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                    </svg>
+
+                    <div>
+                        <span className='font-medium'>{error}</span>
+                    </div>
+                </div>
+            }
         </div>
         </>
     );
