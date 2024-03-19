@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.sub_container_pdf {
+    @apply 
+    flex flex-col items-center justify-center 
+    px-6 py-3 mx-auto 
+    md:h-screen lg:py-0;
+}
+
+.pdf {
+    @apply
+    w-11/12 md:w-3/4 lg:w-3/5 xl:w-1/2 
+    mx-auto my-12 h-[32rem] 
+    shadow-xl border-2 border-gray-300;
+}
+
