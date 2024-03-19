@@ -34,7 +34,7 @@ export const DrugInteraction = (props) => {
                 <p dangerouslySetInnerHTML={{ __html: clean }} ref={ref} className={`break-words ${!isDescShowingMore && 'line-clamp-3'}`}>
                 </p>   
                 {isDescTruncated && (
-                    <button onClick={toggleDescIsShowingMore}>
+                    <button className='truncate_btn' onClick={toggleDescIsShowingMore}>
                         {isDescShowingMore ? 'Show less' : 'Show more'}
                     </button>
                 )} 
@@ -46,7 +46,7 @@ export const DrugInteraction = (props) => {
                 <p dangerouslySetInnerHTML={{ __html: clean }} ref={ref} className={`break-words ${!isDescShowingMore && 'line-clamp-3'}`}>
                 </p>   
                 {isDescTruncated && (
-                    <button onClick={toggleDescIsShowingMore}>
+                    <button className='truncate_btn' onClick={toggleDescIsShowingMore}>
                         {isDescShowingMore ? 'Show less' : 'Show more'}
                     </button>
                 )} 
@@ -64,8 +64,8 @@ export const DrugInteraction = (props) => {
                     <li key={index}>{item}</li>
                 ))}
             </ol>
-            {isRefTruncated && (
-                    <button onClick={toggleRefIsShowingMore}>
+                {isRefTruncated && (
+                    <button className='truncate_btn' onClick={toggleRefIsShowingMore}>
                         {isRefShowingMore ? 'Show less' : 'Show more'}
                     </button>
                 )} 
@@ -80,7 +80,7 @@ export const DrugInteraction = (props) => {
                     ))}
                 </ol>
                 {isRefTruncated && (
-                    <button onClick={toggleRefIsShowingMore}>
+                    <button className='truncate_btn' onClick={toggleRefIsShowingMore}>
                         {isRefShowingMore ? 'Show less' : 'Show more'}
                     </button>
                 )} 

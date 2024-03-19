@@ -2,14 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* .search_drug_container {
-	@apply 
-	w-full bg-white rounded-lg shadow dark:border 
-	md:mt-0 sm:max-w-md xl:p-0	
-	dark:bg-gray-800 dark:border-gray-700;
-} */
-
-
 .search_drug_container {
     @apply 
     w-full bg-white rounded-lg shadow dark:border 
@@ -83,18 +75,26 @@
 .drug_interaction_results {
 	@apply
 	flex flex-col 
+	sm:max-w-3xl
+	p-4
 }
 
 .interactions_box {
     @apply 
     w-full bg-white rounded-lg shadow dark:border 
-    md:mt-0 sm:max-w-lg xl:p-4
-    dark:bg-gray-500 dark:border-gray-700 p-4;
+    md:mt-0 
+	xl:p-4
+	text-gray-300
+    dark:bg-gray-800 dark:border-gray-700 p-4;
 }
 
 .interactions_row {
 	@apply
 	flex flex-row 
+}
+
+.interactions_row:not(:last-child) {
+	@apply border-b border-gray-600;
 }
 
 .interactions_col {
@@ -107,7 +107,9 @@
 .subject {
 	@apply
 	w-3/12
-	justify-center;
+	justify-center
+	text-xl
+	font-semibold;
 }
 
 .interacts {
@@ -118,20 +120,22 @@
 
 .interacts_icon {
 	@apply
-	absolute
+	absolute;
 }
 
 .interacts svg {
 	@apply
 	w-6 h-6
 	align-middle	
-	bg-transparent stroke-purple-800;
+	bg-transparent stroke-gray-300;
 }
 
 .affected {
 	@apply
 	w-3/12
-	justify-center; 
+	justify-center
+	text-xl
+	font-semibold; 
 }
 
 .severity {
@@ -171,4 +175,9 @@
 .references_list {
 	@apply
 	ps-5 mt-2 space-y-1 list-decimal list-inside;
+}
+ 
+.truncate_btn {
+  @apply absolute right-0 bottom-0 pl-8 underline uppercase text-base rounded-r;
+  background-image: linear-gradient(to right, rgba(247, 247, 247, 0), #f7f7f705 20%);
 }
