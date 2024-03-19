@@ -94,8 +94,7 @@
 
 .interactions_row {
 	@apply
-	flex flex-row mx-12
-	/* justify-center */
+	flex flex-row 
 }
 
 .interactions_col {
@@ -142,7 +141,7 @@
 
 .description {
 	@apply
-	w-1/3;
+	w-1/4;
 }
 
 .btn_major {
@@ -168,29 +167,3 @@
 	max-w-40 w-40 text-base uppercase font-bold 
 	flex-initial items-start;
 }
-
-.truncate_overflow {
-	@apply
-	relative flex flex-col w-full;
-}
-
-/* .show_less {
-	@apply
-	overflow-hidden;
-} */
-
-/* .truncate_btn {
-	@apply
-	absolute right-0 bottom-0 pl-8 cursor-auto;
-}  */
-
-/* .truncate_btn::after {
-	@apply
-	underline uppercase text-base text-white
-	bg-gradient-to-r from-sky-500 to-indigo-500;
-}
-
-.truncate_btn::after {
-	content: "Read more"
-} */
-
