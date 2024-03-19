@@ -80,7 +80,7 @@
     dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800;
 }
 
-.drug_interaction_list {
+.drug_interaction_results {
 	@apply
 	flex flex-col 
 }
@@ -89,18 +89,26 @@
     @apply 
     w-full bg-white rounded-lg shadow dark:border 
     md:mt-0 sm:max-w-lg xl:p-4
-    dark:bg-gray-600 dark:border-gray-800 p-4;
+    dark:bg-gray-500 dark:border-gray-700 p-4;
 }
 
 .main_row {
 	@apply
 	flex flex-row m-4
-	items-center;
+	justify-center
+	/* items-center; */
+}
+
+.interactions_col {
+	@apply
+	flex flex-col items-center
+	p-4 relative flex-auto
 }
 
 .subject {
 	@apply
-	w-3/12 justify-center;
+	w-3/12
+	justify-center;
 }
 
 .interacts {
@@ -109,15 +117,22 @@
 	justify-center;
 }
 
+.interacts_icon {
+	@apply
+	absolute
+}
+
 .interacts svg {
 	@apply
 	w-6 h-6
+	align-middle	
 	bg-transparent stroke-purple-800;
 }
 
 .affected {
 	@apply
-	w-3/12 justify-center;
+	w-3/12
+	justify-center; 
 }
 
 .severity {

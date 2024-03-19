@@ -36,26 +36,29 @@ export const DrugInteraction = (props) => {
 
             <div className='main_row'>
                 
-                <div className='subject'>
+                <div className='interactions_col subject'>
                     {props.subject}
                 </div>
 
-                <div className='interacts'>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
-                    </svg>
+                <div className='interactions_col interacts'>
+                    <div className='interacts_icon'>
 
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                        </svg>
+
+                    </div>
                 </div>
                 
-                <div className='affected'>
+                <div className='interactions_col affected'>
                     {props.affected}
                 </div> 
                 
-                <div className='severity'>
+                <div className='interactions_col severity'>
                     {severity}
                 </div>
 
-                <div className='description'>
+                <div className=' interactions_col description'>
                     <p>
                         {props.description}
                     </p>
