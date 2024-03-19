@@ -38,9 +38,9 @@ const SearchDrugPage = ({ backTo }) => {
 			setDrugList([]);
 		}
 		} catch (error) {
-		// console.error(`Axios Error: ${error}`);
-		setDrugList([]);
-		setError("Local Server Error");
+			// console.error(`Axios Error: ${error}`);
+			setDrugList([]);
+			setError("Local Server Error");
 		}
 
 		setIsLoading(false);
@@ -50,22 +50,23 @@ const SearchDrugPage = ({ backTo }) => {
 	const addDrug = (id, name) => {
 		// Check if the drug with the same ID already exists in the list
 		if (drugs.some((drug) => drug.id === id)) {
-		// If the drug already exists, throw an error or show a message
+			// If the drug already exists, throw an error or show a message
 
-		console.error("Drug already exists in the list");
-		// Optionally, you can set an error state here
-		return;
+			console.error("Drug already exists in the list");
+			// Optionally, you can set an error state here
+			return;
 		}
 
 		// If the drug doesn't exist in the list, add it
 		const newDrug = {
-		id: id,
-		name: name,
+			id: id,
+			name: name,
 		};
 
 		setDrugs([...drugs, newDrug]);
 		setDrugList([]);
 		setDrugQuery("");
+
 	};
 
 	// Delete drug from interaction list query
@@ -75,36 +76,36 @@ const SearchDrugPage = ({ backTo }) => {
 
 	// Query to get interactions based on the chosen list of drugs
 	const getInteractions = async (drugs) => {
-		if (drugs.length >= 2) {
-		try {
-			// Serialize the array into a JSON string
-			const drugsJSON = JSON.stringify(drugs);
-			// Encode the JSON string to be URL-safe
-			const encodedDrugs = encodeURIComponent(drugsJSON);
+		if (drugs.length != 5) {
+			try {
+				// Serialize the array into a JSON string
+				const drugsJSON = JSON.stringify(drugs);
+				// Encode the JSON string to be URL-safe
+				const encodedDrugs = encodeURIComponent(drugsJSON);
 
-			const res = await Axios.get(
-			`${process.env.REACT_APP_LOCALHOST}/interactions`,
-			{ params: { drugs: encodedDrugs } }
-			);
+				const res = await Axios.get(
+				`${process.env.REACT_APP_LOCALHOST}/interactions`,
+				{ params: { drugs: encodedDrugs } }
+				);
 
-			console.log(res.data.interactions);
+				console.log(res.data.interactions);
 
-			if (res.data.interactions) {
-			setInteractions(res.data.interactions);
-			setError("");
-			} else {
-			setInteractions([]);
+				if (res.data.interactions) {
+				setInteractions(res.data.interactions);
+				setError("");
+				} else {
+				setInteractions([]);
 
-			setError("Error retrieving interaction results");
+				setError("Error retrieving interaction results");
+				}
+			} catch (error) {
+				console.error(`Axios Error: ${error}`);
+				setInteractions([]);
+
+				setError("Local Server Error");
 			}
-		} catch (error) {
-			console.error(`Axios Error: ${error}`);
-			setInteractions([]);
-
-			setError("Local Server Error");
-		}
 		} else {
-		setError("Choose at least 2 drugs!");
+			setError("Exceeded limit of 5 drugs!");
 		}
 	};
 
@@ -177,31 +178,34 @@ const SearchDrugPage = ({ backTo }) => {
 						</div>
 						</div>
 				<div className="no_interactions_warning">
-				<h3>
-					If no interactions are found between two drugs, it does not
-					necessarily mean that no interactions exist. Always consult with
-					a healthcare professional.
-				</h3>
+					<div>
+						<svg class="info" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+							<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+						</svg>
+						<b>Warning</b>: If no interactions are found between two drugs, it does not
+						necessarily mean that no interactions exist. Always consult with
+						a healthcare professional.
+					</div>
 				</div>
 
 				<div className="drug_interaction_results">
-				{interactions?.length === 0 ? (
-					<div>No Interactions found</div>
-				) : (
-					interactions?.map((interaction) => {
-					return (
-						<DrugInteraction
-						key={interaction.id}
-						subject={interaction.subject}
-						affected={interaction.affected}
-						severity={interaction.severity}
-						description={interaction.description}
-						actual_description={interaction.actual_description}
-						references={interaction.references}
-						/>
-					);
-					})
-				)}
+					{interactions?.length === 0 ? (
+						<div>No Interactions found</div>
+					) : (
+						interactions?.map((interaction) => {
+						return (
+							<DrugInteraction
+							key={interaction.id}
+							subject={interaction.subject}
+							affected={interaction.affected}
+							severity={interaction.severity}
+							description={interaction.description}
+							actual_description={interaction.actual_description}
+							references={interaction.references}
+							/>
+						);
+						})
+					)}
 				</div>
 
 				<div className="drug_interaction_list">
@@ -217,9 +221,14 @@ const SearchDrugPage = ({ backTo }) => {
 				})}
 				</div>
 
-				<button onClick={() => getInteractions(drugs)}>
-				Get interactions
-				</button>
+				{drugs.length === 0 || drugs.length === 1 ?(
+					<p>Add at least two and up to 5 drugs</p>
+				) : (
+					<button onClick={() => getInteractions(drugs)}>
+						Get interactions
+					</button>
+				)}
+				
 			</div>
 
 			{error && (

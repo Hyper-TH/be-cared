@@ -2,11 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-.search_drug_container {
+/* .search_drug_container {
 	@apply 
 	w-full bg-white rounded-lg shadow dark:border 
 	md:mt-0 sm:max-w-md xl:p-0	
 	dark:bg-gray-800 dark:border-gray-700;
+} */
+
+
+.search_drug_container {
+    @apply 
+    w-full bg-white rounded-lg shadow dark:border 
+    md:mt-0 sm:max-w-lg xl:p-4
+    dark:bg-gray-800 dark:border-gray-700 p-4;
 }
 
 .search_drug {
@@ -57,3 +65,18 @@
     @apply
     flex-shrink-0 inline me-3 w-5 h-5;
 }
+
+.info {
+	@apply
+	flex-shrink-0 inline w-4 h-4 me-3;
+}
+
+.no_interactions_warning {
+    @apply
+    flex items-center p-4 mb-4 text-sm 
+    text-yellow-800 
+    border border-yellow-300 rounded-lg 
+    bg-yellow-50 
+    dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800;
+}
+
