@@ -112,7 +112,7 @@ const FoodInteractionsPage = ({backTo}) => {
 		<section className="main_container">
 		<Link to={backTo} className="btn_primary">Back</Link>
 			<div className="sub_container">
-				<h1 className="home_title">Drug Interactions</h1>
+				<h1 className="home_title">Food Interactions</h1>
 
 				<div className="search_drug_container">
 					<div className="search_drug">
@@ -180,7 +180,7 @@ const FoodInteractionsPage = ({backTo}) => {
 						<svg className="info" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
 							<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
 						</svg>
-						<b>Warning</b>: If no interactions are found between two drugs, it does not
+						<b>Warning</b>: If no interactions are found, it does not
 						necessarily mean that no interactions exist. Always consult with
 						a healthcare professional.
 					</div>
