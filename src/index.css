@@ -43,7 +43,7 @@
 /* TODO: Use this loading button for subscribe (and also check usestate) */
 .loading {
 	@apply
-	p-2 text-left text-gray-500;
+	p-2 text-left text-white;
 }
 
 .loading_btn {
