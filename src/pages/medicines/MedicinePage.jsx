@@ -220,13 +220,12 @@ const MedicinePage = ({ backTo }) => {
 
                     <div className='medicine_details'>
                         {isLoading ? (
-                            <div>Loading...</div>
+                            <div className='loading'>Loading...</div>
                         ) : (
                             <> 
                             <h1 className='medicine_name'>
                                 {medicine.name}
                             </h1>
-
                             <div className='medicine_sub_details'>
                                 <div className='flex flex-col mb-4'>
                                     <span className='medicine_header inline'>Company:</span>
