@@ -1,36 +1,31 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Combobox } from '@headlessui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../../styles/medicinePages/search_medicine.css';
 import Axios from 'axios';
+import { useDebounce } from '../../components/hooks/useDebounce';
 
 const GuestSearchPage = ({ backTo }) => {
     const [medQuery, setMedQuery] = useState("");
     const [medicineList, setMedicineList] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
-
-    let searchTimeoutId = null;
+    const debouncedMedQuery = useDebounce(medQuery, 250); 
 
     const medicineChange = (event) => {
         setMedQuery(event.target.value);
-        setIsLoading(true);
-
-        // Clear any ongoing timeout to reset the timer
-        if (searchTimeoutId !== null) {
-            clearTimeout(searchTimeoutId);
-        }
-
-        // Set a new timeout to call searchMedicine after 500ms
-        searchTimeoutId = setTimeout(() => {
-            searchMedicine(medQuery); // Pass the latest value to searchMedicine
-        }, 500);
     };
-     
+   
+    useEffect(() => {
+        setIsLoading(true);
+        searchMedicine(debouncedMedQuery); 
+    }, [debouncedMedQuery]); 
+
+        
     const searchMedicine = async () => {
         setError("");
 
-        if (medQuery) {
+        if (debouncedMedQuery) {
             try {
                 const response = await Axios.get(
                     `${process.env.REACT_APP_LOCALHOST}/getMeds`,
@@ -90,9 +85,11 @@ const GuestSearchPage = ({ backTo }) => {
 
                                 <Combobox.Options className="combox_auto_complete">
                                     {isLoading ? (
-                                        <div className="loading">Loading...</div>
-                                    ) : medicineList === null ? (
-                                        null 
+                                        <div className="search_loading">Loading...</div>
+                                    ) : medicineList === null && !medQuery ? (
+                                        <div className="search_loading">Enter medicine to start searching...</div>
+                                    ) : medicineList === null && medQuery ? (
+                                        <div className='search_loading'>Medicine not found, try again...</div>
                                     ) : medicineList.length > 0 ? (
                                         // Map over the medicine list if it has items
                                         medicineList?.map((medicine) => (
@@ -116,7 +113,7 @@ const GuestSearchPage = ({ backTo }) => {
                     </div>
                 </div>
                 {error && 
-                    <div className='error'>
+                    <div className='search_warning'>
                     <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
                     </svg>

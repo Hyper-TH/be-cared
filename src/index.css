@@ -47,9 +47,14 @@
 
 .search_loading {
 	@apply
+	italic
 	p-2 text-left text-gray-700;
 }
 
+.search_warning {
+	@apply 
+	flex items-center p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-green-500;
+}
 
 .loading_btn {
 	@apply

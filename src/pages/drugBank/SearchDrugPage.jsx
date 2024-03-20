@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { Combobox } from "@headlessui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Drug } from "../../components/drugBank/Drug";
 import { DrugInteraction } from "../../components/drugBank/DrugInteraction";
 import '../../styles/drugbankPages/drug_interactions.css';
+import { useDebounce } from "../../components/hooks/useDebounce";
 
 // TODO: AUTO COMPLETE NOT COMPLETELY RESPONSIVE
 const SearchDrugPage = ({ backTo }) => {
@@ -14,29 +15,34 @@ const SearchDrugPage = ({ backTo }) => {
 	const [interactions, setInteractions] = useState(null); // Interaction Results
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");
+	const debouncedDrugQuery = useDebounce(drugQuery, 250);
 
 	// Trigger auto-complete for every input
 	const drugChange = (e) => {
 		setDrugQuery(e.target.value);
-
-		searchDrug(drugQuery);
 	};
 
-	const searchDrug = async (input) => {
+	useEffect(() => {
 		setIsLoading(true);
+		searchDrug(debouncedDrugQuery);
+	}, [debouncedDrugQuery]);
+
+	const searchDrug = async (input) => {
 		setError("");
 
 		try {
-		const res = await Axios.get(
-			`${process.env.REACT_APP_LOCALHOST}/autoComplete`,
-			{ params: { input: input } }
-		);
 
-		if (res.data.drugs) {
-			setDrugList(res.data.drugs);
-		} else {
-			setDrugList([]);
-		}
+			const res = await Axios.get(
+				`${process.env.REACT_APP_LOCALHOST}/autoComplete`,
+				{ params: { input: input } }
+			);
+
+			if (res.data.drugs) {
+				setDrugList(res.data.drugs);
+			} else {
+				setDrugList([]);
+			}
+
 		} catch (error) {
 			// console.error(`Axios Error: ${error}`);
 			setDrugList([]);
@@ -150,11 +156,11 @@ const SearchDrugPage = ({ backTo }) => {
 
 								<Combobox.Options className="combox_auto_complete">
 									{isLoading ? (
-										<div className="loading">Loading...</div>
+										<div className="search_loading">Loading...</div>
 									) : drugList === null && !drugQuery ? (
-										<div className="loading">Enter drug to start searching...</div>
-									) : drugList.length === 0 && drugQuery ? (
-										<div className="loading">Drug not found, type more...</div>
+										<div className="search_loading">Enter drug to start searching...</div>
+									) : drugList === null && drugQuery ? (
+										<div className="search_loading">Drug not found, try again...</div>
 									) : drugList.length > 0 ? (
 										// Map over drug list if it has items
 										drugList?.map((drug) => (
@@ -235,7 +241,7 @@ const SearchDrugPage = ({ backTo }) => {
 			</div>
 
 			{error && (
-				<div className="error">
+				<div className="search_warning">
 				<svg
 					className="flex-shrink-0 inline w-4 h-4 me-3"
 					aria-hidden="true"

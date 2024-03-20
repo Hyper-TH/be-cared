@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import { Combobox } from "@headlessui/react";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Drug } from '../../components/drugBank/Drug';
 import { FoodInteraction } from '../../components/drugBank/FoodInteraction';
 import '../../styles/drugbankPages/food_interactions.css';
+import { useDebounce } from '../../components/hooks/useDebounce';
 
 // TODO: AUTO COMPLETE NOT COMPLETELY RESPONSIVE
 const FoodInteractionsPage = ({backTo}) => {
@@ -14,16 +15,19 @@ const FoodInteractionsPage = ({backTo}) => {
 	const [interactions, setInteractions] = useState([]);   // Interaction Results	
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");	
+	const debouncedDrugQuery = useDebounce(drugQuery, 250)
 
     // Trigger auto-complete for every input
   	const drugChange = (e) => {
         setDrugQuery(e.target.value);
-
-      	searchDrug(drugQuery);
     };
 
-  	const searchDrug = async (input) => {
+	useEffect(() => {
 		setIsLoading(true);
+		searchDrug(debouncedDrugQuery);
+	}, [debouncedDrugQuery]);
+
+  	const searchDrug = async (input) => {
 		setError("");
 
 		try {
@@ -146,11 +150,11 @@ const FoodInteractionsPage = ({backTo}) => {
 
 								<Combobox.Options className="combox_auto_complete">
 									{isLoading ? (
-										<div className="loading">Loading...</div>
+										<div className="search_loading">Loading...</div>
 									) : drugList === null && !drugQuery ? (
-										<div className="loading">Enter drug to start searching...</div>
-									) : drugList.length === 0 && drugQuery ? (
-										<div className="loading">Drug not found, type more...</div>
+										<div className="search_loading">Enter drug to start searching...</div>
+									) : drugList === null && drugQuery ? (
+										<div className="search_loading">Drug not found, type more...</div>
 									) : drugList.length > 0 ? (
 										// Map over drug list if it has items
 										drugList?.map((drug) => (
@@ -224,7 +228,7 @@ const FoodInteractionsPage = ({backTo}) => {
 			</div>
 
 			{error && (
-				<div className="error">
+				<div className="search_warning">
 				<svg
 					className="flex-shrink-0 inline w-4 h-4 me-3"
 					aria-hidden="true"

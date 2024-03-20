@@ -10,7 +10,7 @@ const SearchPage = ({ backTo }) => {
     const [medicineList, setMedicineList] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
-    const debouncedMedQuery = useDebounce(medQuery, 250); 
+    const debouncedMedQuery = useDebounce(medQuery, 500); 
 
     const medicineChange = (event) => {
         setMedQuery(event.target.value);
@@ -18,10 +18,8 @@ const SearchPage = ({ backTo }) => {
 
     // Effect hook that calls searchMedicine when debouncedMedQuery updates
     useEffect(() => {
-        if (debouncedMedQuery) { // Ensure there's a query to avoid initial empty call
-            setIsLoading(true);
-            searchMedicine(debouncedMedQuery); 
-        }
+        setIsLoading(true);
+        searchMedicine(debouncedMedQuery); 
     }, [debouncedMedQuery]); // Dependency array includes debouncedMedQuery
     
 
@@ -98,8 +96,10 @@ const SearchPage = ({ backTo }) => {
                                 <Combobox.Options className="combox_auto_complete">
                                     {isLoading ? (
                                         <div className="search_loading">Loading...</div>
-                                    ) : medicineList === null ? (
-                                        null 
+                                    ) : medicineList === null && !medQuery ? (
+                                        <div className="search_loading">Enter medicine to start searching...</div>
+                                    ) : medicineList === null && medQuery ? (
+                                        <div className='search_loading'>Medicine not found, try again...</div>
                                     ) : medicineList.length > 0 ? (
                                         // Map over the medicine list if it has items
                                         medicineList?.map((medicine) => (
@@ -123,7 +123,7 @@ const SearchPage = ({ backTo }) => {
                     </div>
                 </div>
                 {error && 
-                    <div className='error'>
+                    <div className='search_warning'>
                     <svg className="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
                     </svg>
