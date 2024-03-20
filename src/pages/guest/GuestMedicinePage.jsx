@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
-// TODO: Add Error usestate()
 const GuestMedicinePage = ({ backTo }) => {
     const [isPIL, setIsPIL] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
 
     let location = useLocation();
     let state = location.state;
@@ -21,7 +19,6 @@ const GuestMedicinePage = ({ backTo }) => {
         }
     }
 
-    // TODO: Refer to medicinePage to add appropriate render for no PDFs
     const renderPIL = (medicine) => {
         navigate(
             `/guest/render/${encodeURIComponent(medicine.name)}`, 
@@ -53,7 +50,6 @@ const GuestMedicinePage = ({ backTo }) => {
         checkFiles();
     });
 
-    // Add isLoading usestate and appropriate rendering
     return (
         <>
          <section className='main_container'>
@@ -68,52 +64,52 @@ const GuestMedicinePage = ({ backTo }) => {
                 
                 <div className='medicine_details_container'>
                     <div className='medicine_details'>
-                        {isLoading ? (
-                            <div>Loading...</div>
-                        ) : (
-                            <> 
-                            <h1 className='medicine_name'>
-                                {medicine.name}
-                            </h1>
+                        <h1 className='medicine_name'>
+                            {medicine.name}
+                        </h1>
 
-                            <div className='medicine_sub_details'>
-                                <div className='flex flex-col mb-4'>
-                                    <span className='medicine_header inline'>Company:</span>
-                                    <span className='medicine_text inline'>{medicine.company.name}</span>
-                                </div>
-
-                                {/* TODO: Active ingredients are in a list sometimes */}
-                                <div className='flex flex-col mb-4'>
-                                    <span className='medicine_header inline'>Active Ingredient:</span>
-                                    <span className='medicine_text inline'>{medicine.ingredients[0].name}</span>
-                                </div>
-
-                                <div className='medicine_status'>
-                                    <span className='medicine_header inline'>Status: </span>
-                                    <span className='medicine_text inline'>{statusButton}</span>
-                                </div>
+                        <div className='medicine_sub_details'>
+                            <div className='flex flex-col mb-4'>
+                                <span className='medicine_header inline'>Company:</span>
+                                <span className='medicine_text inline'>{medicine.company.name}</span>
                             </div>
 
-                            <div className='btn_collection_medicine'>
-                                {isPIL ? ( 
-                                    <button 
-                                        className='btn_collection_med_guest'
-                                        onClick={() => renderPIL(medicine)}>
-                                        PIL Document
-                                    </button>
-                                ) : ( 
-                                    <button 
-                                        className='btn_collection_med_guest'
-                                        style={{ opacity: 0.5, cursor: 'not-allowed' }}
-                                        onClick={() => renderPIL(medicine)}
-                                        disabled>
-                                        No available PIL Document
-                                    </button>
-                                )}
-
+                            <div className='flex flex-col mb-4'>
+                                <span className='medicine_header inline'>Active Ingredient&#40;s&#41;:</span>
+                                <ul className='max-w-md space-y-1 text-gray-300 list-disc list-inside'>
+                                    {medicine.ingredients.map((ingredient, index) => (
+                                        <li key={index}>
+                                            <span className='medicine_text'>{ingredient.name}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                                
                             </div>
-                            </>
-                        )}
+
+                            <div className='medicine_status'>
+                                <span className='medicine_header inline'>Status: </span>
+                                <span className='medicine_text inline'>{statusButton}</span>
+                            </div>
+                        </div>
+
+                        <div className='btn_collection_medicine'>
+                            {isPIL ? ( 
+                                <button 
+                                    className='btn_collection_med_guest'
+                                    onClick={() => renderPIL(medicine)}>
+                                    PIL Document
+                                </button>
+                            ) : ( 
+                                <button 
+                                    className='btn_collection_med_guest'
+                                    style={{ opacity: 0.5, cursor: 'not-allowed' }}
+                                    onClick={() => renderPIL(medicine)}
+                                    disabled>
+                                    No available PIL Document
+                                </button>
+                            )}
+
+                        </div>
                     </div>
                 </div>
             </div>
