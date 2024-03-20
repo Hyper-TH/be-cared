@@ -14,7 +14,7 @@ const GuestPage = () => {
     return (
         <div className="main_container">
             <div className="sub_container">
-                <h2 className="home_title">
+                <h2 className="main_title">
                     Welcome to beCared
                 </h2>
             

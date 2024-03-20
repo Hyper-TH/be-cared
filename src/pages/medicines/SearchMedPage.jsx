@@ -76,7 +76,7 @@ const SearchPage = ({ backTo }) => {
         <section className='main_container'>
         <Link to={backTo} className='btn_primary'>Back</Link>
             <div className='sub_container'>
-                <h1 className="home_title">
+                <h1 className="main_title">
                     Search Medicine
                 </h1>
 

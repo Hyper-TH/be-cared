@@ -71,7 +71,7 @@ const GuestPDFRenderPage = () => {
                     <div className='loading'>Loading...</div>
                 ) : (
                     <>
-                    <h1 className='home_title'>PIL Document</h1>
+                    <h1 className='main_title'>PIL Document</h1>
                     
                     <iframe
                         className='pdf'

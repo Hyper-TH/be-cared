@@ -186,7 +186,7 @@ const PDFRenderPage = () => {
                     <div className='loading'>Loading...</div>
                 ) : (
                     <>
-                    <h1 className='home_title'>{type.toUpperCase()} Document</h1>
+                    <h1 className='main_title'>{type.toUpperCase()} Document</h1>
                     
                     <iframe
                         className='pdf'

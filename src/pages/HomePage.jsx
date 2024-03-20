@@ -84,7 +84,7 @@ const HomePage = () => {
     return (
         <section className="main_container">
             <div className="sub_container">
-            <h1 className="home_title">
+            <h1 className="main_title">
                 Welcome to beCared
             </h1>
 

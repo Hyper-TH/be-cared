@@ -116,7 +116,7 @@ const SearchDrugPage = ({ backTo }) => {
 		<section className="main_container">
 		<Link to={backTo} className="btn_primary">Back</Link>
 			<div className="sub_container">
-				<h1 className="home_title">Drug Interactions</h1>
+				<h1 className="main_title">Drug Interactions</h1>
 
 				<div className="search_drug_container">
 					<div className="search_drug">
