@@ -5,23 +5,33 @@ export const Medicine = (props) => {
     // const spcUpdate = props.medicine.spc.notifications;
 
     
-    const pilButton = hasPil ? (
-        <button onClick={() => props.renderPIL(props.medicine)}>
-            View PIL Document
-        </button>
-    ) : (
-        <button disabled style={{ opacity: 0.5, cursor: 'not-allowed' }}>
-            No available PIL Document
-        </button>
-    );
-
     const spcButton = hasSpc ? (
-        <button onClick={() => props.renderSPC(props.medicine)}>
+        <button 
+            className="btn_collection_med_left"
+            onClick={() => props.renderSPC(props.medicine)}>
             View SPC Document
         </button>
     ) : (
-        <button disabled style={{ opacity: 0.5, cursor: 'not-allowed' }}>
+        <button 
+            disabled 
+            classname='btn_collection_med_left'
+            style={{ opacity: 0.5, cursor: 'not-allowed' }}>
             No available SPC Document
+        </button>
+    );
+
+    const pilButton = hasPil ? (
+        <button 
+            className='btn_collection_med_mid' 
+            onClick={() => props.renderPIL(props.medicine)}>
+            View PIL Document
+        </button>
+    ) : (
+        <button 
+            disabled 
+            className="btn_collection_med_mid"
+            style={{ opacity: 0.5, cursor: 'not-allowed' }}>
+            No available PIL Document
         </button>
     );
 
@@ -38,11 +48,13 @@ export const Medicine = (props) => {
                 </div> */}
             </div>
 
-            <div className="buttons">
-                {pilButton}
+            <div className="btn_collection_medicine">
                 {spcButton}
+                {pilButton}
 
-                <button onClick={() => props.unsubscribe(props.medicine)}>
+                <button 
+                    className="btn_collection_med_right"
+                    onClick={() => props.unsubscribe(props.medicine)}>
                     Unsubscribe to this medicine
                 </button>   
 
