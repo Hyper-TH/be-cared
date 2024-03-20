@@ -7,7 +7,6 @@ import { FoodInteraction } from '../../components/drugBank/FoodInteraction';
 import '../../styles/drugbankPages/food_interactions.css';
 import { useDebounce } from '../../components/hooks/useDebounce';
 
-// TODO: AUTO COMPLETE NOT COMPLETELY RESPONSIVE
 const FoodInteractionsPage = ({backTo}) => {
     const [drugQuery, setDrugQuery] = useState("");	// Used for auto complete
     const [drugList, setDrugList] = useState([]);	// List for drug search

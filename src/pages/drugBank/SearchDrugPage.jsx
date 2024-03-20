@@ -7,7 +7,6 @@ import { DrugInteraction } from "../../components/drugBank/DrugInteraction";
 import '../../styles/drugbankPages/drug_interactions.css';
 import { useDebounce } from "../../components/hooks/useDebounce";
 
-// TODO: AUTO COMPLETE NOT COMPLETELY RESPONSIVE
 const SearchDrugPage = ({ backTo }) => {
 	const [drugQuery, setDrugQuery] = useState(""); // Used for auto complete
 	const [drugList, setDrugList] = useState([]); // List for drug search
@@ -80,8 +79,6 @@ const SearchDrugPage = ({ backTo }) => {
 		setDrugs(drugs.filter((drug) => drug.id !== id));
 	};
 
-
-	// TODO: Debouncing
 	// Query to get interactions based on the chosen list of drugs
 	const getInteractions = async (drugs) => {
 		if (drugs.length !== 5) {

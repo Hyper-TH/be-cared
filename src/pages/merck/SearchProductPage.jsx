@@ -60,7 +60,6 @@ const SearchProductPage = ({ backTo }) => {
         navigate(`/result/product/${encodeURIComponent(product.productID)}`, { state: { product }});
     };
 
-    // TODO: Indicate user to start typing etc
     return (
         <>
         <div className='title'>
@@ -97,7 +96,6 @@ const SearchProductPage = ({ backTo }) => {
                 null
             ) : productList.length > 0 ? (
                 // Map over the medicine list if it has items
-                // TODO: Warning: Encountered two children with the same key, `0`. 
                 productList.map((product) => {
                     return (
                         <Product

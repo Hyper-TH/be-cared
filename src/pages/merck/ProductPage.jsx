@@ -54,7 +54,7 @@ const ProductPage = ({ backTo }) => {
     //     return <>{formattedParts}</>; // Return the parts as a single JSX fragment
     // }
 
-    // TODO: Linear Formula Sub on Numbers
+    // TODO: Linear Formula Sub on Numbers (refer to drug interactions extended description)
     return (
         <>
         <div className="product_information">
