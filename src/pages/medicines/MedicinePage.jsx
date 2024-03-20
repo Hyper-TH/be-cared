@@ -220,10 +220,8 @@ const MedicinePage = ({ backTo }) => {
                                     <span className='medicine_text inline'>{medicine.company.name}</span>
                                 </div>
 
-                                {/* TODO: Active ingredients are in a list sometimes */}
                                 <div className='flex flex-col mb-4'>
                                     <span className='medicine_header inline'>Active Ingredient:</span>
-                                    {/* <span className='medicine_text inline'>{medicine.ingredients[0].name}</span> */}
                                     {medicine.ingredients.map((ingredient, index) => (
                                         <span key={index} className='medicine_text'>{ingredient.name}</span>
                                     ))}
