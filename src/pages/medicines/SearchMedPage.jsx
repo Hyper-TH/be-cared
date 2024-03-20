@@ -27,6 +27,7 @@ const SearchPage = ({ backTo }) => {
         }, 500);
     };
 
+    // TODO: Debouncing
     const searchMedicine = async () => {
         setError("");
         
@@ -101,7 +102,7 @@ const SearchPage = ({ backTo }) => {
 
                                 <Combobox.Options className="combox_auto_complete">
                                     {isLoading ? (
-                                        <div className="loading">Loading...</div>
+                                        <div className="search_loading">Loading...</div>
                                     ) : medicineList === null ? (
                                         null 
                                     ) : medicineList.length > 0 ? (
