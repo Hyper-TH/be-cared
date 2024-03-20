@@ -2,38 +2,33 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Combobox } from '@headlessui/react';
 import Axios from 'axios';
 import '../../styles/medicinePages/search_medicine.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDebounce } from '../../components/medicine/useDebounce';
 
 const SearchPage = ({ backTo }) => {
     const [medQuery, setMedQuery] = useState("");
     const [medicineList, setMedicineList] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
-
-    let searchTimeoutId = null;
+    const debouncedMedQuery = useDebounce(medQuery, 250); 
 
     const medicineChange = (event) => {
         setMedQuery(event.target.value);
-        setIsLoading(true);
-
-        // Clear any ongoing timeout to reset the timer
-        if (searchTimeoutId !== null) {
-            clearTimeout(searchTimeoutId);
-        }
-
-        // Set a new timeout to call searchMedicine after 500ms
-        searchTimeoutId = setTimeout(() => {
-            searchMedicine(medQuery); // Pass the latest value to searchMedicine
-        }, 500);
     };
 
-    // TODO: Debouncing
+    // Effect hook that calls searchMedicine when debouncedMedQuery updates
+    useEffect(() => {
+        if (debouncedMedQuery) { // Ensure there's a query to avoid initial empty call
+            setIsLoading(true);
+            searchMedicine(debouncedMedQuery); 
+        }
+    }, [debouncedMedQuery]); // Dependency array includes debouncedMedQuery
+    
+
     const searchMedicine = async () => {
         setError("");
         
-        if (medQuery) {
-            console.log(`Searching for: `, medQuery);
-
+        if (debouncedMedQuery) {
             try {
                 const response = await Axios.get(
                     `${process.env.REACT_APP_LOCALHOST}/getMeds`,
