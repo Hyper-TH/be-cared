@@ -21,6 +21,15 @@
     mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white;
 }
 
+.new_document {
+	@apply
+	inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-normal text-red-500 bg-red-100 rounded-full;
+}
+
+.new_document svg {
+	@apply
+	w-6 h-6;	
+}
 
 .details {
 	@apply text-base; /* This keeps the text size standard */
