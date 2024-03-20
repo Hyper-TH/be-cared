@@ -18,6 +18,11 @@
 	@apply space-y-4 md:space-y-6;
 }
 
+.sign_in_title {
+	@apply
+	flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white;
+}
+
 .sign_in_form label {
 	@apply block mb-2 text-sm font-medium text-gray-900 dark:text-white;
 }

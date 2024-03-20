@@ -44,7 +44,7 @@ const Signin = () => {
 
             <div className='sign_in_container'>
                 <div className='sign_in'>
-                    <h1 className='main_title'>
+                    <h1 className='sign_in_title'>
                         Sign in to your account
                     </h1>
 
