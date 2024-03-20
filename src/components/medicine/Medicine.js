@@ -1,6 +1,8 @@
 export const Medicine = (props) => {
     const hasPil = props.medicine.pil.available;
     const hasSpc = props.medicine.spc.available;
+    // const pilUpdate = props.medicine.pil.notifications;
+    // const spcUpdate = props.medicine.spc.notifications;
 
     
     const pilButton = hasPil ? (
@@ -24,15 +26,27 @@ export const Medicine = (props) => {
     );
 
     return (
-        <div className="medicine">
-            <h2>{props.medicine.medicineName}</h2>
+        <div className="sub_medicine">
+            <h2 className="medicine_name">{props.medicine.medicineName}</h2>
+            
+            <div className='medicine_sub_details'>
 
-            {pilButton}
-            {spcButton}
+                {/* TODO: Active ingredients are in a list sometimes */}
+                {/* <div className='flex flex-col mb-4'>
+                    <span className='medicine_header inline'>Active Ingredient:</span>
+                    <span className='medicine_text inline'>{props.medicine.ingredients[0].name}</span>
+                </div> */}
+            </div>
 
-            <button onClick={() => props.unsubscribe(props.medicine)}>
-                Unsubscribe to this medicine
-            </button>            
+            <div className="buttons">
+                {pilButton}
+                {spcButton}
+
+                <button onClick={() => props.unsubscribe(props.medicine)}>
+                    Unsubscribe to this medicine
+                </button>   
+
+            </div>
         </div>
     );
 };

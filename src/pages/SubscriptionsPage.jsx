@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
 import { UserAuth } from '../context/AuthContext.js';
 import { Medicine } from '../components/medicine/Medicine.js';
+import '../styles/subscriptions.css';
 import Axios from 'axios';
 
 const SubscriptionsPage = ({ backTo }) => {
@@ -88,51 +89,72 @@ const SubscriptionsPage = ({ backTo }) => {
         );
     };
 
+    // Dedicated div for number of notifications
+    // Each medicine list will be its own row
     return (
         <>
-            <div className='title'>
-                <h1>
+        <section className='main_container'>
+            <div className='sub_container'>
+                <h1 className='home_title'>
                     Medicine Subscriptions
                 </h1>
-            </div>
-            
-            <div className="medicine_list">
+
+                <div className="medicine_list">
                 
-                {isLoading ? (
-                    <div>Loading...</div>
-                ) : medicineList.length > 0 ? (
-                    <>
-                        <div>
-                        {(notifications !== 0) ? (
-                           <p> Updated documents: {notifications}</p>
+                    {isLoading ? (
+                        <div className='loading'>Loading...</div>
+                    ) : medicineList.length > 0 ? (
+                        <>
+                            <div className='updated_documents_container'>
+                                {(notifications !== 0) ? (
+                                    <div className='updated_documents'>
+                                        <p> Updated documents: {notifications}</p>
+                                    </div>
+                                ) : (
+                                    <div className='updated_documents'>
+                                        <p>No updated documents</p>
+                                    </div>
+                                )}
+                            </div>
+                    
+                            <div className='medicine_list_container'>
+                                {medicineList.map((medicine) => (
+                                    
+                                    <Medicine 
+                                        key={medicine.medicineID}
+                                        medicine={medicine}
+                                        renderSPC={renderSPC}
+                                        renderPIL={renderPIL}
+                                        unsubscribe={unsubscribe}
+                                    />
+                                ))}
+                            </div>    
+                            
+                        </>
+                    ) : (
+                        <div>No subscriptions found</div>
+                    )}
 
-                        ) : (
-                            <p>No updated documents</p>
-                        )}
-                        </div>
-                
-                    {medicineList.map((medicine) => (
-                        
-                        <Medicine 
-                            key={medicine.medicineID}
-                            medicine={medicine}
-                            renderSPC={renderSPC}
-                            renderPIL={renderPIL}
-                            unsubscribe={unsubscribe}
-                        />
-                    ))}
-                    </>
-                ) : (
-                    <div>No subscriptions found</div>
-                )}
+                    <button>
+                        <Link to={backTo}>Back to Home</Link>
+                    </button>
 
-                <button>
-                    <Link to={backTo}>Back to Home</Link>
-                </button>
+                </div>
 
             </div>
 
-            {error && <p style={{ color: "red" }}>{error}</p>}
+            {error && 
+                <div className='error'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                    </svg>
+
+                    <div>
+                        <span className='font-medium'>{error}</span>
+                    </div>
+                </div>
+            }
+        </section>
         </>
     );
 };
