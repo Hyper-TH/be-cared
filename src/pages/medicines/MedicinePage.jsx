@@ -108,6 +108,7 @@ const MedicinePage = ({ backTo }) => {
        
     };
 
+    // TODO: Add an alert if it's loading or finished
     const subscribe = async (medicine) => {
 
         await Axios.get(
@@ -119,7 +120,7 @@ const MedicinePage = ({ backTo }) => {
                     name: medicine.name,
                     ingredients: medicine.ingredients,
                     pil: medicine.pils && medicine.pils[0] && medicine.pils[0].activePil && medicine.pils[0].activePil.file && medicine.pils[0].activePil.file.name 
-                  ? encodeURIComponent(medicine.pils[0].activePil.file.name) 
+                  ? medicine.pils[0].activePil.file.name
                   : '', 
                     spc: medicine.activeSPC && medicine.activeSPC.file && medicine.activeSPC.file.name 
                   ? medicine.activeSPC.file.name
@@ -140,6 +141,8 @@ const MedicinePage = ({ backTo }) => {
     };
 
     const statusButton = (() => {
+        console.log(medicine.legalCategory);
+
         if (medicine.legalCategory.includes('(A)') || medicine.legalCategory.includes('(B)') || medicine.legalCategory.includes('(C)')) {
             return (
                 <button className='btn_pharmacy_only_presc'>
@@ -152,11 +155,21 @@ const MedicinePage = ({ backTo }) => {
                     General Sale: Non-prescription
                 </button>
             );
+        } else if (medicine.legalCategory.includes('Supply through pharmacy only')) {
+            return (
+                <button className='btn_general_sale'>
+                    Pharmacy Only: Non-prescription
+                </button>   
+            );
+
         } else {
-            <button className='btn_general_sale'>
-                Pharmacy Only: Non-prescription
-            </button>   
+            return (
+                <button className='btn_unavailable'>
+                    Status unavailable
+                </button> 
+            );
         }
+
     })();  
 
     const renderSPC = (medicine) => {
@@ -221,10 +234,15 @@ const MedicinePage = ({ backTo }) => {
                                 </div>
 
                                 <div className='flex flex-col mb-4'>
-                                    <span className='medicine_header inline'>Active Ingredient:</span>
-                                    {medicine.ingredients.map((ingredient, index) => (
-                                        <span key={index} className='medicine_text'>{ingredient.name}</span>
-                                    ))}
+                                    <span className='medicine_header inline'>Active Ingredient&#40;s&#41;:</span>
+                                    <ul className='max-w-md space-y-1 text-gray-300 list-disc list-inside'>
+                                        {medicine.ingredients.map((ingredient, index) => (
+                                            <li key={index}>
+                                                <span className='medicine_text'>{ingredient.name}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    
                                 </div>
 
                                 <div className='medicine_status'>

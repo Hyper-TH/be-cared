@@ -4,7 +4,8 @@ export const Medicine = (props) => {
     // const pilUpdate = props.medicine.pil.notifications;
     // const spcUpdate = props.medicine.spc.notifications;
 
-    
+    console.log(props.medicine.activeIngredients);
+
     const spcButton = hasSpc ? (
         <button 
             className="btn_collection_med_left"
@@ -40,12 +41,13 @@ export const Medicine = (props) => {
             <h2 className="medicine_name">{props.medicine.medicineName}</h2>
             
             <div className='medicine_sub_details'>
-
-                {/* TODO: Active ingredients are in a list sometimes */}
-                {/* <div className='flex flex-col mb-4'>
-                    <span className='medicine_header inline'>Active Ingredient:</span>
-                    <span className='medicine_text inline'>{props.medicine.ingredients[0].name}</span>
-                </div> */}
+                <ul className='max-w-md space-y-1 text-gray-300 list-disc list-inside'>
+                    {props.medicine.activeIngredients.map((ingredient, index) => (
+                        <li key={index}>
+                            <span className='medicine_text'>{ingredient}</span>
+                        </li>
+                    ))}
+                </ul>
             </div>
 
             <div className="btn_collection_medicine">
