@@ -65,7 +65,7 @@ const MedicinePage = ({ backTo }) => {
                     params: {
                         id: medicine.id,
                         name: medicine.name,
-                        activeIngredient: medicine.ingredients[0].name,
+                        ingredients: medicine.ingredients,
                         company: medicine.company.name,
                         status: medicine.legalCategory,
                         pil: medicine.pils && medicine.pils[0] && medicine.pils[0].activePil && medicine.pils[0].activePil.file && medicine.pils[0].activePil.file.name 
@@ -109,6 +109,7 @@ const MedicinePage = ({ backTo }) => {
     };
 
     const subscribe = async (medicine) => {
+
         await Axios.get(
             `${process.env.REACT_APP_LOCALHOST}/subscribe`,
             {
@@ -116,6 +117,7 @@ const MedicinePage = ({ backTo }) => {
                     user: user.email,
                     id: medicine.id,
                     name: medicine.name,
+                    ingredients: medicine.ingredients,
                     pil: medicine.pils && medicine.pils[0] && medicine.pils[0].activePil && medicine.pils[0].activePil.file && medicine.pils[0].activePil.file.name 
                   ? encodeURIComponent(medicine.pils[0].activePil.file.name) 
                   : '', 
@@ -221,7 +223,10 @@ const MedicinePage = ({ backTo }) => {
                                 {/* TODO: Active ingredients are in a list sometimes */}
                                 <div className='flex flex-col mb-4'>
                                     <span className='medicine_header inline'>Active Ingredient:</span>
-                                    <span className='medicine_text inline'>{medicine.ingredients[0].name}</span>
+                                    {/* <span className='medicine_text inline'>{medicine.ingredients[0].name}</span> */}
+                                    {medicine.ingredients.map((ingredient, index) => (
+                                        <span key={index} className='medicine_text'>{ingredient.name}</span>
+                                    ))}
                                 </div>
 
                                 <div className='medicine_status'>
