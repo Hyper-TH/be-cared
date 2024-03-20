@@ -78,7 +78,7 @@ const SearchDrugPage = ({ backTo }) => {
 	// TODO: Debouncing
 	// Query to get interactions based on the chosen list of drugs
 	const getInteractions = async (drugs) => {
-		if (drugs.length != 5) {
+		if (drugs.length !== 5) {
 			try {
 				// Serialize the array into a JSON string
 				const drugsJSON = JSON.stringify(drugs);
