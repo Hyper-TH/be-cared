@@ -2,10 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Turn into flex container */
-/* .medicine_list {
-    @apply
-} */
+.updated_documents {
+	@apply 
+	text-sm text-center my-4 font-normal leading-tight tracking-tight 
+	text-gray-900 md:text-lg dark:text-white;
+}
 
 .sub_medicine {
     @apply
@@ -52,7 +53,7 @@
 .btn_collection_medicine {
 	@apply
 	flex justify-center
-	w-full;
+	w-full my-4;
 }
 
 .btn_collection_med_left {

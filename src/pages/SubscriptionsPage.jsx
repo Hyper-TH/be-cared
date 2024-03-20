@@ -94,6 +94,7 @@ const SubscriptionsPage = ({ backTo }) => {
     return (
         <>
         <section className='main_container'>
+            <Link to={backTo} className='btn_primary'>Return</Link>
             <div className='sub_container'>
                 <h1 className='main_title'>
                     Medicine Subscriptions
@@ -134,10 +135,6 @@ const SubscriptionsPage = ({ backTo }) => {
                     ) : (
                         <div>No subscriptions found</div>
                     )}
-
-                    <button>
-                        <Link to={backTo}>Back to Home</Link>
-                    </button>
 
                 </div>
 
