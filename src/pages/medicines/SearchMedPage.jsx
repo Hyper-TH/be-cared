@@ -3,7 +3,7 @@ import { Combobox } from '@headlessui/react';
 import Axios from 'axios';
 import '../../styles/medicinePages/search_medicine.css';
 import { useState, useEffect } from 'react';
-import { useDebounce } from '../../components/medicine/useDebounce';
+import { useDebounce } from '../../components/hooks/useDebounce';
 
 const SearchPage = ({ backTo }) => {
     const [medQuery, setMedQuery] = useState("");

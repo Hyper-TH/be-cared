@@ -1,8 +1,8 @@
 import React from 'react';
 import DOMPurify from 'dompurify';
 import  '../../styles/drugbankPages/drug_interactions.css';
-import { useDescTruncatedElement } from './useDescTruncatedElement';
-import { useRefTruncatedElement } from './useRefTruncatedElement';
+import { useDescTruncatedElement } from '../hooks/useDescTruncatedElement';
+import { useRefTruncatedElement } from '../hooks/useRefTruncatedElement';
 
 export const DrugInteraction = (props) => {
     const ref = React.useRef(null);
