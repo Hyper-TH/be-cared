@@ -115,7 +115,6 @@ const MedicinePage = ({ backTo }) => {
        
     };
 
-    // TODO: Add an alert if it's loading or finished
     const subscribe = async (medicine) => {
         setIsSubLoading(true);        
 
