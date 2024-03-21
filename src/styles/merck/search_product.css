@@ -47,37 +47,6 @@
     pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-white;
 }
 
-.yokeToCopy {
-    @apply
-    flex-shrink-0 z-10 inline-flex items-center 
-    py-2.5 px-4 text-sm 
-    font-medium text-center text-gray-900 
-    bg-gray-100 border border-gray-300 
-    rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600
-}
-
-.btn_dropdown {
-    @apply
-    flex-shrink-0 z-10 inline-flex items-center 
-    py-2 px-4 
-    text-sm font-medium text-center text-gray-900 
-    bg-gray-100 border border-gray-300 rounded-s-lg 
-    hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 
-    dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600;  
-}
-
-.dropdown_list {
-    @apply
-    py-2 text-sm text-gray-700 dark:text-gray-200;
-}
-
-
-.btn_dropdown_option {
-    @apply
-    inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white;
-    
-}
-
 
 .product_input {
     @apply

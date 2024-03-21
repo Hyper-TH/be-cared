@@ -3,20 +3,13 @@ import { useState } from 'react';
 import '../../styles/merck/search_product.css';
 import Axios from 'axios';
 import Product from '../../components/merck/Product';
-import { Dropdown } from 'flowbite-react';
 
 const SearchProductPage = ({ backTo }) => {
     const [prodQuery, setProdQuery] = useState("");     // State for product query to send to server
     const [productList, setProductList] = useState([])  // State for list of product responses
     const [searchType, setSearchType] = useState("");   // Default to name
-    const [isOpen, setIsOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
-
-    const handleOpen = () => {
-        setIsOpen(!isOpen);
-    };
-    
 
     const productChange = (event) => {
         setProdQuery(event.target.value);
