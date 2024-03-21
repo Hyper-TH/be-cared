@@ -5,13 +5,23 @@
 .search_product_container {
 	@apply 
 	w-full bg-white rounded-lg shadow dark:border 
-	md:mt-0 sm:max-w-md xl:p-0	
+	md:mt-0 sm:max-w-2xl xl:p-0	
 	dark:bg-gray-800 dark:border-gray-700;
 }
 
-.search_product {
+.search_product_bar {
 	@apply 
-	p-6 space-y-4 md:space-y-6 sm:p-8;
+	p-4 space-y-4 md:space-y-6 sm:p-8;
+}
+
+.search_container {
+    @apply
+    flex flex-row justify-center
+}
+
+.search_product_form {
+    @apply
+    max-w-xl mx-auto;
 }
 
 .dropdown {
@@ -20,14 +30,21 @@
     dark:bg-gray-700; 
 }
 
-.selectYoke {
+.search_type {
     @apply
     appearance-none 
-    bg-gray-50 border border-gray-300 
+    bg-gray-50 
+    border border-gray-300 
+    inline-flex items-center 
     text-gray-900 text-sm rounded-s-lg
     focus:ring-blue-500 focus:border-blue-500 
-    block w-full pl-3 pr-10 py-2 
+    h-full w-full pl-3 pr-10 py-2 
     dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+}
+
+.dropdown_icon {
+    @apply
+    pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-white;
 }
 
 .yokeToCopy {
@@ -42,7 +59,7 @@
 .btn_dropdown {
     @apply
     flex-shrink-0 z-10 inline-flex items-center 
-    py-2.5 px-4 
+    py-2 px-4 
     text-sm font-medium text-center text-gray-900 
     bg-gray-100 border border-gray-300 rounded-s-lg 
     hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 
@@ -64,7 +81,12 @@
 
 .product_input {
     @apply
-    block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500;
+    block p-2.5 w-full z-20 
+    text-sm text-gray-900 
+    bg-gray-50 
+    rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 
+    focus:ring-blue-500 focus:border-blue-500 
+    dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500;
 }
 
 
