@@ -160,7 +160,7 @@ const PDFRenderPage = () => {
 
         // Fetch document only when the component mounts
         getDocument();
-    }, [type, id, medicine.activeSPC.file.name, medicine.medicineName, medicine.name, medicine.pils, path, user]);
+    }, [medicine, id, path, type, user]);
 
     const navigate = useNavigate();
 
