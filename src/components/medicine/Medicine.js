@@ -10,7 +10,7 @@ export const Medicine = (props) => {
         <button 
             className="btn_collection_med_left inline-flex items-center px-5 py-2.5"
             onClick={() => props.renderSPC(props.medicine)}>
-            View SPC Document
+            SPC Document
 
             <span className="new_document">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -24,14 +24,14 @@ export const Medicine = (props) => {
         <button 
             className="btn_collection_med_left"
             onClick={() => props.renderSPC(props.medicine)}>
-            View SPC Document
+            SPC Document
         </button>
     ) : (
         <button 
             disabled 
             classname='btn_collection_med_left'
             style={{ opacity: 0.5, cursor: 'not-allowed' }}>
-            No available SPC Document
+            SPC Document Unavailable
         </button>
     );
 
@@ -39,7 +39,7 @@ export const Medicine = (props) => {
         <button 
             className='btn_collection_med_mid inline-flex items-center px-5 py-2.5' 
             onClick={() => props.renderPIL(props.medicine)}>
-            View PIL Document
+            PIL Document
 
             <span className="new_document">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -52,14 +52,14 @@ export const Medicine = (props) => {
         <button 
             className='btn_collection_med_mid' 
             onClick={() => props.renderPIL(props.medicine)}>
-            View PIL Document
+            PIL Document
         </button>
     ) : (
         <button 
             disabled 
             className="btn_collection_med_mid"
             style={{ opacity: 0.5, cursor: 'not-allowed' }}>
-            No available PIL Document
+            PIL Document Unavailable
         </button>
     );
 
@@ -84,7 +84,7 @@ export const Medicine = (props) => {
                 <button 
                     className="btn_collection_med_right"
                     onClick={() => props.unsubscribe(props.medicine)}>
-                    Unsubscribe to this medicine
+                    Unsubscribe
                 </button>   
 
             </div>
