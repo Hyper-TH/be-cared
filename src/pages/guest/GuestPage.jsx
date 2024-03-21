@@ -21,18 +21,22 @@ const GuestPage = () => {
                 <div className="home_container">
                     <div className="home">
                         <div className="btn_collection">
-                            
-                            <Link to="/guest/search" className="btn_collection_top">
-                                Search Medicine
-                            </Link>
 
-                            {/* TODO: Display the other button options and indicate login required */}
-                            <Link to="/" className="btn_collection_mid">
-                                Search food interactions
+                            <button className="btn_collection_top_disabled" disabled>
+                                Subscriptions &#40;login&#41; required
+                            </button> 
+
+                            <Link to="/guest/search" className="btn_collection_mid">
+                                Search medicine
                             </Link>
-                            <Link to="/" className="btn_collection_bottom">
-                                Search drug interactions
-                            </Link>
+                            
+                            <button className="btn_collection_mid_disabled" disabled>
+                                Search food interactions &#40;login&#41; required
+                            </button>
+                            
+                            <button className="btn_collection_bottom_disabled" disabled>
+                                Search drug interactions &#40;login&#41; required
+                            </button>
 
                             <button  className="btn_primary" onClick={handleLogout}>Return to login</button>
                         
