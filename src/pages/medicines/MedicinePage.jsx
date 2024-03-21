@@ -2,15 +2,17 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { UserAuth } from '../../context/AuthContext.js';
 import '../../styles/medicinePages/medicine.css';
+import ClipLoader from "react-spinners/ClipLoader";
 import Axios from 'axios';
 
-// TODO: Add Error usestate()
 const MedicinePage = ({ backTo }) => {
     const { user } = UserAuth();
     const [isPIL, setIsPIL] = useState(false);
     const [isSPC, setIsSPC] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [isSubLoading, setIsSubLoading] = useState(true);
     const [subscription, setSubscription] = useState(false);
+    const [color, setColor] = useState("#e3f2fd");
 
     let location = useLocation();
     const navigate = useNavigate();
@@ -33,6 +35,8 @@ const MedicinePage = ({ backTo }) => {
     }, [medicine]);
     
     const checkSub = useCallback(async (medicine) => {
+        setIsSubLoading(true);        
+
         try {
             const response = await Axios.get(
                 `${process.env.REACT_APP_LOCALHOST}/checkSub`,
@@ -55,6 +59,9 @@ const MedicinePage = ({ backTo }) => {
         } catch (error) {
             console.error(`Axios Error: ${error}`);
         }
+
+        setIsSubLoading(false);        
+
     },[user]);
 
     const cacheMed = async (medicine) => {
@@ -110,6 +117,7 @@ const MedicinePage = ({ backTo }) => {
 
     // TODO: Add an alert if it's loading or finished
     const subscribe = async (medicine) => {
+        setIsSubLoading(true);        
 
         await Axios.get(
             `${process.env.REACT_APP_LOCALHOST}/subscribe`,
@@ -131,13 +139,6 @@ const MedicinePage = ({ backTo }) => {
 
         // After subscribing, re-check the subscription status
         await checkSub(medicine);
-    };
-
-
-    // Styles for the button
-    const buttonStyle = {
-        opacity: subscription ? 0.5 : 1, // Make button transparent when subscription is true
-        cursor: subscription ? 'not-allowed' : 'pointer', // Change cursor style
     };
 
     const statusButton = (() => {
@@ -171,6 +172,11 @@ const MedicinePage = ({ backTo }) => {
         }
 
     })();  
+
+    const buttonAccess = {
+        opacity: (isSubLoading || subscription) ? 0.5 : 1, // Make button transparent if loading or subscribed
+        cursor: (isSubLoading || subscription) ? 'not-allowed' : 'pointer', // Change cursor style accordingly
+    };
 
     const renderSPC = (medicine) => {
         const type = "spc";
@@ -285,11 +291,37 @@ const MedicinePage = ({ backTo }) => {
 
                                 <button 
                                     className='btn_collection_med_right'
-                                    style={buttonStyle}
-                                    disabled={subscription}
-                                    onClick={() => subscribe(medicine)}>
-                                    Subscribe
+                                    style={buttonAccess}
+                                    onClick={() => subscribe(medicine)}
+                                    disabled={isSubLoading || subscription}>
+
+                                    {isSubLoading ? (
+                                        
+                                        <ClipLoader
+                                        color={color}
+                                        cssOverride={{
+                                            display: "block",
+                                            margin: "0 auto",
+                                            margin_left: "10",
+                                            margin_right: "10",
+                                            borderColor: 'white',
+                                        }}
+                                        size={20}
+                                        loading={isSubLoading}
+                                        aria-label="Loading Spinner"
+                                        data-testid="loader"/>
+
+                                    ) : subscription ? (
+
+                                        "Subscribed"
+
+                                    ): (
+                                        "Subscribe"
+
+                                    )}
+
                                 </button>
+
                             </div>
                             </>
                         )}
