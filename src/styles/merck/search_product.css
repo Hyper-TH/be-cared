@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.search_product_container {
+	@apply 
+	w-full bg-white rounded-lg shadow dark:border 
+	md:mt-0 sm:max-w-md xl:p-0	
+	dark:bg-gray-800 dark:border-gray-700;
+}
+
+.search_product {
+	@apply 
+	p-6 space-y-4 md:space-y-6 sm:p-8;
+}
+
+.dropdown {
+    @apply
+    bg-white divide-y divide-gray-100 rounded-lg shadow w-44 
+    dark:bg-gray-700; 
+}
+
+.selectYoke {
+    @apply
+    appearance-none 
+    bg-gray-50 border border-gray-300 
+    text-gray-900 text-sm rounded-s-lg
+    focus:ring-blue-500 focus:border-blue-500 
+    block w-full pl-3 pr-10 py-2 
+    dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+}
+
+.yokeToCopy {
+    @apply
+    flex-shrink-0 z-10 inline-flex items-center 
+    py-2.5 px-4 text-sm 
+    font-medium text-center text-gray-900 
+    bg-gray-100 border border-gray-300 
+    rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600
+}
+
+.btn_dropdown {
+    @apply
+    flex-shrink-0 z-10 inline-flex items-center 
+    py-2.5 px-4 
+    text-sm font-medium text-center text-gray-900 
+    bg-gray-100 border border-gray-300 rounded-s-lg 
+    hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 
+    dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600;  
+}
+
+.dropdown_list {
+    @apply
+    py-2 text-sm text-gray-700 dark:text-gray-200;
+}
+
+
+.btn_dropdown_option {
+    @apply
+    inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white;
+    
+}
+
+
+.product_input {
+    @apply
+    block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500;
+}
+
+
+.product_search {
+    @apply
+    absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800;
+}
