@@ -24,9 +24,9 @@
 }
 
 .product_header {
-	@apply font-semibold text-lg mb-1; /* Adjust margin-bottom as needed */
+	@apply font-semibold text-lg my-4; /* Adjust margin-bottom as needed */
 }
   
 .product_text {
-	@apply text-base; /* This keeps the text size standard */
+	@apply text-base my-4; /* This keeps the text size standard */
 }

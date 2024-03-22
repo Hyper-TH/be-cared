@@ -84,6 +84,15 @@ const ProductPage = ({ backTo }) => {
                                     </div>
                                 ))}
                             </div>
+                            
+                            <div className='product_sub_details'>
+                                {Object.entries(productInformation?.productSubDetails ?? {}).map(([key, value]) => (
+                                    <div key={key}>
+                                        <span className='product_header inline'>{key} </span>
+                                        <span className='product_text inline'>{value}</span>
+                                    </div>
+                                ))}
+                            </div>
 
                             <div className='product_sub_details'>
                                 <div className='product_properties_list'>
