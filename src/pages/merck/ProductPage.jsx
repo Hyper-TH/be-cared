@@ -43,19 +43,6 @@ const ProductPage = ({ backTo }) => {
         getProductDetails();
     }, [product.href]);
 
-    // const formatLinearFormula = (linearFormula) => {
-    //     // Split the string into parts by a regular expression that looks for numbers
-    //     const parts = linearFormula.split(/(\d+)/);
-      
-    //     // Map over the parts and wrap numbers with <sub> tags
-    //     const formattedParts = parts.map((part, index) => 
-    //       /\d+/.test(part) ? <sub key={index}>{part}</sub> : part
-    //     );
-      
-    //     return <>{formattedParts}</>; // Return the parts as a single JSX fragment
-    // }
-
-    // TODO: Linear Formula Sub on Numbers (refer to drug interactions extended description)
     return (
         <>
         <section className='main_container'>
@@ -66,14 +53,19 @@ const ProductPage = ({ backTo }) => {
                     </button>
                 </Link>
 
+                <div className='main_title'>
+                    <h1>{productInformation.productName}</h1>
+                </div>
+
                 <div className='product_details_container'>
                     <div className='product_details'>
                         {isLoading ? (
                             <div className='loading'>Loading...</div>
                         ) : (
                             <>
+                            
                             <div className='product_name'>
-                                <h1>{productInformation.productName}</h1>
+                                Product Details
                             </div>
 
                             <div className='product_sub_details'>
@@ -84,6 +76,10 @@ const ProductPage = ({ backTo }) => {
                                     </div>
                                 ))}
                             </div>
+
+                            <div className='product_name'>
+                                Product Sub Details
+                            </div>
                             
                             <div className='product_sub_details'>
                                 {Object.entries(productInformation?.productSubDetails ?? {}).map(([key, value]) => (
@@ -92,6 +88,10 @@ const ProductPage = ({ backTo }) => {
                                         <span className='product_text inline'>{value}</span>
                                     </div>
                                 ))}
+                            </div>
+
+                            <div className='product_name'>
+                                Product Properties
                             </div>
 
                             <div className='product_sub_details'>
