@@ -5,6 +5,8 @@ import { Medicine } from '../components/medicine/Medicine.js';
 import '../styles/subscriptions.css';
 import Axios from 'axios';
 
+// TODO: Alert to confirm unsub
+// TODO: Make the container for each med a bit longer
 const SubscriptionsPage = ({ backTo }) => {
     const { user } =  UserAuth();
     const [medicineList, setMedicineList] = useState([]);
