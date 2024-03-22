@@ -97,7 +97,6 @@ const SubscriptionsPage = ({ backTo }) => {
     return (
         <>
         <section className='main_container'>
-            <Link to={backTo} className='btn_primary'>Return</Link>
             <div className='sub_container'>
             <div className='sub_container_header'>
                     <Link to={backTo}>

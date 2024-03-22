@@ -68,7 +68,7 @@ export const Medicine = (props) => {
             <h2 className="medicine_name">{props.medicine.medicineName}</h2>
             
             <div className='medicine_sub_details'>
-                <ul className='max-w-md space-y-1 text-gray-300 list-disc list-inside'>
+                <ul className='max-w-md space-y-1 text-gray-800 dark:text-gray-300 list-disc list-inside'>
                     {props.medicine.activeIngredients.map((ingredient, index) => (
                         <li key={index}>
                             <span className='medicine_text'>{ingredient}</span>
