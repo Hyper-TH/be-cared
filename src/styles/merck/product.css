@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.product_details_container {
+	@apply 
+	w-full h-auto bg-white rounded-lg shadow dark:border 
+	md:mt-0 sm:max-w-xl xl:p-0	
+	dark:bg-gray-800 dark:border-gray-700;
+}
+
+.product_details {
+	@apply 
+	p-6 space-y-4 md:space-y-6 sm:p-8;
+}
+
+.product_name {
+	@apply
+	flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white;
+}
+
+.product_sub_details {
+	@apply text-white;
+}
+
+.product_header {
+	@apply font-semibold text-lg mb-1; /* Adjust margin-bottom as needed */
+}
+  
+.product_text {
+	@apply text-base; /* This keeps the text size standard */
+}
