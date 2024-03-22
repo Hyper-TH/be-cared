@@ -1,7 +1,10 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
+/* TODO: ADD OPTIONS FOR LIGHTMODE */
 .main_container {
     @apply
     min-h-screen bg-gray-50 dark:bg-gray-900;
@@ -36,7 +39,7 @@
 
 .error {
 	@apply 
-	flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400;
+	flex items-center p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400;
 }
 
 .loading {

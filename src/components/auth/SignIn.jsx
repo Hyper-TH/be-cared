@@ -20,7 +20,7 @@ const Signin = () => {
             
             navigate('/home');
         } catch (error) {
-            setError(error.message);
+            setError("Incorrect email/password");
 
             console.log(error)
         }
@@ -55,7 +55,8 @@ const Signin = () => {
                                     type="email"
                                     placeholder='example@domain.com'
                                     value={email} 
-                                    onChange={(e) =>  setEmail(e.target.value)}/>
+                                    onChange={(e) =>  setEmail(e.target.value)}
+                                    required/>
                             </div>
 
                             <div>
@@ -64,7 +65,8 @@ const Signin = () => {
                                     type="password" 
                                     placeholder='Enter your password'
                                     value={password}
-                                    onChange={(e) =>  setPassword(e.target.value)}/>
+                                    onChange={(e) =>  setPassword(e.target.value)}
+                                    required/>
                             </div>
 
                             <button className='btn_login'>Login</button>
