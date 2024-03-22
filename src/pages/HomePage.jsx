@@ -44,7 +44,7 @@ const HomePage = () => {
                     Search drug interactions
                 </Link>
 
-                <button className="btn_primary" onClick={handleLogout}>Logout</button>
+                {/* <button className="btn_primary" onClick={handleLogout}>Logout</button> */}
 
                 </>
             );
@@ -58,14 +58,14 @@ const HomePage = () => {
                 </Link>
 
                 <Link to="/search" className="btn_collection_mid">
-                        Search Medicine
+                        Search medicines
                 </Link>
 
                 <Link to="/foodInteractions" className="btn_collection_bottom">
                     Search food interactions
                 </Link>
 
-                <button className="btn_primary" onClick={handleLogout}>Logout</button>
+                {/* <button className="btn_primary" onClick={handleLogout}>Logout</button> */}
 
                 </>
             );
@@ -75,6 +75,7 @@ const HomePage = () => {
                 <div className="main_title">
                     Loading...
                 </div>
+                {/* <button className="btn_primary" onClick={handleLogout}>Logout</button> */}
                 </>
             );
         }
@@ -96,6 +97,7 @@ const HomePage = () => {
 
                     </div>   
 
+                    <button className="btn_primary" onClick={handleLogout}>Logout</button>
 
                 </div>
             </div>

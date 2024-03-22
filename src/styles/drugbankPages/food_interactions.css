@@ -51,7 +51,8 @@
 
 .two_five {
 	@apply
-	text-white italic;
+	text-gray-900 
+	dark:text-white italic;
 }
 
 .drug_button {
@@ -91,7 +92,7 @@
     md:mt-0 
 	my-2
 	xl:p-4
-	text-gray-300
+	text-gray-900
     dark:bg-gray-800 dark:border-gray-700 p-4;
 }
 

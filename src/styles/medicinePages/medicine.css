@@ -20,7 +20,7 @@
 }
 
 .medicine_sub_details {
-	@apply text-white;
+	@apply text-gray-900 dark:text-white;
 }
 
 .medicine_header {
@@ -33,6 +33,11 @@
 
 .medicine_status {
 	@apply mb-4; /* Adjust margin-bottom as needed */
+}
+
+.active_ingredients_list {
+	@apply
+	max-w-md space-y-1 text-gray-900 dark:text-gray-300 list-disc list-inside;
 }
 
 .btn_pharmacy_only_presc {

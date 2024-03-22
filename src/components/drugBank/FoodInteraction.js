@@ -8,7 +8,7 @@ export const FoodInteraction = (props) => {
             {(props.num_interactions).includes("0") ? (
                 <>
                 <div className="main">
-                    0 food interactions for <b>{props.name}</b>  
+                    <strong>0</strong> food interactions for <b>{props.name}</b>  
                 </div>
 
                 <div className="sub">
@@ -22,7 +22,7 @@ export const FoodInteraction = (props) => {
             ) : (
                 <>
                 <div className="main">
-                    {props.num_interactions} for <b>{props.name}</b>
+                    <strong>{props.num_interactions}</strong> for <b>{props.name}</b>
                 </div>
 
                 <div className="sub">

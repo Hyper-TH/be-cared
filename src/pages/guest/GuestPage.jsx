@@ -38,9 +38,12 @@ const GuestPage = () => {
                                 Search drug interactions &#40;login&#41; required
                             </button>
 
-                            <button  className="btn_primary" onClick={handleLogout}>Return to login</button>
+                            {/* <button className="btn_primary" onClick={handleLogout}>Return to login</button> */}
                         
                         </div>
+
+                        <button  className="btn_primary" onClick={handleLogout}>Return to login</button>
+
                     </div>
                 </div> 
             </div>

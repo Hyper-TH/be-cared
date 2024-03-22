@@ -89,7 +89,7 @@
     w-full bg-white rounded-lg shadow dark:border 
     md:mt-0 
 	xl:p-4
-	text-gray-300
+	text-gray-900
     dark:bg-gray-800 dark:border-gray-700 p-4;
 }
 
@@ -132,7 +132,9 @@
 	@apply
 	w-6 h-6
 	align-middle	
-	bg-transparent stroke-gray-300;
+	bg-transparent 
+	stroke-gray-800
+	dark:stroke-gray-300;
 }
 
 .affected {
