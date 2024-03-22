@@ -5,6 +5,7 @@ import Axios from 'axios';
 import Product from '../../components/merck/Product';
 
 // TODO: Error when no type is selected
+// TODO: Product name search not working
 const SearchProductPage = ({ backTo }) => {
     const [prodQuery, setProdQuery] = useState("");     // State for product query to send to server
     const [productList, setProductList] = useState([])  // State for list of product responses
@@ -117,29 +118,30 @@ const SearchProductPage = ({ backTo }) => {
                 </div>
 
                 <div className='product_list'>
-
-                    {isLoading ? (
-                        <div>Loading...</div>
-                    ) : productList === null ? (
-                        // Render nothing if productList is null, which is the initial state before loading
-                        null
-                    ) : productList.length > 0 ? (
-                        // Map over the medicine list if it has items
-                        productList.map((product) => {
-                            return (
-                                <Product
-                                    key={product.id}
-                                    name={product.productName}
-                                    products={product.products}
-                                    product={product}
-                                    handleViewDetails={handleViewDetails}
-                                />
-                            )
-                        })
-                    ) : (
-                        // If empty array
-                        <div>No products found</div>
-                    )}
+                    <div className='product_list_container'>
+                        {isLoading ? (
+                            <div>Loading...</div>
+                        ) : productList === null ? (
+                            // Render nothing if productList is null, which is the initial state before loading
+                            null
+                        ) : productList.length > 0 ? (
+                            // Map over the medicine list if it has items
+                            productList.map((product, index) => {
+                                return (
+                                    <Product
+                                        key={index}
+                                        name={product.productName}
+                                        products={product.products}
+                                        product={product}
+                                        handleViewDetails={handleViewDetails}
+                                    />
+                                )
+                            })
+                        ) : (
+                            // If empty array
+                            <div>No products found</div>
+                        )}
+                    </div>
                 </div>
 
             {error && 

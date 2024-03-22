@@ -1,20 +1,24 @@
 const Product = (props) => {
     return (
-        <div className="products">
-            <>
-            <div>
-                <h2>Drug name: {props.name}</h2>
+        <div className="product_box">
+
+            <div className="product_row">
+                <h2 className="product_name">{props.name}</h2>
             </div>
-            <div>
-                {props.products.map(product => (
-                    <li key={product.productID}>
-                        <p>Product ID: {product.productID}</p>
-                        <p>Product Description: {product.productDescription}</p>
-                        <button onClick={() => props.handleViewDetails(product)}>View Product Details</button>
-                    </li>
-                ))}
+
+            {props.products.map((product, index) => (
+            <div className="sub_product_row" key={index}>
+                <div className="sub_product_info">
+                    <p>ID: {product.productID}</p>
+                    <p>Description: {product.productDescription}</p>
+                </div>
+
+                <div className="sub_product_actions">
+                    <button className="btn_primary w-1/2" onClick={() => props.handleViewDetails(product)}>View Product Details</button>
+                </div>
             </div>
-            </>
+            ))}
+           
         </div>
     );
 };
