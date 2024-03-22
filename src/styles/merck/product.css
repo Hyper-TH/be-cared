@@ -20,14 +20,33 @@
     mb-6 text-2xl font-semibold text-gray-900 dark:text-white;
 }
 
+.product_divider {
+    @apply
+    relative text-center;
+}
+
+.divider_line {
+    @apply
+    absolute left-0 top-1/2 w-full border-t-2 border-gray-300;
+}
+
+.title_divider{
+    @apply
+    relative bg-white px-4 text-lg font-semibold text-gray-900 dark:text-white dark:bg-gray-800;
+}
+
+.product_title_divider {
+    @apply block border-b border-gray-200 mx-8;
+}
+
 .product_sub_details {
 	@apply text-white;
 }
 
 .product_header {
-	@apply font-semibold text-lg my-4; /* Adjust margin-bottom as needed */
+	@apply font-semibold text-base my-4; /* Adjust margin-bottom as needed */
 }
   
 .product_text {
-	@apply text-base my-4; /* This keeps the text size standard */
+	@apply text-sm my-4; /* This keeps the text size standard */
 }

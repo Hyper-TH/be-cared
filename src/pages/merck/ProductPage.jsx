@@ -64,8 +64,17 @@ const ProductPage = ({ backTo }) => {
                         ) : (
                             <>
                             
-                            <div className='product_name'>
+                            {/* <div className='product_name'>
                                 Product Details
+
+                                <div className='product_title_divider' />
+
+                            </div> */}
+                            <div className="product_divider">
+                                <hr className="divider_line" />
+                                <span className="title_divider">
+                                    Product Details
+                                </span>
                             </div>
 
                             <div className='product_sub_details'>
@@ -77,8 +86,11 @@ const ProductPage = ({ backTo }) => {
                                 ))}
                             </div>
 
-                            <div className='product_name'>
-                                Product Sub Details
+                            <div className="product_divider">
+                                <hr className="divider_line" />
+                                <span className="title_divider">
+                                    Product Sub Details
+                                </span>
                             </div>
                             
                             <div className='product_sub_details'>
@@ -90,8 +102,11 @@ const ProductPage = ({ backTo }) => {
                                 ))}
                             </div>
 
-                            <div className='product_name'>
-                                Product Properties
+                            <div className="product_divider">
+                                <hr className="divider_line" />
+                                <span className="title_divider">
+                                    Product Properties
+                                </span>
                             </div>
 
                             <div className='product_sub_details'>
