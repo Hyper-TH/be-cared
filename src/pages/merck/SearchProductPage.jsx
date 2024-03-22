@@ -120,10 +120,11 @@ const SearchProductPage = ({ backTo }) => {
                 <div className='product_list'>
                     <div className='product_list_container'>
                         {isLoading ? (
-                            <div>Loading...</div>
-                        ) : productList === null ? (
-                            // Render nothing if productList is null, which is the initial state before loading
+                            <div className='loading'>Loading...</div>
+                        ) : productList === null && !prodQuery ? (
                             null
+                        ) : productList === null && prodQuery ? ( 
+                            <div className='loading'>Product not found, try again...</div>
                         ) : productList.length > 0 ? (
                             // Map over the medicine list if it has items
                             productList.map((product, index) => {
@@ -139,7 +140,7 @@ const SearchProductPage = ({ backTo }) => {
                             })
                         ) : (
                             // If empty array
-                            <div>No products found</div>
+                            <div className='loading'>Enter product to start searching</div>
                         )}
                     </div>
                 </div>
