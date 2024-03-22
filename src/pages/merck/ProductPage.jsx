@@ -68,12 +68,6 @@ const ProductPage = ({ backTo }) => {
                         ) : (
                             <>
                             
-                            {/* <div className='product_name'>
-                                Product Details
-
-                                <div className='product_title_divider' />
-
-                            </div> */}
                             <div className="product_divider">
                                 <hr className="divider_line" />
                                 <span className="title_divider">

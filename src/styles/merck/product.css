@@ -40,7 +40,9 @@
 }
 
 .product_sub_details {
-	@apply text-white;
+	@apply 
+	text-gray-800
+	dark:text-white;
 }
 
 .product_header {

@@ -80,7 +80,7 @@
     md:mt-0 
     my-4
 	xl:p-4
-	text-gray-300
+	text-gray-800 dark:text-gray-300
     dark:bg-gray-800 dark:border-gray-700 p-4
 }
 
