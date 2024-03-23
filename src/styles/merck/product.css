@@ -46,9 +46,19 @@
 }
 
 .product_header {
-	@apply font-semibold text-base my-4; /* Adjust margin-bottom as needed */
+	@apply font-semibold 
+	mobile_s:text-base
+	mobile_m:text-lg
+	mobile_l:text-xl
+	text-base 
+	my-4; /* Adjust margin-bottom as needed */
 }
   
 .product_text {
-	@apply text-sm my-4; /* This keeps the text size standard */
+	@apply 
+	mobile_s:text-sm
+	mobile_m:text-base
+	mobile_l:text-lg
+	md:text-base 
+	my-4; /* This keeps the text size standard */
 }
