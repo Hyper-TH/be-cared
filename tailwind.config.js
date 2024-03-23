@@ -53,7 +53,9 @@ export const theme = {
     ],
   },
   screens: {
-    'xs': '390px',
+    'mobile_s' : '320px',
+
+    'mobile_m': '375px',
     
     'sm': '640px',
     // => @media (min-width: 640px) { ... }
