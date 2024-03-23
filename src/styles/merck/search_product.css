@@ -6,15 +6,23 @@
 	@apply 
 	w-full bg-white rounded-lg shadow dark:border 
 	md:mt-0  
-    mobile_s:max-w-xs
-    mobile_m:max-w-md 
+    mobile_s:max-w-xs 
+    mobile_m:max-w-sm
+    mobile_l:max-w-md
     sm:max-w-2xl xl:p-0	
 	dark:bg-gray-800 dark:border-gray-700;
 }
 
 .search_product_bar {
 	@apply 
-	p-4 space-y-4 md:space-y-6 sm:p-8;
+	p-4 space-y-4 
+    mobile_s:max-w-xs 
+    mobile_m:max-w-sm
+    mobile_l:max-w-md
+    sm:max-w-lg
+    md:max-w-2xl
+    /* md:space-y-6  */
+    sm:p-8;
 }
 
 .search_container {
@@ -24,6 +32,11 @@
 
 .search_product_form {
     @apply
+    mobile_s:max-w-xs 
+    mobile_m:max-w-sm
+    mobile_l:max-w-md
+    sm:max-w-lg
+    md:max-w-2xl
     max-w-xl mx-auto;
 }
 
@@ -36,12 +49,20 @@
 .search_type {
     @apply
     appearance-none 
+    mobile_s:text-xs
+    mobile_m:text-sm
+    mobile_l:text-base
+    mobile_s:max-w-8
+    mobile_m:max-w-10
+    mobile_l:max-w-12
+    sm:max-w-lg
+    md:max-w-xl
     bg-gray-50 
     border border-gray-300 
     inline-flex items-center 
     text-gray-900 text-sm rounded-s-lg
     focus:ring-blue-500 focus:border-blue-500 
-    h-full w-full pl-3 pr-10 py-2 
+    h-full pl-3 pr-10 py-2 
     dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
 }
 
@@ -56,7 +77,13 @@
 .product_input {
     @apply
     block p-2.5 w-full z-20 
-    text-sm text-gray-900 
+    text-sm 
+    mobile_s:max-w-xs
+    mobile_m:max-w-sm
+    mobile_l:max-w-md
+    sm:max-w-lg
+    md:max-w-4xl
+    text-gray-900 
     bg-gray-50 
     rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 
     focus:ring-blue-500 focus:border-blue-500 
