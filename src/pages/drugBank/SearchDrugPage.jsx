@@ -128,7 +128,7 @@ const SearchDrugPage = ({ backTo }) => {
 					</Link>
 
 					<div className='main_title'>
-						<h1>Drug Interactions</h1>
+						<h1>Drug to Drug Interactions</h1>
 					</div>
 				</div>
 

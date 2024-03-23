@@ -3,6 +3,8 @@ import '../styles/home.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext.js';
 
+
+// TODO: Remove all console logs
 const HomePage = () => {
     const { user, userType, logout } = UserAuth();
 	const navigate = useNavigate();
@@ -33,18 +35,18 @@ const HomePage = () => {
                 </Link>
 
                 <Link to="/foodInteractions" className="btn_collection_mid">
-                    Search food interactions
+                    Search drug and food interactions
                 </Link>
 
-                <Link to="/searchProduct" className="btn_collection_mid">
+                            
+                <Link to="/searchDrugs" className="btn_collection_mid">
+                    Search drug to drug interactions
+                </Link>
+
+                <Link to="/searchProduct" className="btn_collection_bottom">
                     Search chemical compound
                 </Link>
-                            
-                <Link to="/searchDrugs" className="btn_collection_bottom">
-                    Search drug interactions
-                </Link>
 
-                {/* <button className="btn_primary" onClick={handleLogout}>Logout</button> */}
 
                 </>
             );
@@ -65,8 +67,6 @@ const HomePage = () => {
                     Search food interactions
                 </Link>
 
-                {/* <button className="btn_primary" onClick={handleLogout}>Logout</button> */}
-
                 </>
             );
         } else {
@@ -75,7 +75,6 @@ const HomePage = () => {
                 <div className="main_title">
                     Loading...
                 </div>
-                {/* <button className="btn_primary" onClick={handleLogout}>Logout</button> */}
                 </>
             );
         }

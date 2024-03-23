@@ -260,7 +260,7 @@ const MedicinePage = ({ backTo }) => {
                                     <button 
                                         className='btn_collection_med_left'
                                         onClick={() => renderSPC(medicine)}>
-                                        SPC Document
+                                        Product Characteristics
                                     </button>
                                 ) : (
                                     <button 
@@ -268,7 +268,7 @@ const MedicinePage = ({ backTo }) => {
                                         style={{ opacity: 0.5, cursor: 'not-allowed' }}
                                         onClick={() => renderSPC(medicine)}
                                         disabled>
-                                        No available SPC Document
+                                        Characteristics Unavailable
                                     </button>
                                 )}
 
@@ -276,7 +276,7 @@ const MedicinePage = ({ backTo }) => {
                                     <button 
                                         className='btn_collection_med_mid'
                                         onClick={() => renderPIL(medicine)}>
-                                        PIL Document
+                                        Product Leaflet
                                     </button>
                                 ) : ( 
                                     <button 
@@ -284,7 +284,7 @@ const MedicinePage = ({ backTo }) => {
                                         style={{ opacity: 0.5, cursor: 'not-allowed' }}
                                         onClick={() => renderPIL(medicine)}
                                         disabled>
-                                        No available PIL Document
+                                        Leaflet Unavailable
                                     </button>
                                 )}
 

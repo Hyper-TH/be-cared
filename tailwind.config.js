@@ -14,6 +14,9 @@ export const theme = {
       'xxs': ['0.625rem', { // 10px font size
         lineHeight: '0.875rem', // 14px line height
       }],
+      'xxxs': ['0.5rem', { // Approximately 9.6px font size
+        lineHeight: '0.75rem', // Approximately 12.8px line height
+      }],
     },
   },
   fontFamily: {

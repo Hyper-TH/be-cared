@@ -22,14 +22,14 @@ export const Medicine = (props) => {
         
     ) : hasSpc ? (
         <button 
-            className="btn_collection_med_left"
+            className="btn_sub_collection_med_left"
             onClick={() => props.renderSPC(props.medicine)}>
             SPC Document
         </button>
     ) : (
         <button 
             disabled 
-            classname='btn_collection_med_left'
+            classname='btn_sub_collection_med_left'
             style={{ opacity: 0.5, cursor: 'not-allowed' }}>
             SPC Document Unavailable
         </button>
@@ -37,7 +37,7 @@ export const Medicine = (props) => {
 
     const pilButton = hasPil && pilUpdate? (
         <button 
-            className='btn_collection_med_mid inline-flex items-center px-5 py-2.5' 
+            className='btn_sub_collection_med_mid inline-flex items-center px-5 py-2.5' 
             onClick={() => props.renderPIL(props.medicine)}>
             PIL Document
 
@@ -50,14 +50,14 @@ export const Medicine = (props) => {
         </button>
     ) : hasPil ? (
         <button 
-            className='btn_collection_med_mid' 
+            className='btn_sub_collection_med_mid' 
             onClick={() => props.renderPIL(props.medicine)}>
             PIL Document
         </button>
     ) : (
         <button 
             disabled 
-            className="btn_collection_med_mid"
+            className="btn_sub_collection_med_mid"
             style={{ opacity: 0.5, cursor: 'not-allowed' }}>
             PIL Document Unavailable
         </button>
@@ -77,12 +77,12 @@ export const Medicine = (props) => {
                 </ul>
             </div>
 
-            <div className="btn_collection_medicine">
+            <div className="btn_sub_collection_medicine">
                 {spcButton}
                 {pilButton}
 
                 <button 
-                    className="btn_collection_med_right"
+                    className="btn_sub_collection_med_right"
                     onClick={() => props.unsubscribe(props.medicine)}>
                     Unsubscribe
                 </button>   

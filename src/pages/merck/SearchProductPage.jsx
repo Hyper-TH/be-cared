@@ -130,7 +130,7 @@ const SearchProductPage = ({ backTo }) => {
                             <div className='loading'>Loading...</div>
                         ) : productList === null && !prodQuery ? (
                             null
-                        ) : productList === null && prodQuery ? ( 
+                        ) : productList !== null && prodQuery ? ( 
                             <div className='loading'>Product not found, try again...</div>
                         ) : productList.length > 0 ? (
                             // Map over the medicine list if it has items
@@ -147,7 +147,7 @@ const SearchProductPage = ({ backTo }) => {
                             })
                         ) : (
                             // If empty array
-                            <div className='loading'>Enter product to start searching</div>
+                            <div className='loading text-center'>Choose search type and product to start searching</div>
                         )}
                     </div>
                 </div>

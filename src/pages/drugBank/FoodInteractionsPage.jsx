@@ -124,7 +124,7 @@ const FoodInteractionsPage = ({backTo}) => {
                     </Link>
 
                     <div className='main_title'>
-                        <h1>Food Interactions</h1>
+                        <h1>Drug and Food Interactions</h1>
                     </div>
                 </div>
 
