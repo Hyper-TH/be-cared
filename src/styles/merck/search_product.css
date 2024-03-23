@@ -9,7 +9,8 @@
     mobile_s:max-w-xs 
     mobile_m:max-w-sm
     mobile_l:max-w-md
-    sm:max-w-2xl xl:p-0	
+    sm:max-w-2xl 
+    xl:p-0	
 	dark:bg-gray-800 dark:border-gray-700;
 }
 
@@ -21,7 +22,7 @@
     mobile_l:max-w-md
     sm:max-w-lg
     md:max-w-2xl
-    /* md:space-y-6  */
+    md:space-y-6 
     sm:p-8;
 }
 
@@ -78,6 +79,9 @@
     @apply
     block p-2.5 w-full z-20 
     text-sm 
+    mobile_s:text-xs
+    mobile_m:text-sm
+    mobile_l:text-base
     mobile_s:max-w-xs
     mobile_m:max-w-sm
     mobile_l:max-w-md
@@ -100,10 +104,11 @@
 .product_list_container {
 	@apply
 	flex flex-col 
-	sm:max-w-3xl
-    mobile_s:max-w-xs 
+    mobile_s:max-w-xs
     mobile_m:max-w-sm
     mobile_l:max-w-md
+    sm:max-w-2xl
+    md:max-w-3xl
 	p-4
 }
 
@@ -112,8 +117,14 @@
     w-full bg-white rounded-lg shadow dark:border 
     md:mt-0 
     my-4
-    mobile_s:max-w-xs
-    mobile_m:max-w-md 
+    mobile_s:text-xs
+    mobile_m:text-sm
+    mobile_l:text-base
+    mobile_s:max-w-xs 
+    mobile_m:max-w-sm
+    mobile_l:max-w-md
+    sm:max-w-2xl
+    md:max-w-3xl
 	xl:p-4
 	text-gray-800 dark:text-gray-300
     dark:bg-gray-800 dark:border-gray-700 p-4
@@ -137,7 +148,11 @@
 
 .product_name {
     @apply
-    mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white;
+    mb-2 
+    mobile_s:text-xs
+    mobile_m:text-sm
+    mobile_l:text-base
+    text-2xl font-bold tracking-tight text-gray-900 dark:text-white;
 }
 
 
