@@ -2,6 +2,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react'; 
 import '../../styles/medicinePages/pdf_render.css'
 import Axios from 'axios';
+import { PDFComponent } from '../../components/medicine/PDFComponent.js';
 
 const GuestPDFRenderPage = () => {
     const [PDFURL, setPDFURL] = useState("");
@@ -86,14 +87,9 @@ const GuestPDFRenderPage = () => {
 
                         <h1 className='main_title'>PIL Document</h1>
                     </div>
-
                     
-                    <iframe
-                        className='pdf'
-                        src={PDFURL}
-                        title="PDF"
-                        allowFullScreen
-                    />
+                    <PDFComponent PDFURL={PDFURL} />
+
                     <a href={PDFURL} download={PDFName}>
                         <button className='btn_primary'>Download PDF</button>
                     </a>
