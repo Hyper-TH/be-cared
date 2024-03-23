@@ -39,20 +39,20 @@
 	@apply mb-4; /* Adjust margin-bottom as needed */
 }
 
-.btn_pharmacy_only_presc {
+.btn_sub_pharmacy_only_presc {
 	@apply
 	text-white bg-red-700 
 	font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 
 	dark:bg-red-600 ;
 }
 
-.btn_pharmacy_only {
+.btn_sub_pharmacy_only {
 	@apply
 	text-white bg-yellow-400 
 	font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 
 }
 
-.btn_general_sale {
+.btn_sub_general_sale {
 	@apply
 	text-white bg-green-700 
 	font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 

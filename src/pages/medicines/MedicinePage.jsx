@@ -149,15 +149,15 @@ const MedicinePage = ({ backTo }) => {
                     Pharmacy Only: Prescription
                 </button>        
             );
-        } else if (medicine.legalCategory.includes('general sale')) {
+        } else if (medicine.legalCategory.includes('Supply through general sale')) {
             return (
-                <button className='btn_pharmacy_only'> 
+                <button className='btn_general_sale'> 
                     General Sale: Non-prescription
                 </button>
             );
         } else if (medicine.legalCategory.includes('Supply through pharmacy only')) {
             return (
-                <button className='btn_general_sale'>
+                <button className='btn_pharmacy_only'>
                     Pharmacy Only: Non-prescription
                 </button>   
             );

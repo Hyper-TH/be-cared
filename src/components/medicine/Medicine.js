@@ -1,3 +1,5 @@
+import '../../styles/subscriptions.css';
+
 export const Medicine = (props) => {
     const hasPil = props.medicine.pil.available;
     const hasSpc = props.medicine.spc.available;

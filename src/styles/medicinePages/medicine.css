@@ -49,22 +49,42 @@
 
 .btn_pharmacy_only {
 	@apply
-	text-white bg-yellow-400 
-	font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 
+	text-white bg-blue-700
+	mobile_s:w-2/3
+	mobile_s:h-1/2
+	mobile_s:text-xs
+	mobile_m:text-sm
+	mobile_l:w-auto
+	md:text-base
+	font-medium rounded-full  px-5 py-2.5 text-center me-2 mb-2 
 	dark:bg-blue-600
 }
 
 .btn_general_sale {
 	@apply
 	text-white bg-green-700 
-	font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 
+	font-medium 
+	rounded-full 
+	mobile_s:w-2/3
+	mobile_s:h-1/2
+	mobile_s:text-xs
+	mobile_m:text-sm
+	mobile_l:w-auto
+	md:text-base
+	px-5 py-2.5 text-center me-2 mb-2 
 	dark:bg-green-600 
 }
 
 .btn_unavailable {
 	@apply
-	text-white bg-green-700 
-	font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 
+	text-white bg-gray-700
+	font-medium rounded-full 
+	mobile_s:w-2/3
+	mobile_s:h-1/2
+	mobile_s:text-xs
+	mobile_m:text-sm
+	mobile_l:w-auto
+	md:text-base px-5 py-2.5 text-center me-2 mb-2 
 	dark:bg-gray-700 
 }
 
