@@ -106,6 +106,7 @@
     @apply 
     w-full bg-white rounded-lg shadow dark:border 
     md:mt-0 
+	my-4
 	mobile_s:text-xs
     mobile_m:text-sm
     mobile_l:text-base
@@ -131,7 +132,8 @@
 .interactions_col {
 	@apply
 	flex flex-col items-center
-	p-4 relative flex-auto
+	p-4 
+	relative flex-auto
 	justify-start
 }
 
@@ -143,8 +145,8 @@
     mobile_m:text-xs
     mobile_l:text-sm
 	md:text-base
-    mobile_s:max-w-72
-    mobile_m:max-w-80
+    /* mobile_s:max-w-12 */
+    mobile_m:max-w-72
     mobile_l:max-w-96
     sm:max-w-2xl
     md:max-w-3xl
@@ -164,12 +166,9 @@
 
 .interacts svg {
 	@apply
-	mobile_s:w-3
-	mobile_s:h-3
-	mobile_m:w-6
-	mobile_m:h-6
-	mobile_l:w-8
-	mobile_l:h-8
+	mobile_s:w-2
+	mobile_m:w-4
+	mobile_l:w-6
 	align-middle	
 	bg-transparent 
 	stroke-gray-800
@@ -184,8 +183,8 @@
     mobile_m:text-xs
     mobile_l:text-sm
 	md:text-base
-    mobile_s:max-w-72
-    mobile_m:max-w-80
+    /* mobile_s:max-w-12 */
+    mobile_m:max-w-72
     mobile_l:max-w-96
     sm:max-w-2xl
     md:max-w-3xl
@@ -194,22 +193,53 @@
 
 .severity {
 	@apply 
-	w-1/5 
+	w-1/5
+	mx-1	
+	mobile_s:max-w-12
+    mobile_m:max-w-72
+    mobile_l:max-w-96
+    sm:max-w-2xl
+    md:max-w-3xl
 	text-center 
 	justify-center;
 }
 
+@media (min-width: 768px) {
+	.disable_small_screen\:contents {
+	  display: contents;
+	}
+  }
+
+@media (min-width: 320px) {
+  .mobile_s\:subject,
+  .mobile_s\:affected {
+    @apply flex-col;
+  }
+}
+
 .description {
+	@apply
+	/* mobile_s:max-w-12
+    mobile_m:max-w-72
+    mobile_l:max-w-96
+    sm:max-w-2xl
+    md:max-w-3xl */
+	mobile_s:max-w-10
+    mobile_m:max-w-72
+    mobile_l:max-w-96
+    sm:max-w-2xl
+    md:max-w-3xl
+	py-2.5 mb-2 ;
+}
+
+.description p {
 	@apply
 	mobile_s:text-xxs
     mobile_m:text-xs
     mobile_l:text-sm
 	md:text-base
-    mobile_s:max-w-72
-    mobile_m:max-w-80
-    mobile_l:max-w-96
-    sm:max-w-2xl
-    md:max-w-3xl;
+	/* mobile_s:px-2 
+	mobile_m:px-4  */
 }
 
 .btn_major {
@@ -222,14 +252,14 @@
     mobile_m:text-xs
     mobile_l:text-sm
 	md:text-base
-    mobile_s:max-w-12
+    /* mobile_s:max-w-12
     mobile_s:max-h-12
     mobile_m:max-w-16
     mobile_m:max-h-16
     mobile_l:max-w-40
     mobile_l:max-h-40
     sm:max-w-2xl
-    md:max-w-3xl
+    md:max-w-3xl */
 	mobile_s:px-2 
 	mobile_m:px-4 
 	py-2.5 mb-2 
@@ -243,7 +273,7 @@
     mobile_m:text-xs
     mobile_l:text-sm
 	md:text-base
-    mobile_s:max-w-12
+    /* mobile_s:max-w-12
     mobile_s:max-h-12
     mobile_m:max-w-16
     mobile_m:max-h-16
@@ -253,7 +283,7 @@
     md:max-w-3xl
 	mobile_s:px-2 
 	mobile_m:px-4 
-	py-2.5 mb-2 
+	py-2.5 mb-2  */
 }
 
 .btn_minor {
@@ -264,7 +294,7 @@
     mobile_m:text-xs
     mobile_l:text-sm
 	md:text-base
-    mobile_s:max-w-12
+    /* mobile_s:max-w-12
     mobile_s:max-h-12
     mobile_m:max-w-16
     mobile_m:max-h-16
@@ -274,7 +304,7 @@
     md:max-w-3xl
 	mobile_s:px-2 
 	mobile_m:px-4 
-	py-2.5 mb-2 
+	py-2.5 mb-2  */
 }
 
 .label_col {
