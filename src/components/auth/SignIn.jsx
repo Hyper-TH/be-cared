@@ -38,7 +38,7 @@ const Signin = () => {
         <>
         <div className='sub_container'>
             <h1 className="flex items-center mb-6 text-4xl font-bold text-gray-900 dark:text-white">
-                <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
+                <img className="w-8 h-8 mr-2" src="https://i.ibb.co/t8G9GDS/beCared.png" alt="logo" />
                 beCared
             </h1>
 
