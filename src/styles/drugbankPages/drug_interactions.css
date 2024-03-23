@@ -87,11 +87,11 @@
 .interactions_box {
     @apply 
     w-full bg-white rounded-lg shadow dark:border 
-    md:mt-0 sm:max-w-lg xs:max-w-md
+    md:mt-0 sm:max-w-lg mobile_m:max-w-md
 	xl:p-4
 	text-gray-900
     dark:bg-gray-800 dark:border-gray-700 p-4
-	text-base xs:text-xs sm:text-sm ;
+	text-base mobile_m:text-xs sm:text-sm ;
 }
 
 .interactions_row {
@@ -115,7 +115,7 @@
 	w-3/12
 	justify-center
 	text-xl
-	xs:text-sm sm:text-base
+	mobile_m:text-sm sm:text-base
 	font-semibold;
 }
 
@@ -144,7 +144,7 @@
 	w-3/12
 	justify-center
 	text-xl
-	xs:text-sm sm:text-base
+	mobile_m:text-sm sm:text-base
 	font-semibold; 
 }
 
@@ -183,7 +183,7 @@
 	@apply
 	max-w-40 w-40 text-base uppercase font-bold 
 	flex-initial items-start
-	xs:text-sm;
+	mobile_m:text-sm;
 }
 
 .references_list {
@@ -193,7 +193,7 @@
  
 .truncate_btn {
   @apply absolute right-0 bottom-0 pl-8 underline uppercase 
-	xs:text-sm sm:text-base
+	mobile_m:text-sm sm:text-base
 	rounded-r;
   background-image: linear-gradient(to right, rgba(247, 247, 247, 0), #f7f7f705 20%);
 }
