@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { UserAuth } from '../../context/AuthContext.js';
 import '../../styles/medicinePages/pdf_render.css';
 import Axios from 'axios';
+import { PDFComponent } from '../../components/medicine/PDFComponent.js';
 
 const PDFRenderPage = () => {
     const { user } =  UserAuth();
@@ -35,6 +36,8 @@ const PDFRenderPage = () => {
                         
                         if (response.data) {
                             const blob = new Blob([new Uint8Array(response.data.doc.data)], { type: 'application/pdf' });
+                            console.log(blob);
+
                             const blob_url = URL.createObjectURL(blob);
     
                             setPDFURL(blob_url);
@@ -202,12 +205,16 @@ const PDFRenderPage = () => {
                         <h1 className='main_title'>{type.toUpperCase()} Document</h1>
                     </div>
 
-                    <iframe
+
+                    <PDFComponent PDFURL={PDFURL} />
+                    {/* <iframe
                         className='pdf'
                         src={PDFURL}
                         title="PDF"
                         allowFullScreen
-                    />
+                    /> */}
+
+
                     <a href={PDFURL} download={PDFName}>
                         <button className='btn_primary'>Download PDF</button>
                     </a>
@@ -218,7 +225,7 @@ const PDFRenderPage = () => {
 
             {error && 
                 <div className='error'>
-                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
                 </svg>
 
