@@ -14,7 +14,7 @@ const Product = (props) => {
                 </div>
 
                 <div className="sub_product_actions">
-                    <button className="btn_primary w-1/2" onClick={() => props.handleViewDetails(product)}>View Product Details</button>
+                    <button className="btn_sub_product" onClick={() => props.handleViewDetails(product)}>View Product Details</button>
                 </div>
             </div>
             ))}
