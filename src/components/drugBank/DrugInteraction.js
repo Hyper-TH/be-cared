@@ -25,31 +25,37 @@ export const DrugInteraction = (props) => {
     // Sanitize
     const clean = DOMPurify.sanitize(outputString);
 
+    console.log(clean);
+
     const extendedDescription = (() => {
 
         // If less
         if (isDescTruncated) {
             return (
                 <>
-                <p dangerouslySetInnerHTML={{ __html: clean }} ref={ref} className={`break-words ${!isDescShowingMore && 'line-clamp-3'}`}>
+                <div className='justify-center'>
+                <p dangerouslySetInnerHTML={{ __html: clean }} ref={ref} className={`description ${!isDescShowingMore && 'line-clamp-3'}`}>
                 </p>   
                 {isDescTruncated && (
                     <button className='truncate_btn' onClick={toggleDescIsShowingMore}>
                         {isDescShowingMore ? 'Show less' : 'Show more'}
                     </button>
                 )} 
+                </div>
                 </>
             );
         } else {
             return (
                 <>
-                <p dangerouslySetInnerHTML={{ __html: clean }} ref={ref} className={`break-words ${!isDescShowingMore && 'line-clamp-3'}`}>
+                <div className='justify_center'>
+                <p dangerouslySetInnerHTML={{ __html: clean }} ref={ref} className={`references ${!isDescShowingMore && 'line-clamp-3'}`}>
                 </p>   
                 {isDescTruncated && (
                     <button className='truncate_btn' onClick={toggleDescIsShowingMore}>
                         {isDescShowingMore ? 'Show less' : 'Show more'}
                     </button>
                 )} 
+                </div>
                 </>
             );
         }
@@ -59,7 +65,8 @@ export const DrugInteraction = (props) => {
         if (isRefTruncated) {
             return ( 
             <>
-            <ol className={`break-words space-y-4 list-decimal list-inside ${!isRefShowingMore && 'line-clamp-3'}`} ref={ref}>
+            <div className='justify_center'>
+            <ol className={`references ${!isRefShowingMore && 'line-clamp-3'}`} ref={ref}>
                 {(props.references).map((item, index) => (
                     <li key={index}>{item}</li>
                 ))}
@@ -68,22 +75,25 @@ export const DrugInteraction = (props) => {
                     <button className='truncate_btn' onClick={toggleRefIsShowingMore}>
                         {isRefShowingMore ? 'Show less' : 'Show more'}
                     </button>
-                )} 
+                )}
+            </div> 
             </>
             );
         } else {
             return (
                 <>
-                <ol className={`break-words space-y-4 list-decimal list-inside  ${!isRefShowingMore && 'line-clamp-3'}`} ref={ref} >
+                <div className='justify_center'>
+                <ol className={`references  ${!isRefShowingMore && 'line-clamp-3'}`} ref={ref} >
                     {(props.references).map((item, index) => (
                         <li key={index}>{item}</li>
                     ))}
                 </ol>
-                {isRefTruncated && (
-                    <button className='truncate_btn' onClick={toggleRefIsShowingMore}>
-                        {isRefShowingMore ? 'Show less' : 'Show more'}
-                    </button>
-                )} 
+                    {isRefTruncated && (
+                        <button className='truncate_btn' onClick={toggleRefIsShowingMore}>
+                            {isRefShowingMore ? 'Show less' : 'Show more'}
+                        </button>
+                    )} 
+                    </div>
                 </>
             );
         }
@@ -140,12 +150,17 @@ export const DrugInteraction = (props) => {
                     {severity}
                 </div>
 
-                <div className=' interactions_col description'>
-                    <p>
-                        {props.description}
-                    </p>
+            </div>
+
+
+            <div className='interactions_row'>
+                <div className='interactions_col label_col'>
+                    Description
                 </div>
 
+                <div className='interactions_col'>
+                    {props.description}
+                </div>
             </div>
 
             <div className='interactions_row'>
@@ -164,11 +179,6 @@ export const DrugInteraction = (props) => {
                 </div>
 
                 <div className='interactions_col'>
-                    {/* <ol className='references_list'>
-                        {(props.references).map((item, index) => (
-                            <li key={index}>{item}</li>
-                        ))}
-                    </ol> */}
                     {extendedReferences}
                  
                 </div>
