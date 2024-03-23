@@ -13,28 +13,28 @@ export const PDFComponent = ({ PDFURL }) => {
     const [scale, setScale] = useState(1.0);
   
     const onDocumentLoadSuccess = ({ numPages }) => {
-      setNumPages(numPages);
+        setNumPages(numPages);
     };
   
     const changePage = (offset) => {
-      setPageNumber((prevPageNumber) => prevPageNumber + offset);
+        setPageNumber((prevPageNumber) => prevPageNumber + offset);
     };
   
     const previousPage = () => {
-      if (pageNumber > 1) changePage(-1);
+        if (pageNumber > 1) changePage(-1);
     };
   
     const nextPage = () => {
-      if (pageNumber < numPages) changePage(1);
+        if (pageNumber < numPages) changePage(1);
     };
 
     const zoomIn = () => {
         setScale(scale + 0.2);
-      };
+    };
     
-      const zoomOut = () => {
+    const zoomOut = () => {
         if (scale > 0.2) setScale(scale - 0.2);
-      };
+    };
   
     return (
         <>
@@ -46,30 +46,45 @@ export const PDFComponent = ({ PDFURL }) => {
           >
             <Page pageNumber={pageNumber}  scale={scale}/>
           </Document>
-        
+           
+        <div className="pdf_btn_navigation flex items-center justify-between mb-4">
+                <button 
+                    onClick={zoomOut} 
+                    className="left w-24"
+                    disabled={scale <= 0.2}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 m-auto">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
+                    </svg>
+                </button>
 
-            <p className="text-lg">
-              Page {pageNumber} of {numPages}
-            </p>
+                <button 
+                    onClick={zoomIn}
+                    className="mid w-24">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 m-auto">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                </button>
 
-            <div>
-                <button onClick={zoomIn}>Zoom In</button>
-                <button onClick={zoomOut} disabled={scale <= 0.2}>Zoom Out</button>
-            </div>
-
-            <div className="pdf_btn_navigation" role="group">
+                <p className=" mid_text">
+                    {pageNumber} / {numPages}
+                </p>
+            
                 <button 
                     onClick={previousPage} 
                     disabled={pageNumber <= 1} 
-                    className="prev_btn">
-                    Prev
+                    className="mid w-24">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 m-auto">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                    </svg>
                 </button>
 
                 <button 
                     onClick={nextPage}
                     disabled={pageNumber >= numPages}
-                    className="next_btn">
-                    Next
+                    className="right w-24">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 m-auto">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                    </svg>
                 </button>
             </div>
         </>
