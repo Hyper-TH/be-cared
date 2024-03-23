@@ -6,8 +6,6 @@ import '../styles/subscriptions.css';
 import Axios from 'axios';
 
 // TODO: Alert to confirm unsub
-// TODO: Make the container for each med a bit longer
-// TODO: Improve loading when there are no medicines founds
 const SubscriptionsPage = ({ backTo }) => {
     const { user } =  UserAuth();
     const [medicineList, setMedicineList] = useState([]);

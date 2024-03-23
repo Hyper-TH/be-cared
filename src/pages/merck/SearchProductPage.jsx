@@ -4,8 +4,6 @@ import '../../styles/merck/search_product.css';
 import Axios from 'axios';
 import Product from '../../components/merck/Product';
 
-// TODO: Error when no type is selected
-// TODO: Product name search not working
 const SearchProductPage = ({ backTo }) => {
     const [prodQuery, setProdQuery] = useState("");     // State for product query to send to server
     const [productList, setProductList] = useState([])  // State for list of product responses
@@ -54,7 +52,7 @@ const SearchProductPage = ({ backTo }) => {
                 setError("Local Server Error");
             }
         } else {
-            setError("Choose a type then input a drug to start searching!");
+            setError("Choose a type then type in a product to start searching!");
         }
 
         setIsLoading(false);
