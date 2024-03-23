@@ -205,15 +205,7 @@ const PDFRenderPage = () => {
                         <h1 className='main_title'>{type.toUpperCase()} Document</h1>
                     </div>
 
-
                     <PDFComponent PDFURL={PDFURL} />
-                    {/* <iframe
-                        className='pdf'
-                        src={PDFURL}
-                        title="PDF"
-                        allowFullScreen
-                    /> */}
-
 
                     <a href={PDFURL} download={PDFName}>
                         <button className='btn_primary'>Download PDF</button>

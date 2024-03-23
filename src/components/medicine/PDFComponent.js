@@ -37,25 +37,27 @@ export const PDFComponent = ({ PDFURL }) => {
           >
             <Page pageNumber={pageNumber} />
           </Document>
-          <div className="flex justify-between my-4">
-            <button
-              className="btn_primary"
-              onClick={previousPage}
-              disabled={pageNumber <= 1}
-            >
-              Previous
-            </button>
+        
+
             <p className="text-lg">
               Page {pageNumber} of {numPages}
             </p>
-            <button
-              className="btn_primary"
-              onClick={nextPage}
-              disabled={pageNumber >= numPages}
-            >
-              Next
-            </button>
-          </div>
+
+            <div className="pdf_btn_navigation" role="group">
+                <button 
+                    onClick={nextPage}
+                    disabled={pageNumber >= numPages} 
+                    className="prev_btn">
+                    Prev
+                </button>
+
+                <button 
+                    onClick={nextPage}
+                    disabled={pageNumber >= numPages}
+                    className="next_btn">
+                    Next
+                </button>
+            </div>
         </>
       );
 };
