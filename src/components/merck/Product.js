@@ -9,8 +9,8 @@ const Product = (props) => {
             {props.products.map((product, index) => (
             <div className="sub_product_row" key={index}>
                 <div className="sub_product_info">
-                    <p>ID: {product.productID}</p>
-                    <p>Description: {product.productDescription}</p>
+                    <p><strong>ID</strong>: {product.productID}</p>
+                    <p><strong>Description</strong>: {product.productDescription}</p>
                 </div>
 
                 <div className="sub_product_actions">

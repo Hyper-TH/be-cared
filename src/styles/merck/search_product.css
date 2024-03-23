@@ -150,9 +150,10 @@
     @apply
     mb-2 
     mobile_s:text-xs
-    mobile_m:text-sm
-    mobile_l:text-base
-    text-2xl font-bold tracking-tight text-gray-900 dark:text-white;
+	mobile_m:text-sm
+	md:text-xl
+    text-2xl font-bold tracking-tight text-gray-900 dark:text-white
+    break-words;
 }
 
 
@@ -165,6 +166,10 @@
 }
 .sub_product_info p {
     @apply 
+    mobile_s:text-xs
+	mobile_m:text-sm
+	mobile_l:text-base 
+	md:text-xl
     m-1;
 }
   
