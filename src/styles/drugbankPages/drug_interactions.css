@@ -228,9 +228,11 @@
   }
 
   .truncate_btn {
-	@apply absolute right-0 bottom-0 pl-8 underline uppercase 
-	  mobile_m:text-sm sm:text-base
-	  rounded-r;
+	@apply 
+	justify-end
+	right-0 bottom-0 pl-8 underline uppercase 
+	mobile_m:text-sm sm:text-base
+	rounded-r;
 	background-image: linear-gradient(to right, rgba(247, 247, 247, 0), #f7f7f705 20%);
   }
 }
