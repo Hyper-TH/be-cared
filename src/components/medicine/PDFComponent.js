@@ -9,7 +9,8 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 export const PDFComponent = ({ PDFURL }) => {
     const [numPages, setNumPages] = useState(null);
-    const [pageNumber, setPageNumber] = useState(1); // Start with the first page
+    const [pageNumber, setPageNumber] = useState(1); 
+    const [scale, setScale] = useState(1.0);
   
     const onDocumentLoadSuccess = ({ numPages }) => {
       setNumPages(numPages);
@@ -26,6 +27,14 @@ export const PDFComponent = ({ PDFURL }) => {
     const nextPage = () => {
       if (pageNumber < numPages) changePage(1);
     };
+
+    const zoomIn = () => {
+        setScale(scale + 0.2);
+      };
+    
+      const zoomOut = () => {
+        if (scale > 0.2) setScale(scale - 0.2);
+      };
   
     return (
         <>
@@ -35,7 +44,7 @@ export const PDFComponent = ({ PDFURL }) => {
             onLoadSuccess={onDocumentLoadSuccess}
             onLoadError={(error) => console.error('Error while loading document!', error.message)}
           >
-            <Page pageNumber={pageNumber} />
+            <Page pageNumber={pageNumber}  scale={scale}/>
           </Document>
         
 
@@ -43,10 +52,15 @@ export const PDFComponent = ({ PDFURL }) => {
               Page {pageNumber} of {numPages}
             </p>
 
+            <div>
+                <button onClick={zoomIn}>Zoom In</button>
+                <button onClick={zoomOut} disabled={scale <= 0.2}>Zoom Out</button>
+            </div>
+
             <div className="pdf_btn_navigation" role="group">
                 <button 
-                    onClick={nextPage}
-                    disabled={pageNumber >= numPages} 
+                    onClick={previousPage} 
+                    disabled={pageNumber <= 1} 
                     className="prev_btn">
                     Prev
                 </button>
