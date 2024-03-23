@@ -3,6 +3,7 @@ import { pdfjs, Document, Page } from 'react-pdf';
 import { useState } from 'react';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
+import '../../styles/medicinePages/pdf_render.css';
 
 // Set the workerSrc once.
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -47,10 +48,10 @@ export const PDFComponent = ({ PDFURL }) => {
             <Page pageNumber={pageNumber}  scale={scale}/>
           </Document>
            
-        <div className="pdf_btn_navigation flex items-center justify-between mb-4">
+        <div className="pdf_btn_navigation">
                 <button 
                     onClick={zoomOut} 
-                    className="left w-24"
+                    className="nav_left"
                     disabled={scale <= 0.2}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 m-auto">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
@@ -59,20 +60,20 @@ export const PDFComponent = ({ PDFURL }) => {
 
                 <button 
                     onClick={zoomIn}
-                    className="mid w-24">
+                    className="nav_mid">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 m-auto">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
                 </button>
 
-                <p className=" mid_text">
+                <p className="nav_mid_text">
                     {pageNumber} / {numPages}
                 </p>
             
                 <button 
                     onClick={previousPage} 
                     disabled={pageNumber <= 1} 
-                    className="mid w-24">
+                    className="nav_mid">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 m-auto">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
                     </svg>
@@ -81,7 +82,7 @@ export const PDFComponent = ({ PDFURL }) => {
                 <button 
                     onClick={nextPage}
                     disabled={pageNumber >= numPages}
-                    className="right w-24">
+                    className="nav_right">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 m-auto">
                         <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                     </svg>

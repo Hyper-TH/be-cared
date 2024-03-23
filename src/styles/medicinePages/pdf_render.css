@@ -11,11 +11,15 @@
 
 .pdf_btn_navigation {
     @apply
-    inline-flex rounded-md;
+    inline-flex 
+    rounded-md
+    items-center justify-between mb-4
+    mobile_s:max-w-md;
 }
 
-.left {
+.nav_left {
     @apply
+    w-12
     px-4 py-2 text-sm font-medium text-gray-900 
     bg-white border border-gray-200 rounded-s-lg 
     hover:bg-gray-100 hover:text-blue-700 
@@ -25,15 +29,20 @@
     dark:focus:ring-blue-500 dark:focus:text-white;
 }
 
-.mid {
+.nav_mid {
     @apply
+    w-12
     px-4 py-2 text-sm font-medium 
     text-gray-900 bg-white 
-    border-t border-b border-gray-200 hover:bg-gray-100 
-    hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white;
+    border-t border-b border-gray-200 
+    hover:bg-gray-100 hover:text-blue-700 
+    focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 
+    dark:bg-gray-800 dark:border-gray-700 dark:text-white 
+    dark:hover:text-white dark:hover:bg-gray-700 
+    dark:focus:ring-blue-500 dark:focus:text-white;
 }
 
-.mid_text {
+.nav_mid_text {
     @apply
     px-4 py-2 text-sm font-medium 
 	mobile_m:text-xxs sm:text-xs
@@ -42,14 +51,23 @@
     dark:bg-gray-800 dark:border-gray-700 dark:text-white;
 }
 
-.mid_text p {
+.nav_mid_text p {
     @apply
     w-6 h-6 m-auto;
 }
 
-.right {
+.nav_right {
     @apply
-    px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white;
+    w-12
+    px-4 py-2 text-sm font-medium 
+    rounded-e-lg
+    text-gray-900 bg-white 
+    border-t border-b border-gray-200 
+    hover:bg-gray-100 hover:text-blue-700 
+    focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 
+    dark:bg-gray-800 dark:border-gray-700 dark:text-white 
+    dark:hover:text-white dark:hover:bg-gray-700 
+    dark:focus:ring-blue-500 dark:focus:text-white;
 }
 
 .pdf {
