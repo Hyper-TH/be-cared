@@ -36,6 +36,7 @@
 .mid_text {
     @apply
     px-4 py-2 text-sm font-medium 
+	xs:text-xxs sm:text-xs
     text-gray-900 bg-white 
     border-t border-b border-gray-200
     dark:bg-gray-800 dark:border-gray-700 dark:text-white;
