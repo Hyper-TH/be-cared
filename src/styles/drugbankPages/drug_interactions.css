@@ -44,8 +44,26 @@
 
 .search_input {
 	@apply
-	block w-full p-4 ps-10 pl-10 text-sm text-gray-900 
+	block w-full p-4 ps-10 pl-10 
+	
+	text-gray-900 
 	border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+}
+
+.search_input::placeholder {
+	@apply
+	mobile_s:text-xxs
+	mobile_m:text-xs
+	mobile_l:text-sm 
+	md:text-base
+}
+  
+  /* For the dark theme placeholder */
+.search_input.dark::placeholder {
+	@apply
+	mobile_s:text-xs
+	mobile_l:text-sm 
+	md:text-base
 }
 
 .two_five {
@@ -87,11 +105,18 @@
 .interactions_box {
     @apply 
     w-full bg-white rounded-lg shadow dark:border 
-    md:mt-0 sm:max-w-lg mobile_m:max-w-md
+    md:mt-0 
+	mobile_s:text-xs
+    mobile_m:text-sm
+    mobile_l:text-base
+    mobile_s:max-w-72
+    mobile_m:max-w-80
+    mobile_l:max-w-96
+    sm:max-w-2xl
+    md:max-w-3xl
 	xl:p-4
 	text-gray-900
-    dark:bg-gray-800 dark:border-gray-700 p-4
-	text-base mobile_m:text-xs sm:text-sm ;
+    dark:bg-gray-800 dark:border-gray-700 p-4;
 }
 
 .interactions_row {
@@ -114,8 +139,15 @@
 	@apply
 	w-3/12
 	justify-center
-	text-xl
-	mobile_m:text-sm sm:text-base
+	mobile_s:text-xxs
+    mobile_m:text-xs
+    mobile_l:text-sm
+	md:text-base
+    mobile_s:max-w-72
+    mobile_m:max-w-80
+    mobile_l:max-w-96
+    sm:max-w-2xl
+    md:max-w-3xl
 	font-semibold;
 }
 
@@ -132,7 +164,12 @@
 
 .interacts svg {
 	@apply
-	w-6 h-6
+	mobile_s:w-3
+	mobile_s:h-3
+	mobile_m:w-6
+	mobile_m:h-6
+	mobile_l:w-8
+	mobile_l:h-8
 	align-middle	
 	bg-transparent 
 	stroke-gray-800
@@ -143,40 +180,101 @@
 	@apply
 	w-3/12
 	justify-center
-	text-xl
-	mobile_m:text-sm sm:text-base
+	mobile_s:text-xxs
+    mobile_m:text-xs
+    mobile_l:text-sm
+	md:text-base
+    mobile_s:max-w-72
+    mobile_m:max-w-80
+    mobile_l:max-w-96
+    sm:max-w-2xl
+    md:max-w-3xl
 	font-semibold; 
 }
 
 .severity {
 	@apply 
-	w-1/5 justify-center;
+	w-1/5 
+	text-center 
+	justify-center;
 }
 
 .description {
 	@apply
-	w-1/4;
+	mobile_s:text-xxs
+    mobile_m:text-xs
+    mobile_l:text-sm
+	md:text-base
+    mobile_s:max-w-72
+    mobile_m:max-w-80
+    mobile_l:max-w-96
+    sm:max-w-2xl
+    md:max-w-3xl;
 }
 
 .btn_major {
 	@apply
-	text-white bg-purple-900
-	font-medium rounded-full 
-	text-sm px-5 py-2.5 text-center me-2 mb-2 
+	text-white 
+	bg-purple-900
+	font-medium 
+	rounded-full 
+	mobile_s:text-xxs
+    mobile_m:text-xs
+    mobile_l:text-sm
+	md:text-base
+    mobile_s:max-w-12
+    mobile_s:max-h-12
+    mobile_m:max-w-16
+    mobile_m:max-h-16
+    mobile_l:max-w-40
+    mobile_l:max-h-40
+    sm:max-w-2xl
+    md:max-w-3xl
+	mobile_s:px-2 
+	mobile_m:px-4 
+	py-2.5 mb-2 
 }
 
 .btn_moderate {
 	@apply
 	text-white bg-red-700 
 	font-medium rounded-full 
-	text-sm px-5 py-2.5 text-center me-2 mb-2 
+	mobile_s:text-xxs
+    mobile_m:text-xs
+    mobile_l:text-sm
+	md:text-base
+    mobile_s:max-w-12
+    mobile_s:max-h-12
+    mobile_m:max-w-16
+    mobile_m:max-h-16
+    mobile_l:max-w-40
+    mobile_l:max-h-40
+    sm:max-w-2xl
+    md:max-w-3xl
+	mobile_s:px-2 
+	mobile_m:px-4 
+	py-2.5 mb-2 
 }
 
 .btn_minor {
 	@apply
 	text-white bg-yellow-400 
 	font-medium rounded-full 
-	text-sm px-5 py-2.5 text-center me-2 mb-2 
+	mobile_s:text-xxs
+    mobile_m:text-xs
+    mobile_l:text-sm
+	md:text-base
+    mobile_s:max-w-12
+    mobile_s:max-h-12
+    mobile_m:max-w-16
+    mobile_m:max-h-16
+    mobile_l:max-w-40
+    mobile_l:max-h-40
+    sm:max-w-2xl
+    md:max-w-3xl
+	mobile_s:px-2 
+	mobile_m:px-4 
+	py-2.5 mb-2 
 }
 
 .label_col {
