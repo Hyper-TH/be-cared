@@ -76,7 +76,7 @@ const GuestMedicinePage = ({ backTo }) => {
 
                             <div className='flex flex-col mb-4'>
                                 <span className='medicine_header inline'>Active Ingredient&#40;s&#41;:</span>
-                                <ul className='max-w-md space-y-1 text-gray-300 list-disc list-inside'>
+                                <ul className='max-w-md space-y-1 text-gray-800 dark:text-gray-300 list-disc list-inside'>
                                     {medicine.ingredients.map((ingredient, index) => (
                                         <li key={index}>
                                             <span className='medicine_text'>{ingredient.name}</span>
