@@ -74,9 +74,9 @@
 	@apply
 	flex flex-col 
 	sm:max-w-3xl
-    mobile_s:max-w-xs /* if not working, try 64 */
+    mobile_s:max-w-xs 
     mobile_m:max-w-sm
-    /* mobile_m:max-w-md  */
+    mobile_l:max-w-md
 	p-4
 }
 
