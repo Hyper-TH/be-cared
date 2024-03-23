@@ -137,6 +137,8 @@
 	/* relative  */
 	flex-auto
 	justify-start
+	text-black
+	dark:text-white
 }
 
 .subject {
@@ -152,7 +154,9 @@
     sm:max-w-2xl
     md:max-w-3xl
 	font-semibold
-	text-center;
+	text-center
+	text-black
+	dark:text-white;
 }
 
 .interacts {
@@ -190,7 +194,9 @@
     sm:max-w-2xl
     md:max-w-3xl
 	font-semibold
-	text-center; 
+	text-center
+	text-black
+	dark:text-white; 
 }
 
 .severity {
@@ -247,6 +253,8 @@
 	mobile_s:text-xs
 	mobile_m:text-sm
 	mobile_l:text-base
+	text-black
+	dark:text-white
 }
 
 .description {
@@ -258,6 +266,8 @@
 	mobile_s:text-xs
 	mobile_m:text-sm
 	mobile_l:text-base
+	text-black
+	dark:text-white
 }
 
 .btn_major {

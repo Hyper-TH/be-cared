@@ -93,6 +93,7 @@
 	my-2
 	xl:p-4
 	text-gray-900
+	dark:text-white
     dark:bg-gray-800 dark:border-gray-700 p-4;
 }
 
