@@ -5,7 +5,7 @@
 .search_product_container {
 	@apply 
 	w-full bg-white rounded-lg shadow dark:border 
-	md:mt-0 sm:max-w-2xl xl:p-0	
+	md:mt-0 xs:max-w-lg sm:max-w-2xl xl:p-0	
 	dark:bg-gray-800 dark:border-gray-700;
 }
 
@@ -71,6 +71,7 @@
 	@apply
 	flex flex-col 
 	sm:max-w-3xl
+    xs:max-w-sm
 	p-4
 }
 
@@ -79,6 +80,7 @@
     w-full bg-white rounded-lg shadow dark:border 
     md:mt-0 
     my-4
+    xs:max-w-lg
 	xl:p-4
 	text-gray-800 dark:text-gray-300
     dark:bg-gray-800 dark:border-gray-700 p-4
