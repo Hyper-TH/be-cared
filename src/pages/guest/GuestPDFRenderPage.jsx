@@ -86,7 +86,7 @@ const GuestPDFRenderPage = () => {
                             </svg>
                         </button>
 
-                        <h1 className='main_title'>{type.toUpperCase()} Document</h1>
+                        <h1 className='main_title'>PIL Document</h1>
                     </div>
 
                     <PDFComponent PDFURL={PDFURL} />

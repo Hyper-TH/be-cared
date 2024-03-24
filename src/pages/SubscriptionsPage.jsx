@@ -26,6 +26,7 @@ const SubscriptionsPage = ({ backTo }) => {
             );
             
             // Directly accessing data and count from response.data
+            // Where response.data is a temporary json
             const { medicines, count } = response.data;
             console.log(medicines);
             
