@@ -11,7 +11,8 @@
 
 .medicine_details {
 	@apply 
-	p-6 space-y-4 md:space-y-6 sm:p-8;
+	p-6 space-y-4 
+	md:space-y-6 sm:p-8;
 }
 
 .medicine_name {

@@ -8,9 +8,22 @@
 	text-gray-900 md:text-lg dark:text-white;
 }
 
+.medicine_list_container {
+	@apply
+	w-auto;
+}
+
 .sub_medicine {
     @apply
-    block max-w-2xl p-6 m-4
+    block 
+	/* max-w-2xl p-6 m-4 */
+	mobile_s:max-w-72
+	mobile_m:max-w-80
+	mobile_l:max-w-96
+	md:w-auto
+	m-4
+	p-6 space-y-4 
+	md:space-y-6 sm:p-8
     bg-white border border-gray-200 
     rounded-lg shadow  
     dark:bg-gray-800 dark:border-gray-700;
@@ -62,24 +75,39 @@
 .btn_sub_collection_medicine {
 	@apply
 	flex justify-center
-	w-full my-4;
+	w-full;
 }
 
 .btn_sub_collection_med_left {
 	@apply
-	flex-grow
-	px-4 py-2 text-sm font-medium text-gray-900 
+	flex-1
+	mobile_s:text-xxs
+	mobile_m:text-xs
+	mobile_l:text-sm
+	md:text-base
+	text-center
+	px-4 py-2 font-medium text-gray-900 
 	bg-transparent border border-gray-900 rounded-s-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700;
 }
 
 .btn_sub_collection_med_mid {
 	@apply
-	flex-grow
-	px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border-t border-b border-gray-900 hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700;
+	flex-1
+	mobile_s:text-xxs
+	mobile_m:text-xs
+	mobile_l:text-sm
+	md:text-base
+	text-center
+	px-4 py-2 font-medium text-gray-900 bg-transparent border-t border-b border-gray-900 hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700;
 }
 
 .btn_sub_collection_med_right {
 	@apply
-	flex-grow
-	px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-e-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700;
+	flex-1
+	mobile_s:text-xxs
+	mobile_m:text-xs
+	mobile_l:text-sm
+	md:text-base
+	text-center
+	px-4 py-2 font-medium text-gray-900 bg-transparent border border-gray-900 rounded-e-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700;
 }
