@@ -97,7 +97,7 @@ const GuestMedicinePage = ({ backTo }) => {
                                 <button 
                                     className='btn_collection_med_guest'
                                     onClick={() => renderPIL(medicine)}>
-                                    PIL Document
+                                    Patient Leaflet
                                 </button>
                             ) : ( 
                                 <button 
@@ -105,7 +105,7 @@ const GuestMedicinePage = ({ backTo }) => {
                                     style={{ opacity: 0.5, cursor: 'not-allowed' }}
                                     onClick={() => renderPIL(medicine)}
                                     disabled>
-                                    No available PIL Document
+                                    Patient Leaflet Unavailable
                                 </button>
                             )}
 
