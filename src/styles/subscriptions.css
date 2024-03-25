@@ -16,11 +16,10 @@
 .sub_medicine {
     @apply
     block 
-	/* max-w-2xl p-6 m-4 */
 	mobile_s:max-w-72
 	mobile_m:max-w-80
 	mobile_l:max-w-96
-	md:w-auto
+	md:max-w-2xl
 	m-4
 	p-6 space-y-4 
 	md:space-y-6 sm:p-8
