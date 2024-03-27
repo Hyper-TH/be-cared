@@ -144,7 +144,7 @@ const SubscriptionsPage = ({ backTo }) => {
                             
                         </>
                     ) : (
-                        <div>No subscriptions found</div>
+                        <div className='loading'>No subscriptions found</div>
                     )}
 
                 </div>
