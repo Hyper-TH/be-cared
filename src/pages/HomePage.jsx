@@ -50,7 +50,7 @@ const HomePage = () => {
 
                 </>
             );
-        } else if (user && user.email && (userType !== 'verified')) {
+        } else if (user && user.email && (userType === 'standard')) {
             return (
                 <>
                 <h2 className="sub_title">{`Signed In as ${user.email}`}</h2>
@@ -60,11 +60,16 @@ const HomePage = () => {
                 </Link>
 
                 <Link to="/search" className="btn_collection_mid">
-                        Search medicines
+                    Search medicines
                 </Link>
 
-                <Link to="/foodInteractions" className="btn_collection_bottom">
-                    Search food interactions
+                <Link to="/foodInteractions" className="btn_collection_mid">
+                    Search drug and food interactions
+                </Link>
+
+                            
+                <Link to="/searchDrugs" className="btn_collection_bottom">
+                    Search drug to drug interactions
                 </Link>
 
                 </>
