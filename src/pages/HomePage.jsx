@@ -50,7 +50,7 @@ const HomePage = () => {
 
                 </>
             );
-        } else if (user && user.email && (userType === 'standard')) {
+        } else {
             return (
                 <>
                 <h2 className="sub_title">{`Signed In as ${user.email}`}</h2>
@@ -72,14 +72,6 @@ const HomePage = () => {
                     Search drug to drug interactions
                 </Link>
 
-                </>
-            );
-        } else {
-            return (
-                <>
-                <div className="main_title">
-                    Loading...
-                </div>
                 </>
             );
         }
