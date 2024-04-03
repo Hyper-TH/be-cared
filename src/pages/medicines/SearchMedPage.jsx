@@ -10,7 +10,7 @@ const SearchPage = ({ backTo }) => {
     const [medicineList, setMedicineList] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
-    const debouncedMedQuery = useDebounce(medQuery, 500); 
+    const debouncedMedQuery = useDebounce(medQuery, 250); 
 
     const medicineChange = (event) => {
         setMedQuery(event.target.value);
