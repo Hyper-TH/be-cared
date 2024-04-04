@@ -77,7 +77,6 @@ const HomePage = () => {
         }
     })();
  
-    // TODO: Make it so that it renders everything at once!
     return (
         <section className="main_container">
             <div className="sub_container">
