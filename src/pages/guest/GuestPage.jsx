@@ -37,8 +37,6 @@ const GuestPage = () => {
                             <button className="btn_collection_bottom_disabled" disabled>
                                 Search drug interactions &#40;login&#41; required
                             </button>
-
-                            {/* <button className="btn_primary" onClick={handleLogout}>Return to login</button> */}
                         
                         </div>
 

@@ -17,8 +17,6 @@ export const AuthContextProvider = ({ children }) => {
     // const [token , setToken] = useState("");
     const [error, setError] = useState("");
 
-    // TODO: automatically being called on mount
-
     const createUser = async (email, password, type) => {
         setType(type);
 
@@ -44,8 +42,6 @@ export const AuthContextProvider = ({ children }) => {
                 const idToken = await currentUser.getIdToken();
 
                 try {
-                    console.log(`Calling server now...`);
-                    
                     // Get type of user from login endpoint (i.e., standard or verified)
                     const response = await Axios.get(
                         `${process.env.REACT_APP_LOCALHOST}/login`,

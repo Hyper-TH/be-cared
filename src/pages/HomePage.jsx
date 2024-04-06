@@ -21,6 +21,7 @@ const HomePage = () => {
 	};
 
     const content = (() => {
+        // If user is verified
         if (user && user.email  && (userType === 'verified')) {
             return (
                 <>
@@ -50,7 +51,9 @@ const HomePage = () => {
 
                 </>
             );
-        } else {
+        } 
+        // If user is standard
+        else {
             return (
                 <>
                 <h2 className="sub_title">{`Signed In as ${user.email}`}</h2>

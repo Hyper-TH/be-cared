@@ -106,6 +106,7 @@ function App() {
 					}
 				/>
 
+				{ /* START MERCK */ }
 				<Route 
 					path="/searchProduct" 
 					element={
@@ -121,6 +122,7 @@ function App() {
 						<ProductPage subPageName="Merck" backTo="/searchProduct" />
 					</ProtectedRoute>} 
 				/>
+				{ /* END MERCK */ }
 
 			</Routes>
 		</AuthContextProvider>
