@@ -130,7 +130,7 @@ const SearchProductPage = ({ backTo }) => {
                             <div className='loading'>Loading...</div>
                         ) : productList === null && !prodQuery ? (
                             null
-                        ) : productList === null && prodQuery ? ( 
+                        ) : productList.length === 0 && prodQuery ? ( 
                             <div className='loading'>Product not found, try again...</div>
                         ) : productList.length > 0 ? (
                             // Map over the medicine list if it has items
