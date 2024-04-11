@@ -23,19 +23,19 @@ const GuestPage = () => {
                         <div className="btn_collection">
 
                             <button className="btn_collection_top_disabled" disabled>
-                                Subscriptions &#40;login&#41; required
+                                See Subscriptions &#40;login&#41; required
                             </button> 
 
                             <Link to="/guest/search" className="btn_collection_mid">
-                                Search medicine
+                                Search Medicines
                             </Link>
                             
                             <button className="btn_collection_mid_disabled" disabled>
-                                Search food interactions &#40;login&#41; required
+                                Discover Food Interactions &#40;login&#41; required
                             </button>
                             
                             <button className="btn_collection_bottom_disabled" disabled>
-                                Search drug interactions &#40;login&#41; required
+                                Discover Drug Interactions &#40;login&#41; required
                             </button>
                         
                         </div>

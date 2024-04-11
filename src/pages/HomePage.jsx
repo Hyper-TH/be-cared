@@ -28,24 +28,24 @@ const HomePage = () => {
                 <h2 className="sub_title">{`Signed In as ${user.email}`}</h2>
 
                 <Link to="/subscriptions" className="btn_collection_top">
-                    Subscriptions
+                    See Subscriptions
                 </Link>
 
                 <Link to="/search" className="btn_collection_mid">
-                    Search medicines
+                    Search Medicines
                 </Link>
 
                 <Link to="/foodInteractions" className="btn_collection_mid">
-                    Search drug and food interactions
+                    Discover Food Interactions
                 </Link>
 
                             
                 <Link to="/searchDrugs" className="btn_collection_mid">
-                    Search drug to drug interactions
+                    Discover Drug Interactions
                 </Link>
 
                 <Link to="/searchProduct" className="btn_collection_bottom">
-                    Search chemical compound
+                    Search Merck Products
                 </Link>
 
 
@@ -59,20 +59,20 @@ const HomePage = () => {
                 <h2 className="sub_title">{`Signed In as ${user.email}`}</h2>
 
                 <Link to="/subscriptions" className="btn_collection_top">
-                    Subscriptions
+                    See Subscriptions
                 </Link>
 
                 <Link to="/search" className="btn_collection_mid">
-                    Search medicines
+                    Search Medicines
                 </Link>
 
                 <Link to="/foodInteractions" className="btn_collection_mid">
-                    Search drug and food interactions
+                   Discover Food Interactions
                 </Link>
 
                             
                 <Link to="/searchDrugs" className="btn_collection_bottom">
-                    Search drug to drug interactions
+                    Discover Drug Interactions
                 </Link>
 
                 </>
