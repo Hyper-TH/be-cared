@@ -19,9 +19,19 @@ This project was submitted at the 12th of April, 2024.
 
 ## Install dependencies
 ```
+npm install @headlessui/react
+npm install @react-pdf-viewer/core
 npm install axios
+npm install dompurify
+npm install firebase firebase-admin
+npm install flowbite flowbite-react
+npm install react
 npm install react-router-dom
+npm install react-spinners
 npm install nodemon
+npm install autoprefixer postcss tailwindcss
+npm install @tailwindcss/aspect-ratio
+npm install @tailwindcss/line-clamp
 ```
 
 ## Environment variables
