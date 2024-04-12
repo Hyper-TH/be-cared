@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext.js';
 
 
-// TODO: Remove all console logs
 const HomePage = () => {
     const { user, userType, logout } = UserAuth();
 	const navigate = useNavigate();
