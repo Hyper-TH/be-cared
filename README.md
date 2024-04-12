@@ -1,67 +1,28 @@
-# Pre-requisites
+# beCared
+## A medical web application made for you
 
-## Firebase setup
+This is my Final Year Project. It stands as a testament to how medical web applications can evolve, offering broad accessibility and utility to users of all ages and technical skill levels.
 
-You must have a Firebase account setup.
+- Users can search for medicines that are available in [medicines.ie](https://www.medicines.ie).
+- Users can have a personal list of saved medicines and be up to date with SPC/PIL documents.
+- Users can search for drug and food interactions, pulled from [drugbank.com](https://go.drugbank.com).
+- Users can search for biochemical products, pulled from [sigmaaldrich.com](https://www.sigmaaldrich.com/IE/en).
 
-## Firestore [FOR PROTOTYPE]
-Have a collection named `SPC` be initalized
 
-### Private key
+This project was submitted at the 12th of April, 2024.
 
-Within your Firebase console, go to:
+## Prerequisites
+- Node.js v18.18.0
+- A Firebase account
+- A server: [be-cared-server](https://github.com/Hyper-TH/be-cared-server)
+- A cup of coffee
 
-`Project settings` > `Service Accounts`
-
-Then select `Generate new private key`
-
-Paste this into `mock_files/mock_creds.json`
-
-Note that it's preferrable to rename these according to the way it's imported within `server.js`
-
-### Project ID
-
-Within your Firebase console, go to:
-
-`Project settings`
-
-The `Project ID` should be displayed.
-
-Paste this into `mock_files/.test.env` and rename file to `.env`
-
-### Firebase config
-
-Within your Firebase console, go to:
-
-`Project settings`
-
-Below the `Your project` section is another section called `Your apps`
-
-Copy the SDK setup and configuration.
-
-Paste this into `mock_files/mock_config.json`
-
-Note that it's preferrable to rename these according to the way it's imported within `server.js`
-
-## Libraries
-
-Within the `be-cared` directory, run these scripts
-
+## Install dependencies
 ```
 npm install axios
 npm install react-router-dom
 npm install nodemon
 ```
 
-Within the `server` directory, run these scripts
-```
-npm install nodemon
-npm install @google-cloud/firestore
-npm install axios
-npm install cors
-npm install dotenv
-npm install express
-npm install firebase
-npm install firebase-admin
-npm install https
-```
+## Environment variables
+Use the `.env.example` file as a template (and remove `.example`). All of the environment variable values can be found within your `config.js` from your Firebase account. The `REACT_APP_LOCALHOST` variable can be your `localhost` domain or your deployed link.
