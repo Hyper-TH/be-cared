@@ -1,3 +1,5 @@
+## This web application is no longer deployed
+
 # beCared
 ## A medical web application made for you
 
